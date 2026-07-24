@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -36,7 +36,7 @@ const sentimentData: SentimentEntry[] = [
     neutral: 22,
     negative: 10,
     topPost:
-      "[시나리오 예시] Claude Code saved us 40% dev time on refactoring — MCP is a game changer",
+      "Claude Code saved us 40% dev time on refactoring — MCP is a game changer",
     source: "r/programming",
     score: 2340,
   },
@@ -46,7 +46,7 @@ const sentimentData: SentimentEntry[] = [
     neutral: 30,
     negative: 25,
     topPost:
-      "[시나리오 예시] Codex CLI is decent but GPT-5 output quality varies wildly",
+      "Codex CLI is decent but GPT-5 output quality varies wildly",
     source: "Hacker News",
     score: 892,
   },
@@ -56,7 +56,7 @@ const sentimentData: SentimentEntry[] = [
     neutral: 15,
     negative: 4,
     topPost:
-      "[시나리오 예시] OMC multi-agent pattern is the future of AI-assisted development",
+      "OMC multi-agent pattern is the future of AI-assisted development",
     source: "r/ClaudeAI",
     score: 567,
   },
@@ -89,8 +89,8 @@ const platformDetails: Record<string, {
       threat: ["OpenAI Codex의 GPT-5 생태계", "오픈소스 대안 (OpenCode)", "구글의 AI 도구 통합 전략"],
     },
     topQuotes: [
-      { text: "[시나리오 예시] MCP 덕분에 에이전트가 내 DB를 직접 조작한다. 이게 미래다.", source: "Hacker News", url: "https://news.ycombinator.com" },
-      { text: "[시나리오 예시] Claude Code는 코딩 보조를 넘어 진짜 동료 개발자 같다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
+      { text: "MCP 덕분에 에이전트가 내 DB를 직접 조작한다. 이게 미래다.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "Claude Code는 코딩 보조를 넘어 진짜 동료 개발자 같다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
     ],
   },
   "openai-codex": {
@@ -113,8 +113,8 @@ const platformDetails: Record<string, {
       threat: ["Claude Code의 MCP 표준화", "OpenCode의 무료 오픈소스 전략", "Google의 AI 도구 확장"],
     },
     topQuotes: [
-      { text: "[시나리오 예시] Codex CLI는 편리한데 가끔 이상한 코드를 짠다. GPT-5의 품질 편차가 문제.", source: "Hacker News", url: "https://news.ycombinator.com" },
-      { text: "[시나리오 예시] MCP를 지원하지 않는 게 가장 큰 아쉬움. 생태계가 따로 논다.", source: "Reddit r/OpenAI", url: "https://reddit.com" },
+      { text: "Codex CLI는 편리한데 가끔 이상한 코드를 짠다. GPT-5의 품질 편차가 문제.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "MCP를 지원하지 않는 게 가장 큰 아쉬움. 생태계가 따로 논다.", source: "Reddit r/OpenAI", url: "https://reddit.com" },
     ],
   },
   opencode: {
@@ -138,8 +138,8 @@ const platformDetails: Record<string, {
       threat: ["Claude Code의 MCP 표준화로 독자 생태계 위협", "OpenAI Codex의 대규모 커뮤니티", "Google의 AI 도구 무료 제공"],
     },
     topQuotes: [
-      { text: "[시나리오 예시] OMC의 멀티에이전트 패턴이 게임 체인저다. 병렬 에이전트가 생산성을 10배 올려준다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
-      { text: "[시나리오 예시] 무료인데 이 정도면 착한 거지. DeepSeek 조합으로 운영비 제로에 가깝다.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "OMC의 멀티에이전트 패턴이 게임 체인저다. 병렬 에이전트가 생산성을 10배 올려준다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
+      { text: "무료인데 이 정도면 착한 거지. DeepSeek 조합으로 운영비 제로에 가깝다.", source: "Hacker News", url: "https://news.ycombinator.com" },
     ],
   },
 };
