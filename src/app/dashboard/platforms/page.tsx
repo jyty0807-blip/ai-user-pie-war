@@ -18,16 +18,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
-import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo } from "@/components/company-logos";
+import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo, OpenCodeLogo, OpenRouterLogo, ClaudeLogo, GeminiLogo } from "@/components/company-logos";
 
 function PlatformIcon({ slug }: { slug: string }) {
-  const cls = "h-8 w-8";
+  const cls = "h-7 w-7 shrink-0";
   switch (slug) {
-    case "claude-code": return <AnthropicLogo className={cls} />;
+    case "claude-code": return <ClaudeLogo className={cls} />;
     case "openai-codex": return <OpenAILogo className={cls} />;
-    case "opencode": return <DeepSeekLogo className={cls} />;
-    case "zen": return <GoogleAILogo className={cls} />;
-    default: return <span className="text-2xl">?</span>;
+    case "opencode": return <OpenCodeLogo className={cls} />;
+    case "zen": return <OpenCodeLogo className={cls} />;
+    case "openrouter": return <OpenRouterLogo className={cls} />;
+    case "claude": return <ClaudeLogo className={cls} />;
+    case "gemini": return <GeminiLogo className={cls} />;
+    default: return <DeepSeekLogo className={cls} />;
   }
 }
 

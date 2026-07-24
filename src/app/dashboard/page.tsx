@@ -35,10 +35,10 @@ export default function DashboardPage() {
       {/* Company quick-report buttons */}
       <div className="mb-6 flex flex-wrap gap-3">
         {[
-          { slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-5 w-5" />, color: "#10A37F" },
-          { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-5 w-5" />, color: "#D97757" },
-          { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-5 w-5" />, color: "#4F46E5" },
-          { slug: "google-ai", name: "Google (Gemini)", logo: <GoogleAILogo className="h-5 w-5" />, color: "#4285F4" },
+{ slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6 shrink-0" />, color: "#10A37F" },
+  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6 shrink-0" />, color: "#D97757" },
+  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6 shrink-0" />, color: "#4F46E5" },
+  { slug: "google-ai", name: "Google (Gemini)", logo: <GoogleAILogo className="h-6 w-6 shrink-0" />, color: "#4285F4" },
         ].map((company) => (
           <DialogButton
             key={company.slug}

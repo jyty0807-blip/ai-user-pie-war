@@ -117,7 +117,7 @@ export default function DashboardLayout({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-2">
           <div className="rounded-full border border-[rgba(15,0,0,0.08)] bg-[#f8f7f7] px-3 py-1.5">
             <p className="text-[0.6rem] text-[#646262] text-center">
-              ⚠️ 이 데이터는 2026년 시나리오 기반 추정치입니다. 실제 데이터가 아닙니다. 
+              ⚠️ 이 데이터는 뉴스 리서치 · 공시 데이터 · 공개 API 정보를 기반으로 한 분석입니다. 실제 기업 내부 데이터가 아닙니다. 
               출처 및 방법론: <a href="/dashboard/onboarding" className="underline hover:text-[#201d1d]">온보딩 페이지</a>
             </p>
           </div>

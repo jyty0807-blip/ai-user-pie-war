@@ -187,7 +187,7 @@ export default function LandingPage() {
                 ⚠️ 데이터 안내
               </p>
               <p className="mt-1 text-xs leading-relaxed text-[#646262] dark:text-[#888]">
-                이 대시보드는 포트폴리오 목적의 프로젝트입니다. 모든 데이터는 공개 출처 기반 추정치이며,
+                이 대시보드는 퍼포먼스 마케팅 분석 포트폴리오 프로젝트입니다. 모든 데이터는 공개 뉴스 · SEC filings · API 가격 페이지 · 업계 보고서 기반입니다.
                 실제 기업 내부 데이터가 아닙니다. 각 데이터의 출처와 방법론은{' '}
                 <Link href="/dashboard/onboarding" className="underline hover:text-[#201d1d] dark:hover:text-[#fdfcfc]">
                   온보딩 페이지
