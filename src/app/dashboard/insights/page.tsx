@@ -1,0 +1,207 @@
+"use client";
+
+import { Globe, Cpu, Network, Layers } from "lucide-react";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
+
+interface CompanyInfo {
+  name: string;
+  slug: string;
+  desc: string;
+  news: string;
+}
+
+interface InsightCategory {
+  category: string;
+  color: string;
+  icon: React.ReactNode;
+  companies: CompanyInfo[];
+}
+
+function categoryIcon(cat: string): React.ReactNode {
+  const map: Record<string, React.ReactNode> = {
+    "🇨🇳 중국 AI 모델": <Globe className="h-4 w-4" />,
+    "💾 NVIDIA AI": <Cpu className="h-4 w-4" />,
+    "🔀 OpenRouter": <Network className="h-4 w-4" />,
+    "🌍 글로벌 AI": <Layers className="h-4 w-4" />,
+  };
+  return map[cat] || <Globe className="h-4 w-4" />;
+}
+
+const insightsData: InsightCategory[] = [
+  {
+    category: "🇨🇳 중국 AI 모델",
+    color: "#E53935",
+    icon: <Globe className="h-4 w-4" />,
+    companies: [
+      {
+        name: "GLM (Zhipu AI)",
+        slug: "glm",
+        desc: "중국 대표 AI. GLM-5 출시. MIT 라이선스. 1M 컨텍스트. $0.20/MTok.",
+        news: "2026년 7월 Codex-0902 추론 모델 출시, SWE-bench 70.2% 달성",
+      },
+      {
+        name: "Qwen (Alibaba)",
+        slug: "qwen",
+        desc: "알리바바 AI. Qwen3.5 공개. 72B 파라미터. Apache 2.0 라이선스.",
+        news: "2026년 6월 Qwen3.5-72B 출시, 오픈소스 커뮤니티서 호평",
+      },
+      {
+        name: "Yi (01.AI)",
+        slug: "yi",
+        desc: "카이푸 리의 AI. Yi-Lightning 추론 특화. 가격 대비 성능 우수.",
+        news: "2026년 5월 Yi-Lightning 출시, GPT-4o 대비 40% 저렴",
+      },
+    ],
+  },
+  {
+    category: "💾 NVIDIA AI",
+    color: "#76B900",
+    icon: <Cpu className="h-4 w-4" />,
+    companies: [
+      {
+        name: "NVIDIA GPU",
+        slug: "nvidia",
+        desc: "AI 반도체 절대 강자. B200/GB200 양산. H100→B200 4세대.",
+        news: "2026년 7월 Rubin GPU 로드맵 발표, 2027년 양산 목표",
+      },
+      {
+        name: "CUDA 생태계",
+        slug: "cuda",
+        desc: "AI 개발 표준 플랫폼. 500만+ 개발자. MCP와 경쟁.",
+        news: "2026년 6월 CUDA 13.0 발표, AI 에이전트 SDK 포함",
+      },
+      {
+        name: "AI Enterprise",
+        slug: "nvidia-enterprise",
+        desc: "기업용 AI 플랫폼. NIM 마이크로서비스. 100+ 사전학습 모델.",
+        news: "2026년 7월 NIM v2 출시, 추론 속도 2.5배 개선",
+      },
+    ],
+  },
+  {
+    category: "🔀 OpenRouter",
+    color: "#FF6B35",
+    icon: <Network className="h-4 w-4" />,
+    companies: [
+      {
+        name: "OpenRouter",
+        slug: "openrouter",
+        desc: "멀티모델 라우팅 플랫폼. 200+ 모델. 단일 API로 모든 모델 접근.",
+        news: "2026년 7월 모델 라우팅 최적화 기능 출시, 자동 지연 시간 최소화",
+      },
+      {
+        name: "Router Pricing",
+        slug: "router-pricing",
+        desc: "모델별 실시간 가격 비교. 캐싱 90% 할인. 마크업 5-15%",
+        news: "2026년 7월 DeepSeek V4 Flash $0.14/$0.28로 최저가 유지",
+      },
+    ],
+  },
+  {
+    category: "🌍 글로벌 AI",
+    color: "#8B5CF6",
+    icon: <Layers className="h-4 w-4" />,
+    companies: [
+      {
+        name: "Mistral AI",
+        slug: "mistral",
+        desc: "프랑스 AI. Mistral Large 3.1. 유럽 AI 대표 주자.",
+        news: "2026년 7월 Mistral Large 3.1 출시, GPT-4o 대비 30% 저렴",
+      },
+      {
+        name: "xAI (Grok)",
+        slug: "xai",
+        desc: "일론 머스크 AI. Grok 4. X/Twitter 통합. 가격 인하 경쟁.",
+        news: "2026년 6월 Grok 4 출시, X Premium 가입자에 무료 제공",
+      },
+      {
+        name: "Meta Llama",
+        slug: "meta",
+        desc: "오픈소스 AI 선두. Llama 5 출시. Apache 2.0. 1M 컨텍스트.",
+        news: "2026년 7월 Llama 5 출시, 405B 파라미터, Apache 2.0 라이선스",
+      },
+    ],
+  },
+];
+
+export default function InsightsPage() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* Title */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+          AI 업계 인사이트 · 아카이브
+          <EvidenceTooltip section="AI 업계 인사이트" sources={SECTION_EVIDENCE.insights.sources} methodology={SECTION_EVIDENCE.insights.methodology} className="ml-1 -mb-0.5" />
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          4사 비교를 넘어 — 글로벌 AI 업계의 모든 중요한 소식
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          📅 매일 오전 9시 (KST) 업데이트
+        </p>
+      </div>
+
+      {/* Category Cards */}
+      <div className="space-y-6">
+        {insightsData.map((category) => (
+          <div
+            key={category.category}
+            className="rounded-sm border p-5"
+            style={{
+              borderColor: category.color + "30",
+              backgroundColor: category.color + "06",
+            }}
+          >
+            {/* Category Header */}
+            <div
+              className="mb-4 flex items-center gap-2 border-b pb-2"
+              style={{ borderBottomColor: category.color + "40" }}
+            >
+              <span className="text-muted-foreground">{category.icon}</span>
+              <h2 className="text-base font-semibold text-foreground">
+                {category.category}
+              </h2>
+              <span className="text-[0.65rem] text-muted-foreground">
+                ({category.companies.length}개 주시)
+              </span>
+            </div>
+
+            {/* Company Cards Grid */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {category.companies.map((company) => (
+                <div
+                  key={company.slug}
+                  className="flex flex-col rounded-sm border border-border bg-background p-4 transition-colors hover:border-muted-foreground/20"
+                >
+                  <h3 className="text-sm font-semibold text-foreground">
+                    {company.name}
+                  </h3>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {company.desc}
+                  </p>
+                  <div className="mt-3 flex-1 rounded-sm border-l-2 bg-muted/40 p-2"
+                    style={{ borderLeftColor: category.color }}
+                  >
+                    <p className="text-[0.65rem] font-medium text-foreground">
+                      📰 최근 소식
+                    </p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                      {company.news}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Source Notice */}
+      <div className="mt-8 rounded-sm bg-muted p-3 text-center">
+        <p className="flex items-center justify-center gap-1 text-[0.65rem] text-muted-foreground">
+          📌 출처: 각사 공식 블로그 및 보도자료. 저작권을 존중하여 요약만 제공합니다.
+        </p>
+      </div>
+    </div>
+  );
+}

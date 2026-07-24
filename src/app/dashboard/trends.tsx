@@ -17,6 +17,8 @@ import {
 } from "recharts";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
+import { UpdateSchedule } from "@/components/update-schedule";
 
 interface TrendPoint {
   month: string;
@@ -131,21 +133,25 @@ export function Trends() {
 
   return (
     <div className="space-y-8">
+      {/* Update schedule calendar */}
+      <UpdateSchedule />
+
       {/* Date range selector + view mode toggle */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-foreground">
           {viewMode === "growth"
             ? "월간 유저 성장률 추이 (%)"
             : "월간 활성 유저 추이 (백만명)"}
+          <EvidenceTooltip section="시장 트렌드" sources={SECTION_EVIDENCE.trends.sources} methodology={SECTION_EVIDENCE.trends.methodology} className="ml-1 -mb-0.5" />
         </h2>
         <div className="flex items-center gap-2">
-          <div className="flex rounded-sm border border-border bg-muted p-0.5">
+          <div className="flex rounded-full border border-border bg-muted p-0.5">
             <button
               onClick={() => setViewMode("absolute")}
               className={cn(
-                "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                 viewMode === "absolute"
-                  ? "bg-background text-foreground"
+                  ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -154,9 +160,9 @@ export function Trends() {
             <button
               onClick={() => setViewMode("growth")}
               className={cn(
-                "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                 viewMode === "growth"
-                  ? "bg-background text-foreground"
+                  ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >

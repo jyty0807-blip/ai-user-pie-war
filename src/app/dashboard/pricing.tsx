@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import {
   ResponsiveContainer,
   BarChart,
@@ -132,6 +133,51 @@ const pricingData: PricingRow[] = [
     context: "1M",
     note: "Hard reasoning at fraction",
   },
+  {
+    company: "OpenRouter",
+    model: "GPT-4o-mini via Router",
+    inputPrice: "$0.15",
+    outputPrice: "$0.60",
+    cached: "-",
+    context: "128K",
+    note: "라우팅 프리미엄 포함",
+  },
+  {
+    company: "OpenCode ZEN",
+    model: "ZEN DeepSeek V4",
+    inputPrice: "$0.14",
+    outputPrice: "$0.28",
+    cached: "$0.003",
+    context: "1M",
+    note: "OMC 전용 - 최저가",
+  },
+  {
+    company: "GLM (Zhipu)",
+    model: "GLM-5",
+    inputPrice: "$0.20",
+    outputPrice: "$0.40",
+    cached: "-",
+    context: "1M",
+    note: "중국 MIT 오픈소스",
+  },
+  {
+    company: "Qwen (Alibaba)",
+    model: "Qwen3.5-72B",
+    inputPrice: "$0.30",
+    outputPrice: "$0.60",
+    cached: "-",
+    context: "128K",
+    note: "Apache 2.0",
+  },
+  {
+    company: "Mistral AI",
+    model: "Mistral Large 3.1",
+    inputPrice: "$3.00",
+    outputPrice: "$15.00",
+    cached: "$0.30",
+    context: "128K",
+    note: "유럽 AI 대표",
+  },
 ];
 
 const companyColors: Record<string, string> = {
@@ -139,6 +185,11 @@ const companyColors: Record<string, string> = {
   Anthropic: "#D97757",
   Google: "#4285F4",
   DeepSeek: "#4F46E5",
+  OpenRouter: "#FF6B35",
+  "OpenCode ZEN": "#8B5CF6",
+  "GLM (Zhipu)": "#E53935",
+  "Qwen (Alibaba)": "#FF6A00",
+  "Mistral AI": "#F59E0B",
 };
 
 function parsePrice(val: string): number {
@@ -177,6 +228,7 @@ export function Pricing() {
         <h2 className="mb-4 text-lg font-semibold text-foreground">
           AI 모델 가격 전쟁 (2026년 7월)
           <MetricTooltip term="MTok" definition={METRIC_DEFINITIONS.MTok} />
+          <EvidenceTooltip section="가격 전쟁" sources={SECTION_EVIDENCE.pricing.sources} methodology={SECTION_EVIDENCE.pricing.methodology} className="ml-1 -mb-0.5" />
         </h2>
         <div className="rounded-sm border border-border">
           <Table>
@@ -194,7 +246,7 @@ export function Pricing() {
             <TableBody>
               {pricingData.map((row) => {
                 const isCheapest =
-                  row.model === "V4 Flash";
+                  row.model === "V4 Flash" || row.model === "ZEN DeepSeek V4";
                 const hasPriceChange = row.inputPrice.includes("→");
                 return (
                   <TableRow
@@ -295,6 +347,17 @@ export function Pricing() {
             </BarChart>
           </ResponsiveContainer>
         </div>
+      </div>
+
+      {/* 가성비 모델 하이라이트 */}
+      <div className="rounded-sm border border-[rgba(15,0,0,0.12)] bg-[#f8f7f7] p-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#222]">
+        <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">💡 가성비 모델 하이라이트</p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-[0.6rem] text-[#424245] dark:text-[#a0a0a0]">
+          <li><strong>OpenCode ZEN</strong> ($0.14/$0.28) — OMC 전용 번들, DeepSeek V4 Flash 기반 최저가</li>
+          <li><strong>GLM-5</strong> ($0.20/$0.40) — 중국 MIT 오픈소스, 1M 컨텍스트, 서방 대비 10-50% 저렴</li>
+          <li><strong>OpenRouter GPT-4o-mini</strong> ($0.15/$0.60) — 라우팅 최적화로 자동 최저가 모델 선택</li>
+          <li><strong>Qwen3.5-72B</strong> ($0.30/$0.60) — 알리바바 오픈소스, Apache 2.0, 중간 티어 가성비 최고</li>
+        </ul>
       </div>
 
       {/* Source note */}

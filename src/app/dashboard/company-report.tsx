@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -23,7 +23,7 @@ interface CompanyReport {
 
 // DialogButton component
 interface DialogButtonProps {
-  company: { slug: string; name: string; logo: string; color: string };
+  company: { slug: string; name: string; logo: ReactNode; color: string };
   report: CompanyReport;
 }
 
@@ -36,7 +36,7 @@ export function DialogButton({ company, report }: DialogButtonProps) {
         render={
           <button
             className={cn(
-              "inline-flex items-center gap-2 rounded-sm border px-4 py-2.5 text-sm font-medium transition-all duration-200",
+              "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200",
               "hover:shadow-none active:translate-y-0"
             )}
             style={{
@@ -44,7 +44,7 @@ export function DialogButton({ company, report }: DialogButtonProps) {
               backgroundColor: company.color + "08",
             }}
           >
-            <span className="text-lg">{company.logo}</span>
+            <span className="inline-flex shrink-0">{company.logo}</span>
             <span>{company.name}</span>
             <span className="text-xs text-muted-foreground">종합 리포트</span>
           </button>
@@ -53,7 +53,7 @@ export function DialogButton({ company, report }: DialogButtonProps) {
       <DialogContent className="max-w-2xl max-h-[85vh]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl">
-            <span>{company.logo}</span>
+            <span className="inline-flex shrink-0">{company.logo}</span>
             {company.name} 종합 리포트
           </DialogTitle>
           <DialogDescription>

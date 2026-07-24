@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 
 interface TimelineEvent {
   date: string;
@@ -80,6 +81,7 @@ export function Timeline() {
     <div className="mx-auto max-w-3xl">
       <h2 className="mb-8 text-lg font-semibold text-foreground">
         2026 AI 유저 파이 전쟁 — 스토리
+        <EvidenceTooltip section="타임라인 스토리" sources={SECTION_EVIDENCE.timeline.sources} methodology={SECTION_EVIDENCE.timeline.methodology} className="ml-1 -mb-0.5" />
       </h2>
 
       {/* 이야기 요약 */}
@@ -127,7 +129,7 @@ export function Timeline() {
                 >
                   {/* Header row: date + type badge */}
                   <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <div className="inline-flex items-center rounded-md bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                    <div className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
                       {event.date}
                     </div>
                     <Badge

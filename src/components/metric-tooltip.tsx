@@ -19,12 +19,12 @@ export function MetricTooltip({ term, definition }: MetricTooltipProps) {
           </button>
         }
       />
-      <TooltipContent className="max-w-[240px] p-3">
-        <p className="text-xs font-semibold text-foreground mb-1">{term}</p>
-        <p className="text-[0.65rem] text-muted-foreground leading-relaxed">{definition}</p>
+      <TooltipContent className="max-w-[260px] p-3.5 bg-[#fdfcfc] dark:bg-[#1a1a1a] text-[#201d1d] dark:text-[#fdfcfc]">
+        <p className="text-xs font-semibold mb-1">{term}</p>
+        <p className="text-[0.65rem] leading-relaxed opacity-80">{definition}</p>
         <Link
           href="/dashboard/onboarding"
-          className="mt-1.5 inline-block text-[0.6rem] text-primary hover:underline"
+          className="mt-1.5 inline-block text-[0.6rem] text-[#007aff] hover:text-[#0056b3] dark:text-[#4da3ff] dark:hover:text-[#80bfff] hover:underline"
         >
           자세히 보기 →
         </Link>

@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ArrowUpIcon, ArrowDownIcon, MinusIcon } from "lucide-react";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 
 interface CompanyRow {
   name: string;
@@ -101,7 +102,7 @@ function parseNumeric(val: string): number {
 
 const columnDefs: { key: SortKey; label: string; tooltipTerm?: string; tooltipDef?: string }[] = [
   { key: "name", label: "기업" },
-  { key: "mau", label: "활성 유저", tooltipTerm: "MAU", tooltipDef: METRIC_DEFINITIONS.MAU },
+  { key: "mau", label: "활성 유저 (MAU, 추정)", tooltipTerm: "MAU", tooltipDef: METRIC_DEFINITIONS.MAU },
   { key: "marketShare", label: "시장점유율", tooltipTerm: "시장 점유율", tooltipDef: METRIC_DEFINITIONS["시장 점유율"] },
   { key: "convRate", label: "전환율", tooltipTerm: "전환율", tooltipDef: METRIC_DEFINITIONS.전환율 },
   { key: "cac", label: "고객 획득비용", tooltipTerm: "CAC", tooltipDef: METRIC_DEFINITIONS.CAC },
@@ -136,6 +137,7 @@ export function Comparison() {
     <div>
       <h2 className="mb-4 text-lg font-semibold text-foreground">
         4사 비교 — 정렬 가능 비교표
+        <EvidenceTooltip section="4사 비교표" sources={SECTION_EVIDENCE.comparison.sources} methodology={SECTION_EVIDENCE.comparison.methodology} className="ml-1 -mb-0.5" />
       </h2>
 
       {/* 한눈에 비교 인사이트 */}
@@ -179,11 +181,7 @@ export function Comparison() {
           </TableHeader>
           <TableBody>
             {sorted.map((row) => (
-              <TableRow
-                key={row.slug}
-                className={cn("group")}
-                style={{ borderLeft: `1px solid ${row.color}` }}
-              >
+              <TableRow key={row.slug} className={cn("group")}>
                 <TableCell className="font-medium">
                   <span className="inline-flex items-center gap-2">
                     <span className="text-lg" aria-hidden="true">

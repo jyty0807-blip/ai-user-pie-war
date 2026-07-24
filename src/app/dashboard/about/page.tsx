@@ -58,7 +58,7 @@ export default function AboutPage() {
               { label: "오케스트레이션", value: "OpenCode (OMC)" },
               { label: "언어", value: "TypeScript strict" },
             ].map((item) => (
-              <div key={item.label} className="rounded-md bg-muted p-2">
+                <div key={item.label} className="rounded-full bg-muted p-2">
                 <p className="text-[0.65rem] text-muted-foreground">{item.label}</p>
                 <p className="text-xs font-medium text-foreground">{item.value}</p>
               </div>

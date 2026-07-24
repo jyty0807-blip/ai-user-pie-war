@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 
 interface PlatformData {
   name: string;
@@ -34,7 +35,7 @@ const platforms: PlatformData[] = [
     company: "Anthropic",
     color: "#D97757",
     icon: "🤖",
-    tagline: "Agentic coding with MCP ecosystem",
+    tagline: "에이전트 코딩 (MCP · SWE-bench SOTA)",
   },
   {
     name: "OpenAI Codex",
@@ -42,7 +43,7 @@ const platforms: PlatformData[] = [
     company: "OpenAI",
     color: "#10A37F",
     icon: "🧠",
-    tagline: "GPT-powered CLI coding agent",
+    tagline: "GPT-5.6 CLI — 최대 커뮤니티 · Copilot 통합",
   },
   {
     name: "OpenCode (OMC)",
@@ -50,7 +51,15 @@ const platforms: PlatformData[] = [
     company: "OhMyOpenCode",
     color: "#8B5CF6",
     icon: "⚡",
-    tagline: "Multi-agent orchestration framework",
+    tagline: "멀티에이전트 오케스트레이터 — 무료 · 오픈소스",
+  },
+  {
+    name: "ZEN (OMC)",
+    slug: "zen",
+    company: "OhMyOpenCode",
+    color: "#A78BFA",
+    icon: "🎯",
+    tagline: "OMC 최적화 에디션 — 최저가 DeepSeek 번들",
   },
 ];
 
@@ -59,6 +68,7 @@ interface ComparisonRow {
   claude: string;
   codex: string;
   omc: string;
+  zen: string;
 }
 
 const comparisonMetrics: ComparisonRow[] = [
@@ -67,48 +77,56 @@ const comparisonMetrics: ComparisonRow[] = [
     claude: "$20 (Claude Pro)",
     codex: "$20 (ChatGPT Plus)",
     omc: "Free (OSS)",
+    zen: "Free (OSS)",
   },
   {
     metric: "SWE-bench 점수",
     claude: "80.8% (SOTA)",
     codex: "72.4%",
     omc: "N/A (orchestration)",
+    zen: "N/A (orchestration)",
   },
   {
     metric: "API 가격 (플래그십)",
     claude: "$10/$50 per MTok",
     codex: "$5/$30 per MTok",
     omc: "$0.14/$0.28 (DeepSeek)",
+    zen: "$0.14/$0.28 (DeepSeek)",
   },
   {
     metric: "컨텍스트 창",
     claude: "1M tokens",
     codex: "1.05M tokens",
     omc: "1M tokens (model-dependent)",
+    zen: "1M tokens (DeepSeek V4)",
   },
   {
     metric: "에이전트 모드",
     claude: "Claude Code, MCP tools",
     codex: "Codex CLI, GPT Actions",
     omc: "Explore, Librarian, Oracle, Sisyphus",
+    zen: "Sisyphus 기본 내장",
   },
   {
     metric: "MCP 지원",
     claude: "✅ Native (97M+ installs)",
     codex: "❌ Not supported",
     omc: "✅ Plugin system",
+    zen: "✅ Plugin system",
   },
   {
     metric: "커뮤니티 규모",
     claude: "~2M developers",
     codex: "~10M+ (ChatGPT base)",
     omc: "~50K (growing)",
+    zen: "~50K (OMC bundled)",
   },
   {
     metric: "추천 용도",
     claude: "복잡한 에이전트 코딩",
     codex: "범용 AI 개발",
     omc: "멀티 에이전트 오케스트레이션",
+    zen: "최저가 경량 코딩",
   },
 ];
 
@@ -160,7 +178,9 @@ function PlatformCard({ platform, index }: PlatformCardProps) {
                   ? stat.claude
                   : index === 1
                     ? stat.codex
-                    : stat.omc}
+                    : index === 2
+                      ? stat.omc
+                      : stat.zen}
               </span>
             </div>
           ))}
@@ -172,10 +192,12 @@ function PlatformCard({ platform, index }: PlatformCardProps) {
 
 export default function PlatformsPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* 한줄요약 */}
-      <div className="rounded-sm border border-indigo-300/20 bg-indigo-50/80 p-5 dark:border-indigo-800/20 dark:bg-indigo-950/20 mb-6">
-        <p className="text-sm font-semibold text-indigo-800 dark:text-indigo-200">🔧 개발자 도구 비교</p>
+      <div className="rounded-sm border border-indigo-300/20 bg-indigo-50/80 p-5 dark:border-indigo-800/20 dark:bg-indigo-950/20">
+        <p className="text-sm font-semibold text-indigo-800 dark:text-indigo-200">🔧 개발자 도구 비교
+          <EvidenceTooltip section="개발자 도구 비교" sources={SECTION_EVIDENCE.platforms.sources} methodology={SECTION_EVIDENCE.platforms.methodology} className="ml-1 -mb-0.5" />
+        </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-indigo-700 dark:text-indigo-300">
           <li><strong>Claude Code:</strong> SWE-bench 80.8% 1위, MCP 97M+ 설치 — 에이전트 코딩 최강</li>
           <li><strong>OpenAI Codex:</strong> 10M+ 개발자 최대 커뮤니티, GPT-5.6 생태계</li>
@@ -185,7 +207,7 @@ export default function PlatformsPage() {
       </div>
 
       {/* Top: Platform cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {platforms.map((platform, index) => (
           <PlatformCard key={platform.slug} platform={platform} index={index} />
         ))}
@@ -205,8 +227,8 @@ export default function PlatformsPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[200px]">항목</TableHead>
-                <TableHead>
+                <TableHead className="w-[200px] py-3">항목</TableHead>
+                <TableHead className="py-3">
                   <span style={{ color: platforms[0].color }}>
                     {platforms[0].icon} Claude Code
                   </span>
@@ -218,7 +240,12 @@ export default function PlatformsPage() {
                 </TableHead>
                 <TableHead>
                   <span style={{ color: platforms[2].color }}>
-                    {platforms[2].icon} OpenCode (OMC)
+                    {platforms[2].icon} OpenCode
+                  </span>
+                </TableHead>
+                <TableHead>
+                  <span style={{ color: platforms[3].color }}>
+                    {platforms[3].icon} ZEN
                   </span>
                 </TableHead>
               </TableRow>
@@ -226,12 +253,13 @@ export default function PlatformsPage() {
             <TableBody>
               {comparisonMetrics.map((row) => (
                 <TableRow key={row.metric}>
-                  <TableCell className="font-medium text-muted-foreground">
+                  <TableCell className="py-3 font-medium text-muted-foreground">
                     {row.metric}
                   </TableCell>
-                  <TableCell>{row.claude}</TableCell>
-                  <TableCell>{row.codex}</TableCell>
-                  <TableCell>{row.omc}</TableCell>
+                  <TableCell className="py-3">{row.claude}</TableCell>
+                  <TableCell className="py-3">{row.codex}</TableCell>
+                  <TableCell className="py-3">{row.omc}</TableCell>
+                  <TableCell className="py-3">{row.zen}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

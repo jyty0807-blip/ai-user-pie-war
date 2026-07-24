@@ -15,9 +15,11 @@ import {
 import { MenuIcon } from "lucide-react";
 
 const navItems = [
+  { label: "🎯 추천", href: "/recommend" },
   { label: "대시보드", href: "/dashboard" },
   { label: "뉴스", href: "/dashboard/news" },
   { label: "플랫폼 비교", href: "/dashboard/platforms" },
+  { label: "인사이트", href: "/dashboard/insights" },
   { label: "온보딩", href: "/dashboard/onboarding" },
   { label: "소개", href: "/dashboard/about" },
 ];
@@ -38,11 +40,11 @@ export default function DashboardLayout({
             {/* Brand */}
             <div className="flex items-center gap-3">
               <Link href="/dashboard" className="flex items-center gap-2">
-                <span className="text-lg font-semibold tracking-tight text-foreground">
+                  <span className="text-lg font-bold tracking-tight text-foreground">
                   🤖 AI 유저 파이 전쟁
                 </span>
               </Link>
-              <span className="hidden text-xs text-muted-foreground sm:inline-block">
+              <span className="hidden text-sm text-muted-foreground sm:inline-block">
                 2026 AI 업계 퍼포먼스 마케팅 인텔리전스
               </span>
             </div>
@@ -59,7 +61,7 @@ export default function DashboardLayout({
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "inline-flex h-8 items-center rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      "inline-flex h-8 items-center rounded-full px-3 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       isActive
                         ? "bg-muted text-foreground"
                         : "text-muted-foreground hover:text-foreground"
@@ -95,7 +97,7 @@ export default function DashboardLayout({
                         key={item.href}
                         href={item.href}
                         className={cn(
-                          "inline-flex h-9 items-center rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          "inline-flex h-9 items-center rounded-full px-3 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           isActive
                             ? "bg-muted text-foreground"
                             : "text-muted-foreground hover:text-foreground"
@@ -110,6 +112,16 @@ export default function DashboardLayout({
             </Sheet>
           </div>
         </header>
+
+        {/* Persistent data disclaimer */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-2">
+          <div className="rounded-full border border-[rgba(15,0,0,0.08)] bg-[#f8f7f7] px-3 py-1.5">
+            <p className="text-[0.6rem] text-[#646262] text-center">
+              ⚠️ 이 데이터는 2026년 시나리오 기반 추정치입니다. 실제 데이터가 아닙니다. 
+              출처 및 방법론: <a href="/dashboard/onboarding" className="underline hover:text-[#201d1d]">온보딩 페이지</a>
+            </p>
+          </div>
+        </div>
 
         {/* Page content */}
         <main className="flex-1">{children}</main>

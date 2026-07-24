@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import {
   Card,
   CardContent,
@@ -9,12 +10,18 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
+import {
+  OpenAILogo,
+  AnthropicLogo,
+  DeepSeekLogo,
+  GoogleAILogo,
+} from "@/components/company-logos";
 
 interface CompanyKpi {
   name: string;
   slug: string;
   color: string;
-  logo: string;
+  logo: ReactNode;
   estimatedAdSpend: string;
   mau: string;
   yoyGrowth: string;
@@ -30,7 +37,7 @@ const mockKPIs: CompanyKpi[] = [
     name: "OpenAI",
     slug: "openai",
     color: "#10A37F",
-    logo: "🧠",
+    logo: <OpenAILogo className="h-6 w-6" />,
     estimatedAdSpend: "200M",
     mau: "800M",
     yoyGrowth: "전년비 -25%",
@@ -44,7 +51,7 @@ const mockKPIs: CompanyKpi[] = [
     name: "Anthropic",
     slug: "anthropic",
     color: "#D97757",
-    logo: "🔬",
+    logo: <AnthropicLogo className="h-6 w-6" />,
     estimatedAdSpend: "45M",
     mau: "120M",
     yoyGrowth: "전년비 +600%",
@@ -58,7 +65,7 @@ const mockKPIs: CompanyKpi[] = [
     name: "DeepSeek",
     slug: "deepseek",
     color: "#4F46E5",
-    logo: "🐋",
+    logo: <DeepSeekLogo className="h-6 w-6" />,
     estimatedAdSpend: "12M",
     mau: "80M",
     yoyGrowth: "전년비 +700%",
@@ -69,10 +76,10 @@ const mockKPIs: CompanyKpi[] = [
     channels: ["Reddit", "X", "Technical blogs"],
   },
   {
-    name: "Google",
+    name: "Google (Gemini)",
     slug: "google-ai",
     color: "#4285F4",
-    logo: "🔍",
+    logo: <GoogleAILogo className="h-6 w-6" />,
     estimatedAdSpend: "500M+",
     mau: "200M",
     yoyGrowth: "전년비 +300%",
@@ -108,7 +115,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
       />
       <CardHeader className="pb-1">
         <div className="flex items-center gap-2.5">
-          <span className="text-xl" aria-hidden="true">
+          <span className="inline-flex shrink-0" aria-hidden="true">
             {company.logo}
           </span>
           <CardTitle className="text-sm font-semibold">{company.name}</CardTitle>
@@ -118,7 +125,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
         {/* Primary metric — MAU */}
         <div>
           <p className="text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
-            월간 활성 유저 (WAU)
+            월간 활성 유저 (WAU, 추정)
             <MetricTooltip term="WAU" definition={METRIC_DEFINITIONS.WAU} />
           </p>
           <p className="mt-1 text-xl font-extrabold tabular-nums text-foreground">
@@ -134,10 +141,10 @@ function KpiCard({ company }: { company: CompanyKpi }) {
 
         {/* Secondary metrics grid */}
         <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-          <Metric label="유료 전환율" value={company.convRate} tooltipTerm="전환율" tooltipDef={METRIC_DEFINITIONS.전환율} />
-          <Metric label="시장 점유율" value={company.marketShare} tooltipTerm="시장 점유율" tooltipDef={METRIC_DEFINITIONS["시장 점유율"]} />
+          <Metric label="유료 전환율 (추정)" value={company.convRate} tooltipTerm="전환율" tooltipDef={METRIC_DEFINITIONS.전환율} />
+          <Metric label="시장 점유율 (추정)" value={company.marketShare} tooltipTerm="시장 점유율" tooltipDef={METRIC_DEFINITIONS["시장 점유율"]} />
           <Metric label="월간 광고비 (추정)" value={`$${company.estimatedAdSpend}`} tooltipTerm="광고 채널" tooltipDef={METRIC_DEFINITIONS["광고 채널"]} />
-          <Metric label="고객 획득 비용" value={company.cac} tooltipTerm="CAC" tooltipDef={METRIC_DEFINITIONS.CAC} />
+          <Metric label="고객 획득 비용 (추정)" value={company.cac} tooltipTerm="CAC" tooltipDef={METRIC_DEFINITIONS.CAC} />
         </div>
 
         {/* Channels */}

@@ -145,7 +145,7 @@ export default function OnboardingPage() {
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-2 shrink-0 inline-flex items-center gap-1 rounded-md bg-background px-2 py-1 text-[0.6rem] text-muted-foreground hover:text-foreground transition-colors border border-border"
+                        className="ml-2 shrink-0 inline-flex items-center gap-1 rounded-full bg-background px-2 py-1 text-[0.6rem] text-muted-foreground hover:text-foreground transition-colors border border-border"
                       >
                         방문
                         <ExternalLink className="h-2.5 w-2.5" />

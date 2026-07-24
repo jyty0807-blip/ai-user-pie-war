@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -35,7 +36,7 @@ const sentimentData: SentimentEntry[] = [
     neutral: 22,
     negative: 10,
     topPost:
-      "Claude Code saved us 40% dev time on refactoring — MCP is a game changer",
+      "[시나리오 예시] Claude Code saved us 40% dev time on refactoring — MCP is a game changer",
     source: "r/programming",
     score: 2340,
   },
@@ -45,7 +46,7 @@ const sentimentData: SentimentEntry[] = [
     neutral: 30,
     negative: 25,
     topPost:
-      "Codex CLI is decent but GPT-5 output quality varies wildly",
+      "[시나리오 예시] Codex CLI is decent but GPT-5 output quality varies wildly",
     source: "Hacker News",
     score: 892,
   },
@@ -55,11 +56,106 @@ const sentimentData: SentimentEntry[] = [
     neutral: 15,
     negative: 4,
     topPost:
-      "OMC multi-agent pattern is the future of AI-assisted development",
+      "[시나리오 예시] OMC multi-agent pattern is the future of AI-assisted development",
     source: "r/ClaudeAI",
     score: 567,
   },
 ];
+
+const platformDetails: Record<string, {
+  pros: string[];
+  cons: string[];
+  swot: { strength: string[]; weakness: string[]; opportunity: string[]; threat: string[] };
+  topQuotes: { text: string; source: string; url: string }[];
+}> = {
+  "claude-code": {
+    pros: [
+      "MCP 생태계 97M+ 설치 — 에이전트 도구의 표준",
+      "SWE-bench 80.8% 최고 점수, 실제 코딩 작업에서도 검증됨",
+      "1M 컨텍스트로 대규모 리팩토링 가능",
+      "Claude Opus 4.8의 추론 능력이 복잡한 디버깅에 탁월",
+      "터미널 네이티브로 IDE 의존성 없음",
+    ],
+    cons: [
+      "Fable 5 $50/MTok — 플래그십 모델 가격 부담",
+      "MCP 생태계는 아직 초기 단계, 호환 도구 제한적",
+      "Windows 지원이 불완전 (WSL 의존)",
+      "대규모 모노레포에서 간헐적 지연 현상",
+    ],
+    swot: {
+      strength: ["MCP 오픈 표준 주도권", "SOTA 코딩 성능", "Anthropic의 브랜드 신뢰도"],
+      weakness: ["고가의 API 가격", "플랫폼 종속성 우려", "Windows 지원 미흡"],
+      opportunity: ["기업 시장 확장 (IPO 자금)", "MCP 생태계 네트워크 효과", "AI 에이전트 시장 성장"],
+      threat: ["OpenAI Codex의 GPT-5 생태계", "오픈소스 대안 (OpenCode)", "구글의 AI 도구 통합 전략"],
+    },
+    topQuotes: [
+      { text: "[시나리오 예시] MCP 덕분에 에이전트가 내 DB를 직접 조작한다. 이게 미래다.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "[시나리오 예시] Claude Code는 코딩 보조를 넘어 진짜 동료 개발자 같다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
+    ],
+  },
+  "openai-codex": {
+    pros: [
+      "GPT-5.6 생태계 — 가장 다양한 모델 선택지",
+      "10M+ 개발자 커뮤니티, 자료와 튜토리얼 풍부",
+      "ChatGPT Plus $20/월로 저렴하게 시작 가능",
+      "GitHub Copilot과의 통합으로 기존 워크플로우 유지",
+    ],
+    cons: [
+      "GPT-5 모델 간 품질 편차가 큼 (Sol→Luna)",
+      "MCP 미지원 — 독자 규격으로 생태계 고립",
+      "광고 도입 후 브랜드 이미지 하락",
+      "에이전트 모드의 안정성 이슈 (루프 탈출 실패)",
+    ],
+    swot: {
+      strength: ["최대 개발자 커뮤니티", "GPT-5.6 모델 다양성", "마이크로소프트와의 파트너십"],
+      weakness: ["MCP 미지원으로 생태계 고립", "모델 품질 일관성 부족", "브랜드 신뢰도 하락"],
+      opportunity: ["Copilot 통합 심화", "GPT-5.6 Luna로 가격 민감층 공략", "교육 시장 선점"],
+      threat: ["Claude Code의 MCP 표준화", "OpenCode의 무료 오픈소스 전략", "Google의 AI 도구 확장"],
+    },
+    topQuotes: [
+      { text: "[시나리오 예시] Codex CLI는 편리한데 가끔 이상한 코드를 짠다. GPT-5의 품질 편차가 문제.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "[시나리오 예시] MCP를 지원하지 않는 게 가장 큰 아쉬움. 생태계가 따로 논다.", source: "Reddit r/OpenAI", url: "https://reddit.com" },
+    ],
+  },
+  opencode: {
+    pros: [
+      "완전 무료 오픈소스 (MIT 라이선스)",
+      "멀티에이전트 오케스트레이션 — Sisyphus 패턴",
+      "DeepSeek V4 Flash $0.14/$0.28로 최저 운영 비용",
+      "확장 가능한 플러그인 시스템 (MCP 호환)",
+      "커뮤니티 주도 개발, 빠른 피드백 반영",
+    ],
+    cons: [
+      "50K 개발자로 커뮤니티 규모가 작음",
+      "문서화가 부족하고 학습 곡선이 있음",
+      "SWE-bench 점수 없음 (오케스트레이션에 특화)",
+      "기업 공식 지원 부재",
+    ],
+    swot: {
+      strength: ["무료 오픈소스", "멀티에이전트 아키텍처", "최저 API 비용", "확장성"],
+      weakness: ["작은 커뮤니티", "부족한 문서화", "기업 지원 부재"],
+      opportunity: ["AI 에이전트 시장 폭발적 성장", "MCP 표준과의 호환성", "개발자 생산성 도구 수요 증가"],
+      threat: ["Claude Code의 MCP 표준화로 독자 생태계 위협", "OpenAI Codex의 대규모 커뮤니티", "Google의 AI 도구 무료 제공"],
+    },
+    topQuotes: [
+      { text: "[시나리오 예시] OMC의 멀티에이전트 패턴이 게임 체인저다. 병렬 에이전트가 생산성을 10배 올려준다.", source: "Reddit r/ClaudeAI", url: "https://reddit.com" },
+      { text: "[시나리오 예시] 무료인데 이 정도면 착한 거지. DeepSeek 조합으로 운영비 제로에 가깝다.", source: "Hacker News", url: "https://news.ycombinator.com" },
+    ],
+  },
+};
+
+function getPlatformDetailKey(platform: string): string {
+  switch (platform) {
+    case "Claude Code":
+      return "claude-code";
+    case "OpenAI Codex":
+      return "openai-codex";
+    case "OpenCode (OMC)":
+      return "opencode";
+    default:
+      return "";
+  }
+}
 
 function getPlatformColor(platform: string): string {
   switch (platform) {
@@ -137,6 +233,10 @@ function SentimentBar({ positive, neutral, negative }: SentimentBarProps) {
 }
 
 export default function ReviewsPage() {
+  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+  const selectedDetails =
+    selectedPlatform ? platformDetails[getPlatformDetailKey(selectedPlatform)] : null;
+
   return (
     <div className="space-y-8">
       {/* 한줄요약 */}
@@ -165,9 +265,22 @@ export default function ReviewsPage() {
         {sentimentData.map((entry) => {
           const color = getPlatformColor(entry.platform);
           const icon = getPlatformIcon(entry.platform);
+          const isSelected = selectedPlatform === entry.platform;
 
           return (
-            <Card key={entry.platform} size="sm">
+            <Card
+              key={entry.platform}
+              size="sm"
+              className={`cursor-pointer transition-shadow hover:shadow-md ${
+                isSelected ? "ring-2 ring-offset-2" : ""
+              }`}
+              style={isSelected ? { "--tw-ring-color": color } as React.CSSProperties : undefined}
+              onClick={() =>
+                setSelectedPlatform(
+                  selectedPlatform === entry.platform ? null : entry.platform,
+                )
+              }
+            >
               <div
                 className="absolute inset-x-0 top-0 h-1 rounded-t-xl"
                 style={{ backgroundColor: color }}
@@ -194,6 +307,124 @@ export default function ReviewsPage() {
           );
         })}
       </div>
+
+      {/* Detail panel */}
+      {selectedPlatform && selectedDetails && (
+        <Card className="overflow-hidden border-t-4" style={{ borderTopColor: getPlatformColor(selectedPlatform) }}>
+          {/* Title bar */}
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xl" aria-hidden="true">
+                  {getPlatformIcon(selectedPlatform)}
+                </span>
+                <CardTitle className="text-base">{selectedPlatform} — 상세 분석</CardTitle>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedPlatform(null)}
+                className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                aria-label="상세 패널 닫기"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <CardDescription>
+              장단점 · SWOT 분석 · 커뮤니티 인용
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            {/* Pros / Cons two-column */}
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Pros */}
+              <div className="rounded-md border border-emerald-200 bg-emerald-50/60 p-4 dark:border-emerald-800 dark:bg-emerald-950/20">
+                <h4 className="mb-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">✅ 장점 (Pros)</h4>
+                <ul className="space-y-1.5">
+                  {selectedDetails.pros.map((item, i) => (
+                    <li key={`pro-${i}`} className="flex items-start gap-2 text-sm text-emerald-800 dark:text-emerald-200">
+                      <span className="mt-0.5 shrink-0 text-emerald-500">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Cons */}
+              <div className="rounded-md border border-red-200 bg-red-50/60 p-4 dark:border-red-800 dark:bg-red-950/20">
+                <h4 className="mb-2 text-sm font-semibold text-red-700 dark:text-red-400">❌ 단점 (Cons)</h4>
+                <ul className="space-y-1.5">
+                  {selectedDetails.cons.map((item, i) => (
+                    <li key={`con-${i}`} className="flex items-start gap-2 text-sm text-red-800 dark:text-red-200">
+                      <span className="mt-0.5 shrink-0 text-red-500">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* SWOT analysis */}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold">📊 SWOT 분석</h4>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-md border border-blue-200 bg-blue-50/60 p-3 dark:border-blue-800 dark:bg-blue-950/20">
+                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">💪 STRENGTHS</span>
+                  <ul className="mt-1.5 space-y-0.5">
+                    {selectedDetails.swot.strength.map((item, i) => (
+                      <li key={`swot-s-${i}`} className="text-xs text-blue-800 dark:text-blue-200">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-md border border-orange-200 bg-orange-50/60 p-3 dark:border-orange-800 dark:bg-orange-950/20">
+                  <span className="text-xs font-semibold text-orange-600 dark:text-orange-400">⚠️ WEAKNESSES</span>
+                  <ul className="mt-1.5 space-y-0.5">
+                    {selectedDetails.swot.weakness.map((item, i) => (
+                      <li key={`swot-w-${i}`} className="text-xs text-orange-800 dark:text-orange-200">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-md border border-green-200 bg-green-50/60 p-3 dark:border-green-800 dark:bg-green-950/20">
+                  <span className="text-xs font-semibold text-green-600 dark:text-green-400">🚀 OPPORTUNITIES</span>
+                  <ul className="mt-1.5 space-y-0.5">
+                    {selectedDetails.swot.opportunity.map((item, i) => (
+                      <li key={`swot-o-${i}`} className="text-xs text-green-800 dark:text-green-200">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-md border border-red-200 bg-red-50/60 p-3 dark:border-red-800 dark:bg-red-950/20">
+                  <span className="text-xs font-semibold text-red-600 dark:text-red-400">🔻 THREATS</span>
+                  <ul className="mt-1.5 space-y-0.5">
+                    {selectedDetails.swot.threat.map((item, i) => (
+                      <li key={`swot-t-${i}`} className="text-xs text-red-800 dark:text-red-200">• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Community quotes */}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold">💬 주요 커뮤니티 인용</h4>
+              <div className="space-y-2">
+                {selectedDetails.topQuotes.map((quote, i) => (
+                  <div key={`quote-${i}`} className="rounded-md border bg-muted/40 p-3">
+                    <p className="text-sm italic text-foreground">&ldquo;{quote.text}&rdquo;</p>
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <Badge variant="secondary" className="text-[10px]">
+                        {quote.source}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Separator />
 
