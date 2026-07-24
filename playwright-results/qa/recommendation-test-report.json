@@ -1,0 +1,385 @@
+{
+  "summary": {
+    "total": 12,
+    "pass": 12,
+    "fail": 0,
+    "pass_rate": "100%",
+    "avg_coverage": "100.0%",
+    "model_coverage": "7/7 (100%)"
+  },
+  "results": [
+    {
+      "name": "중고생 웹개발 무료 CLI",
+      "input": {
+        "role": "student",
+        "tasks": [
+          "web-dev"
+        ],
+        "env": "cli",
+        "exp": "none",
+        "budget": "free",
+        "style": "value",
+        "service": "single"
+      },
+      "result_models": [
+        "opus-4-8",
+        "opencode",
+        "deepseek-v4-flash"
+      ],
+      "expected_models": [
+        "opencode",
+        "deepseek-v4-flash"
+      ],
+      "matched": [
+        "opencode",
+        "deepseek-v4-flash"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "무료 오픈소스 + 극저가 API 조합이 학생에게 최적"
+    },
+    {
+      "name": "대학생 AI리서치 웹 표준",
+      "input": {
+        "role": "college",
+        "tasks": [
+          "ai-ml",
+          "data"
+        ],
+        "env": "web",
+        "exp": "intermediate",
+        "budget": "budget",
+        "style": "precise",
+        "service": "multi"
+      },
+      "result_models": [
+        "opus-4-8",
+        "sonnet-5",
+        "deepseek-v4-flash"
+      ],
+      "expected_models": [
+        "sonnet-5",
+        "deepseek-v4-flash"
+      ],
+      "matched": [
+        "sonnet-5",
+        "deepseek-v4-flash"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "Sonnet 5 할인가 + 저가 API로 과제/리서치 최적"
+    },
+    {
+      "name": "취준생 자소서 웹 예산한정",
+      "input": {
+        "role": "job-seeker",
+        "tasks": [
+          "resume",
+          "writing"
+        ],
+        "env": "web",
+        "exp": "basic",
+        "budget": "standard",
+        "style": "precise",
+        "service": "single"
+      },
+      "result_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "sonnet-5"
+      ],
+      "expected_models": [
+        "gpt-5-5",
+        "opus-4-8"
+      ],
+      "matched": [
+        "gpt-5-5",
+        "opus-4-8"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "ChatGPT Plus + Claude Pro로 자소서/면접 커버"
+    },
+    {
+      "name": "직장인 개발자 풀세트",
+      "input": {
+        "role": "dev-worker",
+        "tasks": [
+          "web-dev",
+          "ai-ml"
+        ],
+        "env": "ide",
+        "exp": "advanced",
+        "budget": "pro",
+        "style": "fast",
+        "service": "multi"
+      },
+      "result_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "expected_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "matched": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "Claude Code + GPT API + DeepSeek로 풀커버"
+    },
+    {
+      "name": "비개발 직장인 문서작업",
+      "input": {
+        "role": "nondev-worker",
+        "tasks": [
+          "writing",
+          "chat"
+        ],
+        "env": "web",
+        "exp": "basic",
+        "budget": "budget",
+        "style": "fast",
+        "service": "single"
+      },
+      "result_models": [
+        "fable-5",
+        "gpt-5-5",
+        "opus-4-8"
+      ],
+      "expected_models": [
+        "gpt-5-5"
+      ],
+      "matched": [
+        "gpt-5-5"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "ChatGPT Plus 하나로 문서/채팅 충분"
+    },
+    {
+      "name": "프리랜서 AI개발 고급",
+      "input": {
+        "role": "freelancer",
+        "tasks": [
+          "ai-ml",
+          "web-dev"
+        ],
+        "env": "api",
+        "exp": "advanced",
+        "budget": "pro",
+        "style": "value",
+        "service": "multi"
+      },
+      "result_models": [
+        "opus-4-8",
+        "deepseek-v4-pro"
+      ],
+      "expected_models": [
+        "opus-4-8",
+        "deepseek-v4-pro"
+      ],
+      "matched": [
+        "opus-4-8",
+        "deepseek-v4-pro"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "프리미엄 추론 + 저가 대량 처리 병행"
+    },
+    {
+      "name": "창업가 올라운드",
+      "input": {
+        "role": "founder",
+        "tasks": [
+          "web-dev",
+          "marketing",
+          "chat"
+        ],
+        "env": "web",
+        "exp": "intermediate",
+        "budget": "standard",
+        "style": "fast",
+        "service": "multi"
+      },
+      "result_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "expected_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "matched": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "개발 + 마케팅 + 채팅 올인원"
+    },
+    {
+      "name": "연구원 장문리서치",
+      "input": {
+        "role": "researcher",
+        "tasks": [
+          "data",
+          "writing"
+        ],
+        "env": "web",
+        "exp": "advanced",
+        "budget": "standard",
+        "style": "precise",
+        "service": "single"
+      },
+      "result_models": [
+        "gemini-3-1",
+        "opus-4-8"
+      ],
+      "expected_models": [
+        "gemini-3-1",
+        "opus-4-8"
+      ],
+      "matched": [
+        "gemini-3-1",
+        "opus-4-8"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "2M 컨텍스트 + 정확한 추론 조합"
+    },
+    {
+      "name": "게임개발자 IDE 고급",
+      "input": {
+        "role": "dev-worker",
+        "tasks": [
+          "game-dev"
+        ],
+        "env": "ide",
+        "exp": "advanced",
+        "budget": "standard",
+        "style": "precise",
+        "service": "multi"
+      },
+      "result_models": [
+        "opus-4-8",
+        "gpt-5-5",
+        "deepseek-v4-flash"
+      ],
+      "expected_models": [
+        "opus-4-8"
+      ],
+      "matched": [
+        "opus-4-8"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "코드 품질 최우선, Opus 4.8이 SWE-bench Pro 1위"
+    },
+    {
+      "name": "디자이너 창작 웹",
+      "input": {
+        "role": "freelancer",
+        "tasks": [
+          "design"
+        ],
+        "env": "web",
+        "exp": "intermediate",
+        "budget": "standard",
+        "style": "fast",
+        "service": "single"
+      },
+      "result_models": [
+        "gpt-5-5",
+        "opus-4-8",
+        "deepseek-v4-pro"
+      ],
+      "expected_models": [
+        "gpt-5-5"
+      ],
+      "matched": [
+        "gpt-5-5"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "이미지 생성 + 디자인 리뷰에 GPT 최적"
+    },
+    {
+      "name": "마케터 카피 API 대량",
+      "input": {
+        "role": "nondev-worker",
+        "tasks": [
+          "marketing",
+          "writing"
+        ],
+        "env": "api",
+        "exp": "intermediate",
+        "budget": "pro",
+        "style": "fast",
+        "service": "single"
+      },
+      "result_models": [
+        "gpt-5-5",
+        "opus-4-8",
+        "gemini-3-1"
+      ],
+      "expected_models": [
+        "gpt-5-5"
+      ],
+      "matched": [
+        "gpt-5-5"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "GPT-5.5 Mazur Writing 1위, 대량 카피 생성"
+    },
+    {
+      "name": "번역가 고볼륨",
+      "input": {
+        "role": "freelancer",
+        "tasks": [
+          "translate"
+        ],
+        "env": "api",
+        "exp": "advanced",
+        "budget": "pro",
+        "style": "value",
+        "service": "single"
+      },
+      "result_models": [
+        "deepseek-v4-flash",
+        "opus-4-8",
+        "deepseek-v4-pro"
+      ],
+      "expected_models": [
+        "deepseek-v4-flash"
+      ],
+      "matched": [
+        "deepseek-v4-flash"
+      ],
+      "missing": [],
+      "coverage": 1.0,
+      "pass": true,
+      "rationale_match": "대량 번역에 $0.28/MTok 최적"
+    }
+  ]
+}

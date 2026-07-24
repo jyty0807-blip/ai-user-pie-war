@@ -15,7 +15,6 @@ import {
   ReferenceLine,
   Label,
 } from "recharts";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import { UpdateSchedule } from "@/components/update-schedule";
@@ -119,14 +118,19 @@ const companyLabels: Record<string, string> = {
   google: "Google",
 };
 
-type RangeKey = "1w" | "1m" | "6m" | "1y" | "all";
+const companies = [
+  { slug: "openai", name: "OpenAI", color: "#10A37F" },
+  { slug: "anthropic", name: "Anthropic", color: "#D97757" },
+  { slug: "deepseek", name: "DeepSeek", color: "#4F46E5" },
+  { slug: "google", name: "Google", color: "#4285F4" },
+];
+
+type RangeKey = "1w" | "1m" | "6m";
 
 const ranges: { label: string; key: RangeKey }[] = [
   { label: "1주일", key: "1w" },
   { label: "1개월", key: "1m" },
   { label: "6개월", key: "6m" },
-  { label: "1년", key: "1y" },
-  { label: "전체", key: "all" },
 ];
 
 export function Trends() {
@@ -135,8 +139,6 @@ export function Trends() {
     "1w": weeklyData,
     "1m": monthlyData,
     "6m": trendData.slice(-6),
-    "1y": trendData.slice(-12),
-    "all": trendData,
   };
   const data = dataMap[range];
   const marketShareData = data.map((point) => {
@@ -151,6 +153,7 @@ export function Trends() {
   });
 
   const [viewMode, setViewMode] = useState<"absolute" | "growth">("absolute");
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
 
   const growthData = useMemo(() => {
     if (data.length === 0) return [];
@@ -207,17 +210,54 @@ export function Trends() {
           </div>
           <div className="flex gap-1">
             {ranges.map((r) => (
-              <Button
+              <button
                 key={r.key}
-                variant={range === r.key ? "default" : "ghost"}
-                size="xs"
                 onClick={() => setRange(r.key)}
+                className={cn(
+                  "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
+                  range === r.key
+                    ? "bg-[#201d1d] text-[#fdfcfc]"
+                    : "border border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7]",
+                )}
               >
                 {r.label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="flex items-center gap-1.5">
+        <span className="text-xs text-muted-foreground mr-1">기업</span>
+        <button
+          onClick={() => setSelectedCompany(null)}
+          className={cn(
+            "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+            selectedCompany === null
+              ? "bg-[#201d1d] text-[#fdfcfc]"
+              : "border border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7]",
+          )}
+        >
+          전체
+        </button>
+        {companies.map((c) => (
+          <button
+            key={c.slug}
+            onClick={() =>
+              setSelectedCompany(
+                selectedCompany === c.slug ? null : c.slug,
+              )
+            }
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+              selectedCompany === c.slug
+                ? "bg-[#201d1d] text-[#fdfcfc]"
+                : "border border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7]",
+            )}
+          >
+            {c.name}
+          </button>
+        ))}
       </div>
 
       {/* Summary banner */}
@@ -263,13 +303,15 @@ export function Trends() {
             <Legend
               formatter={(value: string) => companyLabels[value] ?? value}
             />
-            {Object.entries(companyColors).map(([k, color]) => (
+            {Object.entries(companyColors)
+              .filter(([k]) => selectedCompany === null || k === selectedCompany)
+              .map(([k, color]) => (
               <Line
                 key={k}
                 type="monotone"
                 dataKey={k}
                 stroke={color}
-                strokeWidth={2}
+                strokeWidth={3}
                 strokeDasharray={companyDashArrays[k]}
                 dot={{ r: 4, fill: color }}
                 activeDot={{ r: 6 }}

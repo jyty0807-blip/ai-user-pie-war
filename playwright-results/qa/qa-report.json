@@ -4,265 +4,253 @@
       "label": "Load: Landing (/)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:10.170Z"
+      "timestamp": "2026-07-24T20:44:57.410Z"
     },
     {
       "label": "Load: Recommend (/recommend)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:11.399Z"
+      "timestamp": "2026-07-24T20:44:58.645Z"
     },
     {
       "label": "Load: Dashboard (/dashboard)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:13.606Z"
+      "timestamp": "2026-07-24T20:45:00.801Z"
     },
     {
       "label": "Load: News (/dashboard/news)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:15.768Z"
+      "timestamp": "2026-07-24T20:45:02.970Z"
     },
     {
       "label": "Load: Platforms (/dashboard/platforms)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:17.929Z"
+      "timestamp": "2026-07-24T20:45:05.241Z"
     },
     {
       "label": "Load: Insights (/dashboard/insights)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:20.011Z"
+      "timestamp": "2026-07-24T20:45:07.571Z"
     },
     {
       "label": "Load: Onboarding (/dashboard/onboarding)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:22.139Z"
+      "timestamp": "2026-07-24T20:45:09.669Z"
     },
     {
       "label": "Load: About (/dashboard/about)",
       "status": "PASS",
       "detail": "HTTP 200",
-      "timestamp": "2026-07-24T20:19:24.134Z"
+      "timestamp": "2026-07-24T20:45:11.755Z"
     },
     {
       "label": "Nav click: 대시보드",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard",
-      "timestamp": "2026-07-24T20:19:29.820Z"
+      "timestamp": "2026-07-24T20:45:17.578Z"
     },
     {
       "label": "Nav click: 뉴스",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard/news",
-      "timestamp": "2026-07-24T20:19:32.038Z"
+      "timestamp": "2026-07-24T20:45:19.968Z"
     },
     {
       "label": "Nav click: 플랫폼 비교",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard/platforms",
-      "timestamp": "2026-07-24T20:19:34.194Z"
+      "timestamp": "2026-07-24T20:45:22.239Z"
     },
     {
       "label": "Nav click: 인사이트",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard/insights",
-      "timestamp": "2026-07-24T20:19:36.373Z"
+      "timestamp": "2026-07-24T20:45:24.467Z"
     },
     {
       "label": "Nav click: 온보딩",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard/onboarding",
-      "timestamp": "2026-07-24T20:19:38.536Z"
+      "timestamp": "2026-07-24T20:45:26.649Z"
     },
     {
       "label": "Nav click: 소개",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/dashboard/about",
-      "timestamp": "2026-07-24T20:19:40.709Z"
+      "timestamp": "2026-07-24T20:45:28.847Z"
     },
     {
       "label": "Nav click: 🎯 추천",
       "status": "PASS",
       "detail": "URL: https://ai-user-pie-war-production.up.railway.app/recommend",
-      "timestamp": "2026-07-24T20:19:46.384Z"
+      "timestamp": "2026-07-24T20:45:34.587Z"
     },
     {
-      "label": "Survey: Complete 6-question flow",
-      "status": "PASS",
-      "detail": "All steps completed",
-      "timestamp": "2026-07-24T20:20:00.732Z"
-    },
-    {
-      "label": "Survey: Result page renders",
-      "status": "PASS",
-      "detail": "h1 found",
-      "timestamp": "2026-07-24T20:20:00.732Z"
-    },
-    {
-      "label": "Survey: Result has Korean content",
-      "status": "PASS",
-      "detail": "Korean text found",
-      "timestamp": "2026-07-24T20:20:00.732Z"
+      "label": "Survey: Flow error",
+      "status": "FAIL",
+      "detail": "page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"추천 받기\"",
+      "timestamp": "2026-07-24T20:46:15.866Z"
     },
     {
       "label": "Evidence icons: Count",
       "status": "PASS",
       "detail": "2 icons found",
-      "timestamp": "2026-07-24T20:20:05.190Z"
+      "timestamp": "2026-07-24T20:46:20.126Z"
     },
     {
       "label": "Evidence tooltip: Hover shows content",
       "status": "FAIL",
       "detail": "No tooltip visible",
-      "timestamp": "2026-07-24T20:20:07.001Z"
+      "timestamp": "2026-07-24T20:46:21.920Z"
     },
     {
       "label": "Evidence tooltip: Korean content",
       "status": "FAIL",
       "detail": "No Korean in tooltip",
-      "timestamp": "2026-07-24T20:20:07.002Z"
+      "timestamp": "2026-07-24T20:46:21.923Z"
     },
     {
       "label": "Evidence icons: /dashboard/platforms",
       "status": "PASS",
       "detail": "1 icons",
-      "timestamp": "2026-07-24T20:20:10.529Z"
+      "timestamp": "2026-07-24T20:46:25.410Z"
     },
     {
       "label": "Evidence icons: /dashboard/insights",
       "status": "PASS",
       "detail": "1 icons",
-      "timestamp": "2026-07-24T20:20:13.998Z"
+      "timestamp": "2026-07-24T20:46:28.884Z"
     },
     {
       "label": "Evidence icons: /dashboard/onboarding",
       "status": "FAIL",
       "detail": "0 icons",
-      "timestamp": "2026-07-24T20:20:17.570Z"
+      "timestamp": "2026-07-24T20:46:32.379Z"
     },
     {
       "label": "Korean: h1 has Korean",
       "status": "PASS",
       "detail": "\"2026 AI 유저 파이 전쟁\"",
-      "timestamp": "2026-07-24T20:20:21.612Z"
+      "timestamp": "2026-07-24T20:46:36.431Z"
     },
     {
       "label": "Korean: Nav has Korean",
       "status": "PASS",
       "detail": "Yes",
-      "timestamp": "2026-07-24T20:20:21.612Z"
+      "timestamp": "2026-07-24T20:46:36.431Z"
     },
     {
       "label": "Korean: No mojibake",
       "status": "PASS",
       "detail": "Clean rendering",
-      "timestamp": "2026-07-24T20:20:21.612Z"
+      "timestamp": "2026-07-24T20:46:36.431Z"
     },
     {
       "label": "Korean: Char count > 100",
       "status": "PASS",
-      "detail": "533 Korean characters",
-      "timestamp": "2026-07-24T20:20:21.612Z"
+      "detail": "537 Korean characters",
+      "timestamp": "2026-07-24T20:46:36.431Z"
     },
     {
       "label": "Korean: News page content",
       "status": "PASS",
       "detail": "543 Korean chars — \"🤖 AI 유저 파이 전쟁2026 AI 업계 퍼포먼스 마케팅 인텔리전스🎯 추천대시보드뉴스플랫폼 비교인사이트온보딩소개Open menu⚠️ 이 데\"",
-      "timestamp": "2026-07-24T20:20:25.675Z"
+      "timestamp": "2026-07-24T20:46:40.532Z"
     },
     {
       "label": "Dialog: OpenAI",
       "status": "PASS",
       "detail": "Dialog opened & screenshot taken",
-      "timestamp": "2026-07-24T20:20:32.268Z"
+      "timestamp": "2026-07-24T20:46:47.109Z"
     },
     {
       "label": "Dialog: Anthropic",
       "status": "PASS",
       "detail": "Dialog opened & screenshot taken",
-      "timestamp": "2026-07-24T20:20:34.565Z"
+      "timestamp": "2026-07-24T20:46:49.403Z"
     },
     {
       "label": "Dialog: DeepSeek",
       "status": "PASS",
       "detail": "Dialog opened & screenshot taken",
-      "timestamp": "2026-07-24T20:20:36.866Z"
+      "timestamp": "2026-07-24T20:46:51.702Z"
     },
     {
       "label": "Dialog: Google",
       "status": "PASS",
       "detail": "Dialog opened & screenshot taken",
-      "timestamp": "2026-07-24T20:20:39.157Z"
+      "timestamp": "2026-07-24T20:46:54.003Z"
     },
     {
       "label": "Dialog: Summary",
       "status": "PASS",
       "detail": "4/4 company dialogs opened",
-      "timestamp": "2026-07-24T20:20:39.157Z"
+      "timestamp": "2026-07-24T20:46:54.003Z"
     },
     {
       "label": "Responsive: Landing no h-overflow",
       "status": "PASS",
       "detail": "doc=375px, win=375px, body=375px",
-      "timestamp": "2026-07-24T20:20:42.529Z"
+      "timestamp": "2026-07-24T20:46:57.384Z"
     },
     {
       "label": "Responsive: Recommend no h-overflow",
       "status": "PASS",
       "detail": "doc=375px, win=375px, body=375px",
-      "timestamp": "2026-07-24T20:20:45.214Z"
+      "timestamp": "2026-07-24T20:47:00.064Z"
     },
     {
       "label": "Responsive: Dashboard no h-overflow",
-      "status": "FAIL",
-      "detail": "doc=471px, win=375px, body=471px",
-      "timestamp": "2026-07-24T20:20:47.949Z"
+      "status": "PASS",
+      "detail": "doc=375px, win=375px, body=375px",
+      "timestamp": "2026-07-24T20:47:02.817Z"
     },
     {
       "label": "Responsive: News no h-overflow",
       "status": "PASS",
       "detail": "doc=375px, win=375px, body=375px",
-      "timestamp": "2026-07-24T20:20:50.776Z"
+      "timestamp": "2026-07-24T20:47:05.640Z"
     },
     {
       "label": "Responsive: Platforms no h-overflow",
       "status": "PASS",
       "detail": "doc=375px, win=375px, body=375px",
-      "timestamp": "2026-07-24T20:20:53.735Z"
+      "timestamp": "2026-07-24T20:47:08.422Z"
     },
     {
       "label": "Responsive: Hamburger menu opens",
       "status": "PASS",
       "detail": "Sheet opened",
-      "timestamp": "2026-07-24T20:20:57.594Z"
+      "timestamp": "2026-07-24T20:47:12.262Z"
     },
     {
       "label": "A11y: h1 text contrast",
       "status": "PASS",
       "detail": "Meets WCAG AA (4.5:1)",
-      "timestamp": "2026-07-24T20:21:01.698Z"
+      "timestamp": "2026-07-24T20:47:16.351Z"
     },
     {
       "label": "A11y: Image alt text",
       "status": "PASS",
       "detail": "No img elements to check",
-      "timestamp": "2026-07-24T20:21:01.699Z"
+      "timestamp": "2026-07-24T20:47:16.352Z"
     },
     {
       "label": "A11y: Semantic structure",
       "status": "PASS",
       "detail": "nav=true, main=true, header=true, roles=11",
-      "timestamp": "2026-07-24T20:21:01.700Z"
+      "timestamp": "2026-07-24T20:47:16.353Z"
     }
   ],
-  "passed": 39,
+  "passed": 37,
   "failed": 4,
-  "startTime": "2026-07-24T20:19:04.724Z",
-  "endTime": "2026-07-24T20:21:01.746Z",
-  "totalTests": 43,
+  "startTime": "2026-07-24T20:44:52.311Z",
+  "endTime": "2026-07-24T20:47:16.396Z",
+  "totalTests": 41,
   "screenshotsDir": "C:\\Users\\jy\\ai-user-pie-war\\playwright-results\\qa\\screenshots"
 }
