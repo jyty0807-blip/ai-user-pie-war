@@ -101,6 +101,16 @@ const ranges = [
 export function Trends() {
   const [range, setRange] = useState(6);
   const data = trendData.slice(-range);
+  const marketShareData = data.map((point) => {
+    const total = point.openai + point.anthropic + point.deepseek + point.google;
+    return {
+      month: point.month,
+      openai: Math.round((point.openai / total) * 100),
+      anthropic: Math.round((point.anthropic / total) * 100),
+      deepseek: Math.round((point.deepseek / total) * 100),
+      google: Math.round((point.google / total) * 100),
+    };
+  });
 
   return (
     <div className="space-y-8">
@@ -124,13 +134,13 @@ export function Trends() {
       </div>
 
       {/* Summary banner */}
-      <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-4 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
-        <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
+      <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-4 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
+        <p className="text-xs font-semibold text-amber-800 dark:text-amber-200">
           💡 핵심 인사이트
         </p>
         <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
-          <li>2026년 2월 OpenAI의 광고 도입은 업계 분수령</li>
-          <li>ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈</li>
+          <li>2026년 2월 OpenAI 광고 도입으로 유저 이탈 가속화 — 6개월간 800M→580M, 27.5% 감소</li>
+          <li>Anthropic은 무광고 전략으로 20M→120M 폭발적 성장, 유저 충성도 압도적 1위</li>
         </ul>
       </div>
 
@@ -138,23 +148,21 @@ export function Trends() {
       <div className="rounded-xl border border-border bg-card p-4">
         <ResponsiveContainer width="100%" height={350}>
           <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="oklch(1 0 0 / 10%)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis
               dataKey="month"
-              stroke="oklch(0.708 0 0)"
-              tick={{ fill: "oklch(0.708 0 0)", fontSize: 12 }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
             />
             <YAxis
-              stroke="oklch(0.708 0 0)"
-              tick={{ fill: "oklch(0.708 0 0)", fontSize: 12 }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
               tickFormatter={(v: number) => `${v}M`}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "oklch(0.205 0 0)",
-                border: "1px solid oklch(1 0 0 / 10%)",
+                backgroundColor: "var(--card)",
+                border: "1px solid var(--border)",
                 borderRadius: "8px",
-                color: "oklch(0.985 0 0)",
+                color: "var(--card-foreground)",
                 fontSize: "13px",
               }}
             />
@@ -177,42 +185,40 @@ export function Trends() {
       </div>
 
       {/* 한줄요약 인사이트 */}
-      <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-4 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
-        <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
+      <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-4 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
+        <p className="text-xs font-semibold text-amber-800 dark:text-amber-200">
           💡 한줄 요약
         </p>
         <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
-          <li>2026년 2월 OpenAI 광고 도입 = 업계 분수령</li>
-          <li>앱 삭제 295% 급증, 700K+ 유저 Claude로 이탈</li>
-          <li>Anthropic 무광고 전략의 승리</li>
+          <li>OpenAI: 800M→580M, 유저 이탈 지속 — 광고 도입이 역효과</li>
+          <li>Anthropic: 20M→120M, 6배 성장 — 유저 신뢰가 최고의 획득 채널</li>
+          <li>DeepSeek &amp; Google: 각각 80M/200M, 가격과 생태계로 유저 확보</li>
         </ul>
       </div>
 
-      {/* Monthly Ad Spend Bar Chart */}
+      {/* Market Share Bar Chart */}
       <div>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Est. 월간 광고비 추이 (백만$)
+          4사 유저 점유율 추이 (%)
         </h2>
         <div className="rounded-xl border border-border bg-card p-4">
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="oklch(1 0 0 / 10%)" />
+            <BarChart data={marketShareData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
               <XAxis
                 dataKey="month"
-                stroke="oklch(0.708 0 0)"
-                tick={{ fill: "oklch(0.708 0 0)", fontSize: 12 }}
+                tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
               />
               <YAxis
-                stroke="oklch(0.708 0 0)"
-                tick={{ fill: "oklch(0.708 0 0)", fontSize: 12 }}
-                tickFormatter={(v: number) => `$${v}M`}
+                tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                tickFormatter={(v: number) => `${v}%`}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "oklch(0.205 0 0)",
-                  border: "1px solid oklch(1 0 0 / 10%)",
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
                   borderRadius: "8px",
-                  color: "oklch(0.985 0 0)",
+                  color: "var(--card-foreground)",
                   fontSize: "13px",
                 }}
               />
@@ -225,13 +231,13 @@ export function Trends() {
               {/* Reference line for QuitGPT peak */}
               <ReferenceLine
                 x="Mar 2026"
-                stroke="oklch(0.704 0.191 22.216)"
+                stroke="var(--destructive)"
                 strokeDasharray="6 3"
               >
                 <Label
                   value="QuitGPT 이탈 정점"
                   position="insideTopRight"
-                  fill="oklch(0.704 0.191 22.216)"
+                  fill="var(--destructive)"
                   fontSize={11}
                 />
               </ReferenceLine>

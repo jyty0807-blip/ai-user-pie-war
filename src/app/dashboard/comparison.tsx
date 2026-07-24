@@ -85,11 +85,11 @@ const comparisonData: CompanyRow[] = [
 type SortKey = keyof CompanyRow;
 
 const numericSortKeys: SortKey[] = [
-  "estimatedAdSpend",
   "mau",
+  "marketShare",
   "convRate",
   "cac",
-  "marketShare",
+  "estimatedAdSpend",
 ];
 
 function parseNumeric(val: string): number {
@@ -100,11 +100,11 @@ function parseNumeric(val: string): number {
 
 const columnDefs: { key: SortKey; label: string }[] = [
   { key: "name", label: "기업" },
-  { key: "estimatedAdSpend", label: "광고비" },
   { key: "mau", label: "활성 유저" },
+  { key: "marketShare", label: "시장점유율" },
   { key: "convRate", label: "전환율" },
   { key: "cac", label: "고객 획득비용" },
-  { key: "marketShare", label: "시장점유율" },
+  { key: "estimatedAdSpend", label: "광고비" },
 ];
 
 export function Comparison() {
@@ -138,15 +138,15 @@ export function Comparison() {
       </h2>
 
       {/* 한눈에 비교 인사이트 */}
-      <div className="rounded-lg border border-blue-200 border-l-4 border-l-blue-400 bg-blue-50 p-5 dark:border-blue-800 dark:border-l-blue-400 dark:bg-blue-950/30 mb-6">
-        <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+      <div className="rounded-lg border border-blue-300/50 bg-blue-50/80 p-5 shadow-sm dark:border-blue-800/50 dark:bg-blue-950/20 mb-6">
+        <p className="text-sm font-semibold text-blue-800 dark:text-blue-200">
           💡 한눈에 비교
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-blue-700 dark:text-blue-300">
-          <li><strong>OpenAI:</strong> 광고비 2억달러, 전환율 6.2% — 가장 많이 쓰지만 효율은 꼴찌</li>
-          <li><strong>Anthropic:</strong> 광고비 1/4 수준, 전환율 46% — 효율 1위의 비결은 &apos;신뢰&apos;</li>
-          <li><strong>DeepSeek:</strong> CAC $8로 가장 싸게 유저 획득</li>
-          <li><strong>Google:</strong> 5억달러+ 광고비, 안드로이드+검색 배포망이 핵심 경쟁력</li>
+          <li><strong>OpenAI:</strong> 유저 800M로 압도적 1위지만, 전년비 -25% 감소 중 — 광고 도입 후 이탈 가속화</li>
+          <li><strong>Anthropic:</strong> 120M으로 3위지만 성장률 +600% & 전환율 46% — 유저 질(quality) 1위</li>
+          <li><strong>DeepSeek:</strong> 80M 유저, CAC $8로 가장 효율적 — 가격이 유저 획득의 무기</li>
+          <li><strong>Google:</strong> 200M 유저, 안드로이드 번들이라는 독보적 배포망 보유</li>
         </ul>
       </div>
       <div className="rounded-xl border border-border">
@@ -188,11 +188,11 @@ export function Comparison() {
                     {row.name}
                   </span>
                 </TableCell>
-                <TableCell>${row.estimatedAdSpend}</TableCell>
                 <TableCell>{row.mau}</TableCell>
+                <TableCell>{row.marketShare}</TableCell>
                 <TableCell>{row.convRate}</TableCell>
                 <TableCell>{row.cac}</TableCell>
-                <TableCell>{row.marketShare}</TableCell>
+                <TableCell>${row.estimatedAdSpend}</TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {row.channels.map((ch) => (

@@ -193,23 +193,15 @@ export default function NewsPage() {
       </div>
 
       {/* SECTION 1: 종합 의견 (Summary + Accordion Links) */}
-      <div className="mb-6 rounded-lg border border-sky-200 border-l-4 border-l-sky-400 bg-sky-50 p-5 dark:border-sky-800 dark:border-l-sky-400 dark:bg-sky-950/30">
-        <p className="text-sm font-medium text-sky-800 dark:text-sky-200">
+      <div className="mb-6 rounded-lg border border-sky-300/50 bg-sky-50/80 p-5 shadow-sm dark:border-sky-800/50 dark:bg-sky-950/20">
+        <p className="text-sm font-semibold text-sky-800 dark:text-sky-200">
           📰 이번 주 AI 업계 종합
         </p>
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-sky-700 dark:text-sky-300">
-          <li>
-            <strong>가격 전쟁 격화:</strong> GPT-5.6 Luna ($1/$6) vs Sonnet 5 프로모션 ($2/$10) — 중간 티어 가격 인하 경쟁 본격화
-          </li>
-          <li>
-            <strong>광고 시장 확대:</strong> ChatGPT Ads 전환 추적 도입으로 퍼포먼스 마케터 유입 — AI 플랫폼이 새 광고 채널로 부상
-          </li>
-          <li>
-            <strong>생태계 경쟁:</strong> MCP 97M+ 설치 vs OpenAI Codex 독자 노선 — 개발자 도구 시장 지형 변화 중
-          </li>
-          <li>
-            <strong>규제 리스크:</strong> DeepSeek 화웨이 칩 전환 — 미-중 AI 반도체 갈등의 직접적 영향
-          </li>
+          <li><strong>유저 파이 재편:</strong> OpenAI 800M→580M, Anthropic 20M→120M — 6개월 만에 6배 격차 해소</li>
+          <li><strong>가격이 유저를 움직인다:</strong> DeepSeek V4 Flash $0.28/MTok으로 가격 민감 유저 흡수, 80M까지 성장</li>
+          <li><strong>생태계 락인:</strong> Google 200M 유저는 안드로이드 기본 탑재 효과 — AI가 번들의 일부가 되어야 한다</li>
+          <li><strong>신뢰 프리미엄:</strong> 광고 없는 Claude의 유료 전환율 46% — 유저는 데이터 프라이버시에 돈을 낸다</li>
         </ul>
 
         {/* Accordion Links — collapsible */}

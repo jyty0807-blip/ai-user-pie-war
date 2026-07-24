@@ -16,6 +16,8 @@ interface CompanyKpi {
   logo: string;
   estimatedAdSpend: string;
   mau: string;
+  yoyGrowth: string;
+  yoyColor: string;
   convRate: string;
   cac: string;
   marketShare: string;
@@ -30,6 +32,8 @@ const mockKPIs: CompanyKpi[] = [
     logo: "🧠",
     estimatedAdSpend: "200M",
     mau: "800M",
+    yoyGrowth: "전년비 -25%",
+    yoyColor: "#EF4444",
     convRate: "6.2%",
     cac: "$45",
     marketShare: "45%",
@@ -42,6 +46,8 @@ const mockKPIs: CompanyKpi[] = [
     logo: "🔬",
     estimatedAdSpend: "45M",
     mau: "120M",
+    yoyGrowth: "전년비 +600%",
+    yoyColor: "#22C55E",
     convRate: "46%",
     cac: "$28",
     marketShare: "18%",
@@ -54,6 +60,8 @@ const mockKPIs: CompanyKpi[] = [
     logo: "🐋",
     estimatedAdSpend: "12M",
     mau: "80M",
+    yoyGrowth: "전년비 +700%",
+    yoyColor: "#22C55E",
     convRate: "8%",
     cac: "$8",
     marketShare: "7%",
@@ -66,6 +74,8 @@ const mockKPIs: CompanyKpi[] = [
     logo: "🔍",
     estimatedAdSpend: "500M+",
     mau: "200M",
+    yoyGrowth: "전년비 +300%",
+    yoyColor: "#22C55E",
     convRate: "15%",
     cac: "$12",
     marketShare: "15%",
@@ -87,40 +97,50 @@ function KpiCard({ company }: { company: CompanyKpi }) {
   return (
     <Card
       className={cn(
-        "relative overflow-hidden border-l-[3px]",
-        "hover:shadow-md transition-shadow duration-200"
+        "relative overflow-hidden",
+        "hover:shadow-lg transition-shadow duration-200"
       )}
-      style={{ borderLeftColor: company.color }}
     >
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
+      {/* Brand color accent bar */}
+      <div
+        className="absolute inset-x-0 top-0 h-0.5"
+        style={{ backgroundColor: company.color }}
+      />
+      <CardHeader className="pb-1">
+        <div className="flex items-center gap-2.5">
           <span className="text-xl" aria-hidden="true">
             {company.logo}
           </span>
           <CardTitle className="text-sm font-semibold">{company.name}</CardTitle>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
-        {/* Primary metric */}
+      <CardContent className="space-y-3.5">
+        {/* Primary metric — MAU */}
         <div>
-          <p className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
-            월간 광고비 (추정)
+          <p className="text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
+            월간 활성 유저 (WAU)
           </p>
-          <p className="text-lg font-bold text-foreground">
-            ${company.estimatedAdSpend}
+          <p className="mt-1 text-lg font-bold tabular-nums text-foreground">
+            {company.mau}
+          </p>
+          <p
+            className="mt-0.5 text-xs font-semibold"
+            style={{ color: company.yoyColor }}
+          >
+            {company.yoyGrowth}
           </p>
         </div>
 
         {/* Secondary metrics grid */}
-        <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
-          <Metric label="월간 활성 유저" value={company.mau} />
+        <div className="grid grid-cols-2 gap-x-3 gap-y-2">
           <Metric label="유료 전환율" value={company.convRate} />
-          <Metric label="고객 획득 비용" value={company.cac} />
           <Metric label="시장 점유율" value={company.marketShare} />
+          <Metric label="월간 광고비 (추정)" value={`$${company.estimatedAdSpend}`} />
+          <Metric label="고객 획득 비용" value={company.cac} />
         </div>
 
         {/* Channels */}
-        <div className="flex flex-wrap gap-1 pt-1">
+        <div className="flex flex-wrap gap-1.5 pt-0.5">
           {company.channels.map((ch) => (
             <Badge key={ch} variant="outline">
               {ch}
@@ -135,8 +155,8 @@ function KpiCard({ company }: { company: CompanyKpi }) {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-[0.65rem] text-muted-foreground">{label}</p>
-      <p className="text-sm font-medium text-foreground">{value}</p>
+      <p className="text-[0.65rem] font-medium text-muted-foreground">{label}</p>
+      <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">{value}</p>
     </div>
   );
 }

@@ -83,8 +83,8 @@ export function Timeline() {
       </h2>
 
       {/* 이야기 요약 */}
-      <div className="rounded-lg border border-purple-200 border-l-4 border-l-purple-400 bg-purple-50 p-5 dark:border-purple-800 dark:border-l-purple-400 dark:bg-purple-950/30 mb-6">
-        <p className="text-sm font-medium text-purple-800 dark:text-purple-200">
+      <div className="rounded-lg border border-purple-300/50 bg-purple-50/80 p-5 shadow-sm dark:border-purple-800/50 dark:bg-purple-950/20 mb-6">
+        <p className="text-sm font-semibold text-purple-800 dark:text-purple-200">
           📖 이야기 요약
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-purple-700 dark:text-purple-300">
@@ -97,23 +97,22 @@ export function Timeline() {
 
       {/* Vertical timeline */}
       <div className="relative">
-        {/* Center line */}
-        <div className="absolute left-4 top-0 h-full w-px bg-border md:left-1/2 md:-translate-x-px" />
+        {/* Center line — hidden on mobile, visible on md+ */}
+        <div className="absolute left-4 top-0 hidden h-full w-px bg-border md:left-1/2 md:block md:-translate-x-px" />
 
-        <div className="space-y-0">
+        <div className="space-y-8">
           {events.map((event, idx) => {
             const isLeft = idx % 2 === 0;
             return (
               <div
                 key={`${event.date}-${event.title}`}
                 className={cn(
-                  "relative flex items-start pb-10",
-                  "md:flex-row",
+                  "relative flex items-start md:flex-row",
                   isLeft ? "md:flex-row" : "md:flex-row-reverse"
                 )}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-border bg-card md:left-1/2">
+                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-border bg-card shadow-sm md:left-1/2">
                   <span className="text-sm" aria-hidden="true">
                     {event.icon}
                   </span>
@@ -122,25 +121,25 @@ export function Timeline() {
                 {/* Card */}
                 <div
                   className={cn(
-                    "ml-12 w-full rounded-xl border border-border bg-card p-4 md:w-[calc(50%-2rem)]",
+                    "ml-12 w-full rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md md:w-[calc(50%-2rem)]",
                     isLeft ? "md:mr-auto md:ml-0" : "md:ml-auto"
                   )}
                 >
-                  {/* Date badge */}
-                  <div className="mb-2 inline-flex items-center rounded-md bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-                    {event.date}
+                  {/* Header row: date + type badge */}
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center rounded-md bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                      {event.date}
+                    </div>
+                    <Badge
+                      variant="outline"
+                      className={cn(typeStyles[event.type])}
+                    >
+                      {typeLabels[event.type]}
+                    </Badge>
                   </div>
 
-                  {/* Event type badge */}
-                  <Badge
-                    variant="outline"
-                    className={cn("mb-2 ml-2", typeStyles[event.type])}
-                  >
-                    {typeLabels[event.type]}
-                  </Badge>
-
                   {/* Title */}
-                  <h3 className="mt-1 text-base font-semibold text-foreground">
+                  <h3 className="text-base font-semibold text-foreground">
                     {event.title}
                   </h3>
 
@@ -158,8 +157,8 @@ export function Timeline() {
       <Separator className="my-8" />
 
       {/* Key insight callout */}
-      <div className="rounded-xl border border-amber-500/20 border-l-4 border-l-amber-400 bg-amber-500/5 p-6">
-        <h3 className="text-sm font-semibold text-amber-400">
+      <div className="rounded-xl border border-amber-300/50 bg-amber-50/80 p-6 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
+        <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">
           🔑 마케팅 인사이트
         </h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted-foreground">

@@ -159,15 +159,15 @@ export function Pricing() {
   return (
     <div className="space-y-8">
       {/* 가격 전쟁 핵심 인사이트 */}
-      <div className="rounded-lg border border-green-200 border-l-4 border-l-green-400 bg-green-50 p-5 dark:border-green-800 dark:border-l-green-400 dark:bg-green-950/30 mb-6">
-        <p className="text-sm font-medium text-green-800 dark:text-green-200">
+      <div className="rounded-lg border border-green-300/50 bg-green-50/80 p-5 shadow-sm dark:border-green-800/50 dark:bg-green-950/20 mb-6">
+        <p className="text-sm font-semibold text-green-800 dark:text-green-200">
           💰 가격 전쟁 핵심
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-green-700 dark:text-green-300">
-          <li><strong>DeepSeek V4 Flash</strong> $0.28/MTok vs <strong>Claude Fable 5</strong> $50/MTok — 178배 차이</li>
-          <li>비싼 모델이 항상 좋은 건 아님 — <strong>작업에 맞는 모델 선택</strong>이 진짜 효율</li>
-          <li>Sonnet 5 프로모션($2/$10)은 <strong>8월 31일까지</strong> — 이후 $3/$15로 인상</li>
-          <li>AI 가격 전쟁은 <strong>이제 막 시작</strong>, 2026년 하반기 더 격화 전망</li>
+          <li><strong>DeepSeek V4 Flash</strong> $0.28/MTok vs <strong>Claude Fable 5</strong> $50/MTok — 178배 차이가 유저 획득 전략 차이로 이어짐</li>
+          <li>저가 모델 = <strong>볼륨 유저 유치</strong>, 고가 모델 = <strong>충성 유저 확보</strong> — 가격 전략이 유저 세그먼트를 결정</li>
+          <li><strong>Sonnet 5 프로모션($2/$10)</strong>은 유료 전환율 46%의 Anthropic이 더 많은 유저를 파이프라인 상단으로 끌어들이기 위한 전략</li>
+          <li>AI 가격 전쟁의 승자는 <strong>가장 싼 모델이 아니라, 가장 많은 유저를 유치한 모델</strong></li>
         </ul>
       </div>
 
@@ -264,26 +264,24 @@ export function Pricing() {
               layout="vertical"
               margin={{ top: 5, right: 30, left: 120, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="oklch(1 0 0 / 10%)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
               <XAxis
                 type="number"
-                stroke="oklch(0.708 0 0)"
-                tick={{ fill: "oklch(0.708 0 0)", fontSize: 11 }}
+                tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
                 tickFormatter={(v: number) => `$${v}`}
               />
               <YAxis
                 type="category"
                 dataKey="name"
-                stroke="oklch(0.708 0 0)"
-                tick={{ fill: "oklch(0.708 0 0)", fontSize: 11 }}
+                tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
                 width={110}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "oklch(0.205 0 0)",
-                  border: "1px solid oklch(1 0 0 / 10%)",
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
                   borderRadius: "8px",
-                  color: "oklch(0.985 0 0)",
+                  color: "var(--card-foreground)",
                   fontSize: "13px",
                 }}
               />

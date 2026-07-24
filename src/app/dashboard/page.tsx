@@ -7,6 +7,7 @@ import { Trends } from "./trends";
 import { Comparison } from "./comparison";
 import { Timeline } from "./timeline";
 import { Pricing } from "./pricing";
+import { DialogButton, companyReports } from "./company-report";
 
 export default function DashboardPage() {
   const [tab, setTab] = useState("kpi");
@@ -23,6 +24,22 @@ export default function DashboardPage() {
         </p>
       </div>
 
+      {/* Company quick-report buttons */}
+      <div className="mb-6 flex flex-wrap gap-3">
+        {[
+          { slug: "openai", name: "OpenAI", logo: "🧠", color: "#10A37F" },
+          { slug: "anthropic", name: "Anthropic", logo: "🔬", color: "#D97757" },
+          { slug: "deepseek", name: "DeepSeek", logo: "🐋", color: "#4F46E5" },
+          { slug: "google-ai", name: "Google", logo: "🔍", color: "#4285F4" },
+        ].map((company) => (
+          <DialogButton
+            key={company.slug}
+            company={company}
+            report={companyReports[company.slug]}
+          />
+        ))}
+      </div>
+
       {/* Tab navigation */}
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="mb-8">
@@ -36,15 +53,15 @@ export default function DashboardPage() {
         <TabsContent value="kpi">
           <div className="space-y-8">
             {/* 한줄요약 인사이트 */}
-            <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-5 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
-              <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+            <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-5 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
+              <p className="text-sm font-semibold text-amber-800 dark:text-amber-200">
                 💡 한줄 요약
               </p>
               <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-amber-700 dark:text-amber-300">
-                <li><strong>OpenAI</strong> — 광고 도입 후 MAU 600M→450M, 25% 하락</li>
-                <li><strong>Anthropic</strong> — &apos;무광고&apos; 전략으로 20M→120M, 6배 성장</li>
-                <li><strong>DeepSeek</strong> — $0.28/MTok 극저가로 가격 전쟁 주도</li>
-                <li><strong>&quot;신뢰&quot; vs &quot;광고&quot;</strong> — AI 시장의 승부처가 모델 성능에서 유저 획득 전략으로 이동</li>
+                <li><strong>OpenAI</strong> — 800M WAU 유지중 but 광고 도입 후 25% 이탈 가속화, 유료 전환율 6.2%로 최저</li>
+                <li><strong>Anthropic</strong> — 120M WAU, 무광고 전략으로 600% 폭발적 성장, 전환율 46% 업계 1위</li>
+                <li><strong>DeepSeek</strong> — 80M WAU, $0.28/MTok 극저가로 가격 민감층 흡수 중</li>
+                <li><strong>Google</strong> — 200M WAU, 안드로이드 20억 기기 번들이 핵심 유저 획득 채널</li>
               </ul>
             </div>
             <KpiCards />
@@ -67,13 +84,13 @@ export default function DashboardPage() {
         <TabsContent value="trends">
           <div className="space-y-6">
             {/* Executive Summary */}
-            <div className="rounded-lg border border-violet-200 border-l-4 border-l-violet-400 bg-violet-50 p-5 dark:border-violet-800 dark:border-l-violet-400 dark:bg-violet-950/30">
-              <p className="text-sm font-medium text-violet-800 dark:text-violet-200">📊 AI 시장 트렌드 요약</p>
+            <div className="rounded-lg border border-violet-300/50 bg-violet-50/80 p-5 shadow-sm dark:border-violet-800/50 dark:bg-violet-950/20">
+              <p className="text-sm font-semibold text-violet-800 dark:text-violet-200">📊 AI 시장 트렌드 요약</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-violet-700 dark:text-violet-300">
-                <li><strong>시장 규모:</strong> 2026년 AI 산업 전체 광고비 지출은 전년비 800% 증가, 경쟁이 과열되면서 CAC(고객획득비용) 3배 상승</li>
-                <li><strong>Platform Shift:</strong> Google AI Mode ($60 CPM), Meta (20-30 CPM), ChatGPT Ads ($200K 최소 커밋) — 광고 채널 다양화로 예산 분산</li>
-                <li><strong>79%의 유료 사용자가 여러 AI 구독 동시 사용</strong> — 충성도가 아닌 멀티호밍이 지배적 패턴. 전환율이 아닌 유지율이 새로운 핵심 지표</li>
-                <li><strong>신뢰 프리미엄:</strong> 광고 없는 AI에 유저는 최대 3배 더 높은 가격을 지불할 의향 (Anthropic 사례). 윤리적 포지셔닝이 실제 비즈니스 가치로 전환되는 중</li>
+                <li><strong>800M vs 120M:</strong> OpenAI가 아직 유저 볼륨 1위지만, 성장률은 Anthropic이 600%로 압도</li>
+                <li><strong>멀티호밍 79%:</strong> 대부분 유저가 2개 이상 AI 서비스 동시 사용 — 전환율이 아닌 유지율이 진짜 승부</li>
+                <li><strong>QuitGPT 효과:</strong> 광고 도입 후 700K+ 유저 이탈, AI 업계 최초의 &apos;윤리적 소비&apos; 운동</li>
+                <li><strong>유저 파이 전쟁의 교훈:</strong> &apos;더 많은 유저&apos;보다 &apos;더 충성도 높은 유저&apos;가 장기적 가치</li>
               </ul>
             </div>
 
@@ -113,8 +130,8 @@ export default function DashboardPage() {
             </div>
 
             {/* Prediction Card */}
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/30">
-              <p className="text-sm font-medium text-amber-800 dark:text-amber-200">🔮 2026년 하반기 전망</p>
+            <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-5 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
+              <p className="text-sm font-semibold text-amber-800 dark:text-amber-200">🔮 2026년 하반기 전망</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-amber-700 dark:text-amber-300">
                 <li><strong>OpenAI:</strong> 광고 수익이 구독 수익을 추월 — 기업가치 재평가 불가피</li>
                 <li><strong>Anthropic:</strong> IPO 후 자금력으로 공격적 UA 확장 — Google 광고 집행 본격화 예상</li>
