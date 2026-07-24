@@ -156,13 +156,13 @@ type CategoryStyle = {
 };
 
 const categoryStyles: Record<string, CategoryStyle> = {
-  product: { label: "Product", className: "bg-[#10A37F]/10 text-[#10A37F]" },
-  pricing: { label: "Pricing", className: "bg-yellow-500/10 text-yellow-500" },
+  product: { label: "제품", className: "bg-[#10A37F]/10 text-[#10A37F]" },
+  pricing: { label: "가격", className: "bg-yellow-500/10 text-yellow-500" },
   business: {
-    label: "Business",
+    label: "비즈니스",
     className: "bg-[#8B5CF6]/10 text-[#8B5CF6]",
   },
-  update: { label: "Update", className: "bg-amber-500/10 text-amber-500" },
+  update: { label: "업데이트", className: "bg-amber-500/10 text-amber-500" },
 };
 
 function formatRelativeDate(dateStr: string): string {
@@ -187,23 +187,31 @@ export default function NewsPage() {
       {/* Header */}
       <div>
         <h1 className="font-heading text-2xl font-semibold tracking-tight">
-          AI Industry News &amp; Updates
+          AI 업계 뉴스 · 업데이트
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Real-time feeds from official company sources — snippets only, no
-          full-text reprints. 저작권 안전.
+          각사 공식 블로그에서 수집한 최신 소식 (전문 링크, snippet만 표시)
         </p>
       </div>
 
       <Separator />
+
+      {/* 한줄요약 */}
+      <div className="rounded-lg border border-sky-200 bg-sky-50 p-4 dark:border-sky-800 dark:bg-sky-950/30 mb-6">
+        <p className="text-sm font-medium text-sky-800 dark:text-sky-200">📰 요즘 AI 업계 소식</p>
+        <p className="mt-1 text-sm text-sky-700 dark:text-sky-300">
+          OpenAI는 GPT-5.6 Luna($1/$6)로 가격 장벽을 낮추고, Anthropic은 IPO를 준비하며 가치 $965B 인정.
+          DeepSeek은 1/8 가격으로 서방을 압박하고, Google은 20억 안드로이드 기기에 AI를 심고 있습니다.
+          각 사의 공식 발표만 모았습니다. (자세한 내용은 원문 링크 참조)
+        </p>
+      </div>
 
       {/* Source notice */}
       <Card size="sm">
         <CardContent className="flex items-center gap-2 py-3">
           <Info className="size-4 shrink-0 text-muted-foreground" />
           <p className="text-xs text-muted-foreground">
-            Sources: Official company blogs. Snippets only. Full articles at
-            source.
+            📌 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
           </p>
         </CardContent>
       </Card>
@@ -254,7 +262,7 @@ export default function NewsPage() {
                   </CardHeader>
                   <CardContent>
                     <Badge variant="secondary" className="text-[10px]">
-                      {item.source}
+                      출처: {item.source}
                     </Badge>
                   </CardContent>
                 </Card>

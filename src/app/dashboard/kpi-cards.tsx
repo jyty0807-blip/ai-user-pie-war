@@ -104,7 +104,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
         {/* Primary metric */}
         <div>
           <p className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
-            Est. Monthly Ad Spend
+            월간 광고비 (추정)
           </p>
           <p className="text-lg font-bold text-foreground">
             ${company.estimatedAdSpend}
@@ -113,10 +113,10 @@ function KpiCard({ company }: { company: CompanyKpi }) {
 
         {/* Secondary metrics grid */}
         <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
-          <Metric label="MAU" value={company.mau} />
-          <Metric label="Conv Rate" value={company.convRate} />
-          <Metric label="Est. CAC" value={company.cac} />
-          <Metric label="Market Share" value={company.marketShare} />
+          <Metric label="월간 활성 유저" value={company.mau} />
+          <Metric label="유료 전환율" value={company.convRate} />
+          <Metric label="고객 획득 비용" value={company.cac} />
+          <Metric label="시장 점유율" value={company.marketShare} />
         </div>
 
         {/* Channels */}

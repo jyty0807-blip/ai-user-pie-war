@@ -15,10 +15,10 @@ import {
 import { MenuIcon } from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "News", href: "/dashboard/news" },
-  { label: "Platforms", href: "/dashboard/platforms" },
-  { label: "About", href: "/dashboard/about" },
+  { label: "대시보드", href: "/dashboard" },
+  { label: "뉴스", href: "/dashboard/news" },
+  { label: "플랫폼 비교", href: "/dashboard/platforms" },
+  { label: "소개", href: "/dashboard/about" },
 ];
 
 export default function DashboardLayout({
@@ -38,11 +38,11 @@ export default function DashboardLayout({
             <div className="flex items-center gap-3">
               <Link href="/dashboard" className="flex items-center gap-2">
                 <span className="text-lg font-semibold tracking-tight text-foreground">
-                  AI User Pie War
+                  🤖 AI 유저 파이 전쟁
                 </span>
               </Link>
               <span className="hidden text-xs text-muted-foreground sm:inline-block">
-                2026 Performance Marketing Intelligence
+                2026 AI 업계 퍼포먼스 마케팅 인텔리전스
               </span>
             </div>
 
@@ -81,7 +81,7 @@ export default function DashboardLayout({
               </SheetTrigger>
               <SheetContent side="right" className="w-64">
                 <SheetHeader>
-                  <SheetTitle>AI User Pie War</SheetTitle>
+                  <SheetTitle>🤖 AI 유저 파이 전쟁</SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col gap-1">
                   {navItems.map((item) => {

@@ -121,15 +121,15 @@ function SentimentBar({ positive, neutral, negative }: SentimentBarProps) {
       <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
         <span className="inline-flex items-center gap-1">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          {positive}% Positive
+          {positive}% 긍정
         </span>
         <span className="inline-flex items-center gap-1">
           <span className="size-1.5 rounded-full bg-amber-400" />
-          {neutral}% Neutral
+          {neutral}% 중립
         </span>
         <span className="inline-flex items-center gap-1">
           <span className="size-1.5 rounded-full bg-red-400" />
-          {negative}% Negative
+          {negative}% 부정
         </span>
       </div>
     </div>
@@ -139,14 +139,23 @@ function SentimentBar({ positive, neutral, negative }: SentimentBarProps) {
 export default function ReviewsPage() {
   return (
     <div className="space-y-8">
+      {/* 한줄요약 */}
+      <div className="rounded-lg border border-pink-200 bg-pink-50 p-4 dark:border-pink-800 dark:bg-pink-950/30 mb-6">
+        <p className="text-sm font-medium text-pink-800 dark:text-pink-200">🗣️ 개발자들의 목소리</p>
+        <p className="mt-1 text-sm text-pink-700 dark:text-pink-300">
+          Claude Code는 &apos;MCP 생태계&apos;로 68% 압도적 긍정, OpenCode는 &apos;멀티에이전트 미래&apos;로 81% 긍정.
+          OpenAI Codex는 GPT-5 품질 편차로 긍정률 45%로 가장 낮습니다.
+          개발자들은 &apos;단일 모델&apos;보다 &apos;오케스트레이션&apos;으로 방향을 잡아가고 있습니다.
+        </p>
+      </div>
+
       {/* Header */}
       <div>
         <h2 className="font-heading text-xl font-semibold tracking-tight">
-          Community Sentiment — Developer Buzz (Q3 2026)
+          Community Sentiment — 개발자 커뮤니티 반응 (2026년 3분기)
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Sourced from Reddit, Hacker News, X/Twitter. Aggregated sentiment
-          analysis.
+          Reddit · Hacker News · X/Twitter에서 수집한 개발자 평가
         </p>
       </div>
 
@@ -170,7 +179,7 @@ export default function ReviewsPage() {
                   <CardTitle className="text-sm">{entry.platform}</CardTitle>
                 </div>
                 <CardDescription>
-                  Community sentiment breakdown
+                  커뮤니티 감정 분석
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -190,19 +199,19 @@ export default function ReviewsPage() {
       {/* Top community posts */}
       <Card>
         <CardHeader>
-          <CardTitle>Top Community Posts</CardTitle>
+          <CardTitle>커뮤니티 TOP 게시물</CardTitle>
           <CardDescription>
-            Highest-voted developer discussions across platforms
+            플랫폼별 최다 추천 개발자 토론
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Platform</TableHead>
-                <TableHead>Post</TableHead>
-                <TableHead>Source</TableHead>
-                <TableHead className="text-right">Score</TableHead>
+                <TableHead>플랫폼</TableHead>
+                <TableHead>게시물</TableHead>
+                <TableHead>출처</TableHead>
+                <TableHead className="text-right">반응 점수</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -242,8 +251,7 @@ export default function ReviewsPage() {
       <Card size="sm">
         <CardContent className="py-3">
           <p className="text-xs text-muted-foreground">
-            Data aggregated from Reddit, Hacker News, X. Last updated July
-            2026. Sentiment classification via keyword analysis.
+            📌 Reddit, Hacker News, X에서 수집. 2026년 7월 기준. 감정 분석은 키워드 기반입니다.
           </p>
         </CardContent>
       </Card>

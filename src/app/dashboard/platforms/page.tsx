@@ -63,52 +63,52 @@ interface ComparisonRow {
 
 const comparisonMetrics: ComparisonRow[] = [
   {
-    metric: "Monthly Price (Pro)",
+    metric: "월 구독료 (Pro)",
     claude: "$20 (Claude Pro)",
     codex: "$20 (ChatGPT Plus)",
     omc: "Free (OSS)",
   },
   {
-    metric: "SWE-bench Score",
+    metric: "SWE-bench 점수",
     claude: "80.8% (SOTA)",
     codex: "72.4%",
     omc: "N/A (orchestration)",
   },
   {
-    metric: "API Pricing (Flagship)",
+    metric: "API 가격 (플래그십)",
     claude: "$10/$50 per MTok",
     codex: "$5/$30 per MTok",
     omc: "$0.14/$0.28 (DeepSeek)",
   },
   {
-    metric: "Context Window",
+    metric: "컨텍스트 창",
     claude: "1M tokens",
     codex: "1.05M tokens",
     omc: "1M tokens (model-dependent)",
   },
   {
-    metric: "Agent Modes",
+    metric: "에이전트 모드",
     claude: "Claude Code, MCP tools",
     codex: "Codex CLI, GPT Actions",
     omc: "Explore, Librarian, Oracle, Sisyphus",
   },
   {
-    metric: "MCP Support",
+    metric: "MCP 지원",
     claude: "✅ Native (97M+ installs)",
     codex: "❌ Not supported",
     omc: "✅ Plugin system",
   },
   {
-    metric: "Community",
+    metric: "커뮤니티 규모",
     claude: "~2M developers",
     codex: "~10M+ (ChatGPT base)",
     omc: "~50K (growing)",
   },
   {
-    metric: "Best For",
-    claude: "Complex agentic coding",
-    codex: "General-purpose AI dev",
-    omc: "Multi-agent orchestration",
+    metric: "추천 용도",
+    claude: "복잡한 에이전트 코딩",
+    codex: "범용 AI 개발",
+    omc: "멀티 에이전트 오케스트레이션",
   },
 ];
 
@@ -173,6 +173,17 @@ function PlatformCard({ platform, index }: PlatformCardProps) {
 export default function PlatformsPage() {
   return (
     <div className="space-y-8">
+      {/* 한줄요약 */}
+      <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-800 dark:bg-indigo-950/30 mb-6">
+        <p className="text-sm font-medium text-indigo-800 dark:text-indigo-200">🔧 개발자 도구 비교</p>
+        <p className="mt-1 text-sm text-indigo-700 dark:text-indigo-300">
+          AI 개발 도구 3종을 가격, 성능, 기능으로 비교했습니다.
+          Claude Code는 SWE-bench 1위, OpenAI Codex는 최대 커뮤니티,
+          OpenCode는 무료 오픈소스+멀티에이전트가 강점입니다.
+          여러분의 작업에 가장 잘 맞는 도구를 골라보세요.
+        </p>
+      </div>
+
       {/* Top: Platform cards */}
       <div className="grid gap-4 md:grid-cols-3">
         {platforms.map((platform, index) => (
@@ -185,17 +196,16 @@ export default function PlatformsPage() {
       {/* Full comparison table */}
       <Card>
         <CardHeader>
-          <CardTitle>Full Feature Comparison</CardTitle>
+          <CardTitle>전체 기능 비교</CardTitle>
           <CardDescription>
-            Side-by-side breakdown of key development platform metrics (Q3
-            2026)
+            주요 개발 플랫폼 지표 비교 (2026년 3분기)
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[200px]">Metric</TableHead>
+                <TableHead className="w-[200px]">항목</TableHead>
                 <TableHead>
                   <span style={{ color: platforms[0].color }}>
                     {platforms[0].icon} Claude Code
@@ -238,13 +248,12 @@ export default function PlatformsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <span aria-hidden="true">⚡</span>
-            Our Stack
+            🚀 이 대시보드는 이렇게 만들어졌습니다
           </CardTitle>
           <CardDescription>
-            This dashboard was built with{" "}
-            <strong>OpenCode (OMC) + DeepSeek V4 Flash</strong>. Zero API costs,
-            multi-agent orchestration, 1M token context. Open-source through and
-            through.
+            이 대시보드는 OpenCode(OMC) + DeepSeek V4 Flash로 제작되었습니다.
+            Sisyphus 오케스트레이터가 3개 병렬 에이전트를 관리하여 2시간 이내에
+            전체 프로젝트를 완료했습니다.
           </CardDescription>
         </CardHeader>
       </Card>

@@ -99,12 +99,12 @@ function parseNumeric(val: string): number {
 }
 
 const columnDefs: { key: SortKey; label: string }[] = [
-  { key: "name", label: "Company" },
-  { key: "estimatedAdSpend", label: "Ad Spend" },
-  { key: "mau", label: "MAU" },
-  { key: "convRate", label: "Conv Rate" },
-  { key: "cac", label: "CAC" },
-  { key: "marketShare", label: "Market Share" },
+  { key: "name", label: "기업" },
+  { key: "estimatedAdSpend", label: "광고비" },
+  { key: "mau", label: "활성 유저" },
+  { key: "convRate", label: "전환율" },
+  { key: "cac", label: "고객 획득비용" },
+  { key: "marketShare", label: "시장점유율" },
 ];
 
 export function Comparison() {
@@ -134,8 +134,20 @@ export function Comparison() {
   return (
     <div>
       <h2 className="mb-4 text-lg font-semibold text-foreground">
-        4사 비교 — Sortable Comparison
+        4사 비교 — 정렬 가능 비교표
       </h2>
+
+      {/* 한눈에 비교 인사이트 */}
+      <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30 mb-6">
+        <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+          💡 한눈에 비교
+        </p>
+        <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
+          OpenAI가 광고비 2억달러로 가장 많이 쓰지만, 유료 전환율은 6.2%로 가장 낮습니다.
+          반면 Anthropic은 광고비 1/4 수준으로 46%의 전환율을 기록하며 효율 1위.
+          DeepSeek은 극저가 전략으로 CAC $8로 가장 싸게 유저를 데려옵니다.
+        </p>
+      </div>
       <div className="rounded-xl border border-border">
         <Table>
           <TableHeader>
@@ -156,8 +168,8 @@ export function Comparison() {
                   </span>
                 </TableHead>
               ))}
-              <TableHead>Top Channels</TableHead>
-              <TableHead>Trend</TableHead>
+              <TableHead>주요 채널</TableHead>
+              <TableHead>추세</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -93,9 +93,9 @@ const companyLabels: Record<string, string> = {
 };
 
 const ranges = [
-  { label: "6m", months: 6 },
-  { label: "12m", months: 12 },
-  { label: "18m", months: 18 },
+  { label: "6개월", months: 6 },
+  { label: "1년", months: 12 },
+  { label: "전체", months: 18 },
 ];
 
 export function Trends() {
@@ -107,7 +107,7 @@ export function Trends() {
       {/* Date range selector */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-foreground">
-          Monthly Active Users (MAU) — Trend
+          월간 활성 유저 추이 (백만명)
         </h2>
         <div className="flex gap-1">
           {ranges.map((r) => (
@@ -121,6 +121,17 @@ export function Trends() {
             </Button>
           ))}
         </div>
+      </div>
+
+      {/* Summary banner */}
+      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+        <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
+          💡 핵심 인사이트
+        </p>
+        <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-300">
+          2026년 2월 OpenAI의 광고 도입은 업계 분수령이었습니다.
+          ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈했습니다.
+        </p>
       </div>
 
       {/* MAU Line Chart */}
@@ -165,10 +176,21 @@ export function Trends() {
         </ResponsiveContainer>
       </div>
 
+      {/* 한줄요약 인사이트 */}
+      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+        <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
+          💡 핵심 인사이트
+        </p>
+        <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-300">
+          2026년 2월 OpenAI의 광고 도입은 업계 분수령이었습니다.
+          ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈했습니다.
+        </p>
+      </div>
+
       {/* Monthly Ad Spend Bar Chart */}
       <div>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Est. Monthly Ad Spend by Company
+          Est. 월간 광고비 추이 (백만$)
         </h2>
         <div className="rounded-xl border border-border bg-card p-4">
           <ResponsiveContainer width="100%" height={300}>
@@ -206,7 +228,7 @@ export function Trends() {
                 strokeDasharray="6 3"
               >
                 <Label
-                  value="QuitGPT Peak"
+                  value="QuitGPT 이탈 정점"
                   position="insideTopRight"
                   fill="oklch(0.704 0.191 22.216)"
                   fontSize={11}

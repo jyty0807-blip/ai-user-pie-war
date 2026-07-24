@@ -158,22 +158,34 @@ export function Pricing() {
 
   return (
     <div className="space-y-8">
+      {/* 가격 전쟁 핵심 인사이트 */}
+      <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30 mb-6">
+        <p className="text-sm font-medium text-green-800 dark:text-green-200">
+          💰 가격 전쟁 핵심
+        </p>
+        <p className="mt-1 text-sm text-green-700 dark:text-green-300">
+          DeepSeek V4 Flash($0.28/MTok)와 Claude Fable 5($50/MTok)의 가격 차이는 무려 178배.
+          비싼 모델이 무조건 좋은 건 아닙니다. 작업에 맞는 모델을 고르는 것이 진짜 효율입니다.
+          AI 업계의 &lsquo;가격 전쟁&rsquo;은 이제 막 시작됐습니다.
+        </p>
+      </div>
+
       {/* Pricing table */}
       <div>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          API Pricing Comparison — July 2026
+          AI 모델 가격 전쟁 (2026년 7월)
         </h2>
         <div className="rounded-xl border border-border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Company</TableHead>
-                <TableHead>Model</TableHead>
-                <TableHead>Input ($/MTok)</TableHead>
-                <TableHead>Output ($/MTok)</TableHead>
-                <TableHead>Cached Input</TableHead>
-                <TableHead>Context</TableHead>
-                <TableHead>Notes</TableHead>
+                <TableHead>기업</TableHead>
+                <TableHead>모델</TableHead>
+                <TableHead>입력($/MTok)</TableHead>
+                <TableHead>출력($/MTok)</TableHead>
+                <TableHead>캐싱 할인</TableHead>
+                <TableHead>컨텍스트</TableHead>
+                <TableHead>비고</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -242,7 +254,7 @@ export function Pricing() {
       {/* Output price comparison bar chart */}
       <div>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Output Price Comparison ($/M Tokens)
+          출력 토큰 가격 비교 (낮을수록 좋음)
         </h2>
         <div className="rounded-xl border border-border bg-card p-4">
           <ResponsiveContainer width="100%" height={400}>
@@ -286,7 +298,7 @@ export function Pricing() {
 
       {/* Source note */}
       <p className="text-xs text-muted-foreground">
-        Prices verified July 2026. Source: Official API pricing pages.
+        2026년 7월 기준. 출처: 각사 공식 가격 페이지
       </p>
     </div>
   );
