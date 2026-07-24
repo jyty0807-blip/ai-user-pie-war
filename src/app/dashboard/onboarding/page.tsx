@@ -83,6 +83,25 @@ const dataSources = [
   },
 ];
 
+const crawledSources = [
+  { source: "OpenRouter API", url: "https://openrouter.ai/api/v1/models", data: "200+ 모델 카탈로그, 실시간 가격, 컨텍스트 길이", verified: "2026-07-25 ✅" },
+  { source: "er-api.com (Exchange Rate)", url: "https://open.er-api.com/v6/latest/USD", data: "USD/KRW 실시간 환율 (1,474원)", verified: "2026-07-25 ✅" },
+  { source: "DeepSeek API", url: "https://api.deepseek.com/v1/chat/completions", data: "V4 Flash/V4 Pro API 엔드포인트 응답 확인", verified: "2026-07-25 ✅" },
+  { source: "Anthropic API", url: "https://api.anthropic.com/v1/messages", data: "Claude API 엔드포인트 응답 확인", verified: "2026-07-25 ✅" },
+  { source: "OpenAI API (via OpenRouter)", url: "https://openrouter.ai/api/v1/chat/completions", data: "GPT-4o-mini 등 모델 라우팅 확인", verified: "2026-07-25 ✅" },
+  { source: "OpenRouter Pricing", url: "https://openrouter.ai/pricing", data: "무료/PayGo/Enterprise 요금제, 수수료 5.5%", verified: "2026-07-25 ✅" },
+  { source: "OpenRouter Model Routing", url: "https://openrouter.ai/blog/insights/model-routing/", data: ":nitro/:floor/:exacto 라우팅 옵션", verified: "2026-07-25 ✅" },
+  { source: "SWE-bench Leaderboard", url: "https://swe-bench.github.io", data: "Claude Opus 88.6%, DeepSeek 80.6% 등 벤치마크", verified: "2026-07-25 ✅" },
+  { source: "OpenCode + OpenRouter 가이드", url: "https://www.inksh.in/blog/vscode/openrouter-opencode", data: "OpenCode-OpenRouter 연동 설정", verified: "2026-07-25 ✅" },
+  { source: "OpenRouter Review 2026", url: "https://www.compsmag.com/reviews/openrouter-review/", data: "400+ 모델, SOC 2, BYOK, 5.5% 수수료", verified: "2026-07-25 ✅" },
+  { source: "OpenRouter 최저가 가이드", url: "https://openrouter.ai/blog/tutorials/how-to-get-the-lowest-cost-llm-inference-on-openrouter/", data: ":floor 라우팅, max_price, 무료 모델 20+", verified: "2026-07-25 ✅" },
+  { source: "TrueFoundry OpenRouter Pricing", url: "https://www.truefoundry.com/blog/openrouter-pricing", data: "Free/PayGo/Enterprise 상세 분석", verified: "2026-07-25 ✅" },
+  { source: "Claude Code vs OpenCode", url: "https://github.com/0xtresser/Claude-Code-VS-OpenCode", data: "아키텍처 설계 공간 비교 (6부 23장)", verified: "2026-07-25 ✅" },
+  { source: "Oh-My-OpenAgent 분석", url: "https://ice-ice-bear.github.io/posts/2026-03-24-oh-my-opencode/", data: "OMC(10K stars) vs oh-my-openagent(42K stars)", verified: "2026-07-25 ✅" },
+  { source: "OMC GitHub Feature Request #1637", url: "https://github.com/code-yeongyu/oh-my-openagent/issues/1637", data: "OpenRouter 네이티브 지원 요청 (2026-02)", verified: "2026-07-25 ✅" },
+  { source: "OpenCode Go Model Routing", url: "https://medium.com/@jatinkrmalik/opencode-go-oh-my-openagent-the-complete-guide-to-sota-model-routing-without-hitting-limits-49fdc8cb3417", data: "Qwen3.7 Max 60.6% SWE-Pro, 티어드 라우팅", verified: "2026-07-25 ✅" },
+];
+
 export default function OnboardingPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
@@ -156,6 +175,50 @@ export default function OnboardingPage() {
               </AccordionContent>
             </AccordionItem>
           ))}
+        </Accordion>
+      </div>
+
+      {/* Crawled Sources Table */}
+      <div className="mb-10">
+        <div className="flex items-center gap-2 mb-4">
+          <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+            🕸️ 크롤링 수집 데이터
+          </h2>
+        </div>
+        <Accordion className="space-y-2">
+          <AccordionItem value="crawled" className="rounded-sm border border-border bg-card px-4">
+            <AccordionTrigger className="text-sm font-medium text-foreground hover:no-underline py-3">
+              크롤링 출처 목록 보기 ({crawledSources.length}개)
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="overflow-x-auto pb-3">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 pr-3 font-semibold text-foreground">출처</th>
+                      <th className="text-left py-2 pr-3 font-semibold text-foreground">URL</th>
+                      <th className="text-left py-2 pr-3 font-semibold text-foreground">수집 데이터</th>
+                      <th className="text-left py-2 font-semibold text-foreground">최종 확인</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {crawledSources.map((src, i) => (
+                      <tr key={i} className="border-b border-border/50 last:border-0">
+                        <td className="py-2 pr-3 font-medium text-foreground">{src.source}</td>
+                        <td className="py-2 pr-3">
+                          <a href={src.url} target="_blank" rel="noopener noreferrer" className="text-[#007aff] hover:underline">
+                            바로가기 ↗
+                          </a>
+                        </td>
+                        <td className="py-2 pr-3 text-muted-foreground">{src.data}</td>
+                        <td className="py-2 text-muted-foreground whitespace-nowrap">{src.verified}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       </div>
 
