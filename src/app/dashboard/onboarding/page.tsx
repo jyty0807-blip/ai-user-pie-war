@@ -102,7 +102,7 @@ export default function OnboardingPage() {
         <h2 className="text-lg font-semibold text-foreground mb-4">📜 데이터 윤리 지침</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {ethicsPrinciples.map((principle, idx) => (
-            <Card key={idx} className="border-l-4" style={{ borderLeftColor: "var(--primary)" }}>
+            <Card key={idx} className="border-l" style={{ borderLeftColor: "var(--primary)" }}>
               <CardHeader className="pb-2">
                 <div className="flex items-center gap-2">
                   <span className="text-primary">{principle.icon}</span>
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
             <AccordionItem
               key={group.category}
               value={group.category}
-              className="rounded-lg border border-border bg-card px-4"
+              className="rounded-sm border border-border bg-card px-4"
             >
               <AccordionTrigger className="text-sm font-medium text-foreground hover:no-underline py-3">
                 {group.category}
@@ -202,14 +202,14 @@ export default function OnboardingPage() {
       </div>
 
       {/* Disclaimer */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/30">
+      <div className="rounded-sm border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/50">
         <div className="flex items-start gap-3">
           <span className="text-lg shrink-0">⚠️</span>
           <div>
-            <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
               면접 포트폴리오 목적 고지
             </p>
-            <p className="mt-1 text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+            <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
               이 대시보드는 퍼포먼스 마케팅 역량을 평가받기 위한 포트폴리오 프로젝트입니다.
               모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.
               투자, 채용, 비즈니스 의사결정에 이 데이터를 활용해서는 안 됩니다.

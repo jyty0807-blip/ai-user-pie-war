@@ -193,7 +193,7 @@ export default function NewsPage() {
       </div>
 
       {/* SECTION 1: 종합 의견 (Summary + Accordion Links) */}
-      <div className="mb-6 rounded-lg border border-sky-300/50 bg-sky-50/80 p-5 shadow-sm dark:border-sky-800/50 dark:bg-sky-950/20">
+      <div className="mb-6 rounded-sm border border-sky-300/20 bg-sky-50/80 p-5 dark:border-sky-800/20 dark:bg-sky-950/20">
         <p className="text-sm font-semibold text-sky-800 dark:text-sky-200">
           📰 이번 주 AI 업계 종합
         </p>
@@ -244,8 +244,8 @@ export default function NewsPage() {
             key={company.slug}
             href={`#section-${company.slug}`}
             className={cn(
-              "flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition-all duration-200",
-              "hover:-translate-y-0.5 hover:shadow-md",
+              "flex flex-col items-center gap-2 rounded-sm border p-4 text-center transition-all duration-200",
+              "hover:shadow-none",
             )}
             style={{
               borderColor: company.color + "30",
@@ -269,7 +269,7 @@ export default function NewsPage() {
           <div key={company.slug} id={`section-${company.slug}`}>
             {/* Company Section Header */}
             <div
-              className={cn("mb-4 flex items-center gap-3 border-b-2 pb-2")}
+              className={cn("mb-4 flex items-center gap-3 border-b pb-2")}
               style={{ borderBottomColor: company.color }}
             >
               <span className="text-xl">{company.logo}</span>
@@ -293,7 +293,7 @@ export default function NewsPage() {
                   rel="noopener noreferrer"
                   className="group block"
                 >
-                  <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                  <Card className="h-full rounded-sm transition-all duration-200">
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
                         <Badge
@@ -328,7 +328,7 @@ export default function NewsPage() {
       </div>
 
       {/* Source Notice */}
-      <div className="mt-8 rounded-lg bg-muted p-3 text-center">
+      <div className="mt-8 rounded-sm bg-muted p-3 text-center">
         <p className="flex items-center justify-center gap-1 text-[0.65rem] text-muted-foreground">
           📌 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
         </p>

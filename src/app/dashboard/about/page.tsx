@@ -11,7 +11,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-border bg-card p-6">
+        <div className="rounded-sm border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">🎯 프로젝트 목적</h2>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
             OpenAI, Anthropic, DeepSeek, Google — 4개 AI 기업이 2026년 벌이고 있는 
@@ -20,7 +20,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-border bg-card p-6">
+        <div className="rounded-sm border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">📊 데이터 소스</h2>
           <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
             <li className="flex gap-2">
@@ -45,7 +45,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="rounded-lg border border-border bg-card p-6">
+        <div className="rounded-sm border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">⚙️ 기술 스택</h2>
           <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
             {[
@@ -66,11 +66,11 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
-          <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
+        <div className="rounded-sm border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/50">
+          <p className="text-xs font-medium text-slate-800 dark:text-slate-200">
             ⚠️ 면접 포트폴리오 안내
           </p>
-          <p className="mt-1 text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+          <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
             이 대시보드는 AI 성능 마케팅 역량을 보여주기 위해 제작된 포트폴리오 프로젝트입니다.
             모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.
             전체 프로젝트는 3개의 병렬 AI 에이전트와 오케스트레이터(Sisyphus)가 단기간에 구축했습니다.

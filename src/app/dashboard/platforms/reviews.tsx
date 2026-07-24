@@ -108,7 +108,7 @@ function SentimentBar({ positive, neutral, negative }: SentimentBarProps) {
           title={`Positive: ${positive}%`}
         />
         <div
-          className="h-full bg-amber-400 transition-all"
+          className="h-full bg-slate-400 transition-all"
           style={{ width: `${neutralPct}%` }}
           title={`Neutral: ${neutral}%`}
         />
@@ -124,7 +124,7 @@ function SentimentBar({ positive, neutral, negative }: SentimentBarProps) {
           {positive}% 긍정
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="size-1.5 rounded-full bg-amber-400" />
+          <span className="size-1.5 rounded-full bg-slate-400" />
           {neutral}% 중립
         </span>
         <span className="inline-flex items-center gap-1">
@@ -140,7 +140,7 @@ export default function ReviewsPage() {
   return (
     <div className="space-y-8">
       {/* 한줄요약 */}
-      <div className="rounded-lg border border-pink-200 border-l-4 border-l-pink-400 bg-pink-50 p-5 dark:border-pink-800 dark:border-l-pink-400 dark:bg-pink-950/30 mb-6">
+      <div className="rounded-sm border border-pink-200 border-l border-l-pink-400 bg-pink-50 p-5 dark:border-pink-800 dark:border-l-pink-400 dark:bg-pink-950/30 mb-6">
         <p className="text-sm font-medium text-pink-800 dark:text-pink-200">🗣️ 개발자들의 목소리</p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-pink-700 dark:text-pink-300">
           <li><strong>Claude Code:</strong> 68% 긍정 — MCP 생태계와 에이전트 코딩에 압도적 호평</li>

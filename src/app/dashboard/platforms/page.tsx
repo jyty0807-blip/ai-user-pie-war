@@ -174,7 +174,7 @@ export default function PlatformsPage() {
   return (
     <div className="space-y-8">
       {/* 한줄요약 */}
-      <div className="rounded-lg border border-indigo-300/50 bg-indigo-50/80 p-5 shadow-sm dark:border-indigo-800/50 dark:bg-indigo-950/20 mb-6">
+      <div className="rounded-sm border border-indigo-300/20 bg-indigo-50/80 p-5 dark:border-indigo-800/20 dark:bg-indigo-950/20 mb-6">
         <p className="text-sm font-semibold text-indigo-800 dark:text-indigo-200">🔧 개발자 도구 비교</p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-indigo-700 dark:text-indigo-300">
           <li><strong>Claude Code:</strong> SWE-bench 80.8% 1위, MCP 97M+ 설치 — 에이전트 코딩 최강</li>
@@ -242,7 +242,7 @@ export default function PlatformsPage() {
       {/* Bottom: Our Stack callout */}
       <Card
         size="sm"
-        className="border-l-4 bg-gradient-to-r from-[#8B5CF6]/5 to-transparent"
+        className="border-l bg-gradient-to-r from-[#8B5CF6]/5 to-transparent"
         style={{ borderLeftColor: "#8B5CF6" }}
       >
         <CardHeader>

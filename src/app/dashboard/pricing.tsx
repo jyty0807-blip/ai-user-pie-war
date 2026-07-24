@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 import {
   ResponsiveContainer,
   BarChart,
@@ -159,7 +160,7 @@ export function Pricing() {
   return (
     <div className="space-y-8">
       {/* 가격 전쟁 핵심 인사이트 */}
-      <div className="rounded-lg border border-green-300/50 bg-green-50/80 p-5 shadow-sm dark:border-green-800/50 dark:bg-green-950/20 mb-6">
+      <div className="rounded-sm border border-green-300/20 bg-green-50/80 p-5 dark:border-green-800/20 dark:bg-green-950/20 mb-6">
         <p className="text-sm font-semibold text-green-800 dark:text-green-200">
           💰 가격 전쟁 핵심
         </p>
@@ -175,8 +176,9 @@ export function Pricing() {
       <div>
         <h2 className="mb-4 text-lg font-semibold text-foreground">
           AI 모델 가격 전쟁 (2026년 7월)
+          <MetricTooltip term="MTok" definition={METRIC_DEFINITIONS.MTok} />
         </h2>
-        <div className="rounded-xl border border-border">
+        <div className="rounded-sm border border-border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -201,7 +203,7 @@ export function Pricing() {
                       isCheapest && "bg-emerald-500/5"
                     )}
                     style={{
-                      borderLeft: `3px solid ${companyColors[row.company] ?? "#888"}`,
+                      borderLeft: `1px solid ${companyColors[row.company] ?? "#888"}`,
                     }}
                   >
                     <TableCell className="font-medium">
@@ -257,7 +259,7 @@ export function Pricing() {
         <h2 className="mb-4 text-lg font-semibold text-foreground">
           출력 토큰 가격 비교 (낮을수록 좋음)
         </h2>
-        <div className="rounded-xl border border-border bg-card p-4">
+        <div className="rounded-sm border border-border bg-card p-4">
           <ResponsiveContainer width="100%" height={400}>
             <BarChart
               data={chartData}

@@ -36,8 +36,8 @@ export function DialogButton({ company, report }: DialogButtonProps) {
         render={
           <button
             className={cn(
-              "inline-flex items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition-all duration-200",
-              "hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+              "inline-flex items-center gap-2 rounded-sm border px-4 py-2.5 text-sm font-medium transition-all duration-200",
+              "hover:shadow-none active:translate-y-0"
             )}
             style={{
               borderColor: company.color + "40",
@@ -87,7 +87,7 @@ function Section({ title, items }: { title: string; items: { point: string; deta
       <h3 className="text-sm font-semibold text-foreground mb-2">{title}</h3>
       <ul className="space-y-2">
         {items.map((item, i) => (
-          <li key={i} className="rounded-lg bg-muted/50 p-3">
+          <li key={i} className="rounded-sm bg-muted/50 p-3">
             <p className="text-sm font-medium text-foreground">{item.point}</p>
             <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">{item.detail}</p>
           </li>

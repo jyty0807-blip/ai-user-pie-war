@@ -61,7 +61,7 @@ const typeStyles: Record<string, string> = {
   product_launch:
     "bg-blue-500/10 text-blue-400 border-blue-500/20",
   marketing:
-    "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    "bg-slate-500/10 text-slate-400 border-slate-500/20",
   business:
     "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   pricing:
@@ -83,7 +83,7 @@ export function Timeline() {
       </h2>
 
       {/* 이야기 요약 */}
-      <div className="rounded-lg border border-purple-300/50 bg-purple-50/80 p-5 shadow-sm dark:border-purple-800/50 dark:bg-purple-950/20 mb-6">
+      <div className="rounded-sm border border-purple-300/20 bg-purple-50/80 p-5 dark:border-purple-800/20 dark:bg-purple-950/20 mb-6">
         <p className="text-sm font-semibold text-purple-800 dark:text-purple-200">
           📖 이야기 요약
         </p>
@@ -112,7 +112,7 @@ export function Timeline() {
                 )}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border-2 border-border bg-card shadow-sm md:left-1/2">
+                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-card md:left-1/2">
                   <span className="text-sm" aria-hidden="true">
                     {event.icon}
                   </span>
@@ -121,7 +121,7 @@ export function Timeline() {
                 {/* Card */}
                 <div
                   className={cn(
-                    "ml-12 w-full rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md md:w-[calc(50%-2rem)]",
+                    "ml-12 w-full rounded-sm border border-border bg-card p-5 md:w-[calc(50%-2rem)]",
                     isLeft ? "md:mr-auto md:ml-0" : "md:ml-auto"
                   )}
                 >
@@ -157,8 +157,8 @@ export function Timeline() {
       <Separator className="my-8" />
 
       {/* Key insight callout */}
-      <div className="rounded-xl border border-amber-300/50 bg-amber-50/80 p-6 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
-        <h3 className="text-sm font-semibold text-amber-800 dark:text-amber-200">
+      <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-6 dark:border-slate-700/20 dark:bg-slate-900/30">
+        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
           🔑 마케팅 인사이트
         </h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted-foreground">

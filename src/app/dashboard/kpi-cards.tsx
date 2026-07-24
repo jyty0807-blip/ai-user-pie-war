@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 
 interface CompanyKpi {
   name: string;
@@ -97,8 +98,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
   return (
     <Card
       className={cn(
-        "relative overflow-hidden",
-        "hover:shadow-lg transition-shadow duration-200"
+        "relative overflow-hidden rounded-sm"
       )}
     >
       {/* Brand color accent bar */}
@@ -119,8 +119,9 @@ function KpiCard({ company }: { company: CompanyKpi }) {
         <div>
           <p className="text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
             월간 활성 유저 (WAU)
+            <MetricTooltip term="WAU" definition={METRIC_DEFINITIONS.WAU} />
           </p>
-          <p className="mt-1 text-lg font-bold tabular-nums text-foreground">
+          <p className="mt-1 text-xl font-extrabold tabular-nums text-foreground">
             {company.mau}
           </p>
           <p
@@ -133,10 +134,10 @@ function KpiCard({ company }: { company: CompanyKpi }) {
 
         {/* Secondary metrics grid */}
         <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-          <Metric label="유료 전환율" value={company.convRate} />
-          <Metric label="시장 점유율" value={company.marketShare} />
-          <Metric label="월간 광고비 (추정)" value={`$${company.estimatedAdSpend}`} />
-          <Metric label="고객 획득 비용" value={company.cac} />
+          <Metric label="유료 전환율" value={company.convRate} tooltipTerm="전환율" tooltipDef={METRIC_DEFINITIONS.전환율} />
+          <Metric label="시장 점유율" value={company.marketShare} tooltipTerm="시장 점유율" tooltipDef={METRIC_DEFINITIONS["시장 점유율"]} />
+          <Metric label="월간 광고비 (추정)" value={`$${company.estimatedAdSpend}`} tooltipTerm="광고 채널" tooltipDef={METRIC_DEFINITIONS["광고 채널"]} />
+          <Metric label="고객 획득 비용" value={company.cac} tooltipTerm="CAC" tooltipDef={METRIC_DEFINITIONS.CAC} />
         </div>
 
         {/* Channels */}
@@ -152,10 +153,25 @@ function KpiCard({ company }: { company: CompanyKpi }) {
   );
 }
 
-function Metric({ label, value }: { label: string; value: string }) {
+function Metric({
+  label,
+  value,
+  tooltipTerm,
+  tooltipDef,
+}: {
+  label: string;
+  value: string;
+  tooltipTerm?: string;
+  tooltipDef?: string;
+}) {
   return (
     <div>
-      <p className="text-[0.65rem] font-medium text-muted-foreground">{label}</p>
+      <p className="text-[0.65rem] font-medium text-muted-foreground">
+        {label}
+        {tooltipTerm && tooltipDef && (
+          <MetricTooltip term={tooltipTerm} definition={tooltipDef} />
+        )}
+      </p>
       <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">{value}</p>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -112,50 +112,102 @@ export function Trends() {
     };
   });
 
+  const [viewMode, setViewMode] = useState<"absolute" | "growth">("absolute");
+
+  const growthData = useMemo(() => {
+    if (data.length === 0) return [];
+    const baseline = data[0];
+    return data.map((point) => ({
+      month: point.month,
+      openai: ((point.openai - baseline.openai) / baseline.openai) * 100,
+      anthropic: ((point.anthropic - baseline.anthropic) / baseline.anthropic) * 100,
+      deepseek: ((point.deepseek - baseline.deepseek) / baseline.deepseek) * 100,
+      google: ((point.google - baseline.google) / baseline.google) * 100,
+      event: point.event,
+    }));
+  }, [data]);
+
+  const chartData = viewMode === "growth" ? growthData : data;
+
   return (
     <div className="space-y-8">
-      {/* Date range selector */}
+      {/* Date range selector + view mode toggle */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-foreground">
-          월간 활성 유저 추이 (백만명)
+          {viewMode === "growth"
+            ? "월간 유저 성장률 추이 (%)"
+            : "월간 활성 유저 추이 (백만명)"}
         </h2>
-        <div className="flex gap-1">
-          {ranges.map((r) => (
-            <Button
-              key={r.label}
-              variant={range === r.months ? "default" : "ghost"}
-              size="xs"
-              onClick={() => setRange(r.months)}
+        <div className="flex items-center gap-2">
+          <div className="flex rounded-sm border border-border bg-muted p-0.5">
+            <button
+              onClick={() => setViewMode("absolute")}
+              className={cn(
+                "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                viewMode === "absolute"
+                  ? "bg-background text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
             >
-              {r.label}
-            </Button>
-          ))}
+              절대값
+            </button>
+            <button
+              onClick={() => setViewMode("growth")}
+              className={cn(
+                "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                viewMode === "growth"
+                  ? "bg-background text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              성장률
+            </button>
+          </div>
+          <div className="flex gap-1">
+            {ranges.map((r) => (
+              <Button
+                key={r.label}
+                variant={range === r.months ? "default" : "ghost"}
+                size="xs"
+                onClick={() => setRange(r.months)}
+              >
+                {r.label}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Summary banner */}
-      <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-4 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
-        <p className="text-xs font-semibold text-amber-800 dark:text-amber-200">
+      <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-4 dark:border-slate-700/20 dark:bg-slate-900/30">
+        <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
           💡 핵심 인사이트
         </p>
-        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
+        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
           <li>2026년 2월 OpenAI 광고 도입으로 유저 이탈 가속화 — 6개월간 800M→580M, 27.5% 감소</li>
           <li>Anthropic은 무광고 전략으로 20M→120M 폭발적 성장, 유저 충성도 압도적 1위</li>
         </ul>
       </div>
 
       {/* MAU Line Chart */}
-      <div className="rounded-xl border border-border bg-card p-4">
+      <div className="rounded-sm border border-border bg-card p-4">
         <ResponsiveContainer width="100%" height={350}>
-          <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
+          <LineChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+            {viewMode === "growth" && (
+              <ReferenceLine y={0} stroke="var(--border)" strokeDasharray="3 3" />
+            )}
             <XAxis
               dataKey="month"
               tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
             />
             <YAxis
               tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
-              tickFormatter={(v: number) => `${v}M`}
+              tickFormatter={
+                viewMode === "growth"
+                  ? (v: number) => `${v > 0 ? "+" : ""}${v}%`
+                  : (v: number) => `${v}M`
+              }
             />
             <Tooltip
               contentStyle={{
@@ -184,12 +236,35 @@ export function Trends() {
         </ResponsiveContainer>
       </div>
 
+      {/* Growth rate insight */}
+      {viewMode === "growth" && (
+        <div className="rounded-sm border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900/50">
+          <p className="text-xs font-medium text-slate-800 dark:text-slate-200">
+            💡 성장률 기준으로 보면 이야기가 완전히 달라집니다
+          </p>
+          <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Anthropic</strong> +600% — 절대값 3위지만 성장률 1위, 폭발적 상승 중
+            </li>
+            <li>
+              <strong>DeepSeek</strong> +167% — 가격 경쟁력으로 꾸준한 성장
+            </li>
+            <li>
+              <strong>Google</strong> +100% — 번들 효과로 안정적 상승
+            </li>
+            <li>
+              <strong>OpenAI</strong> -27.5% — 광고 도입 후 유저 이탈 지속
+            </li>
+          </ul>
+        </div>
+      )}
+
       {/* 한줄요약 인사이트 */}
-      <div className="rounded-lg border border-amber-300/50 bg-amber-50/80 p-4 shadow-sm dark:border-amber-800/50 dark:bg-amber-950/20">
-        <p className="text-xs font-semibold text-amber-800 dark:text-amber-200">
+      <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-4 dark:border-slate-700/20 dark:bg-slate-900/30">
+        <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
           💡 한줄 요약
         </p>
-        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
+        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
           <li>OpenAI: 800M→580M, 유저 이탈 지속 — 광고 도입이 역효과</li>
           <li>Anthropic: 20M→120M, 6배 성장 — 유저 신뢰가 최고의 획득 채널</li>
           <li>DeepSeek &amp; Google: 각각 80M/200M, 가격과 생태계로 유저 확보</li>
@@ -201,7 +276,7 @@ export function Trends() {
         <h2 className="mb-4 text-lg font-semibold text-foreground">
           4사 유저 점유율 추이 (%)
         </h2>
-        <div className="rounded-xl border border-border bg-card p-4">
+        <div className="rounded-sm border border-border bg-card p-4">
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={marketShareData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />

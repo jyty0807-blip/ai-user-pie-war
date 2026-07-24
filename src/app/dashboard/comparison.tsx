@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ArrowUpIcon, ArrowDownIcon, MinusIcon } from "lucide-react";
+import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 
 interface CompanyRow {
   name: string;
@@ -98,13 +99,13 @@ function parseNumeric(val: string): number {
   return Number.isNaN(num) ? 0 : num;
 }
 
-const columnDefs: { key: SortKey; label: string }[] = [
+const columnDefs: { key: SortKey; label: string; tooltipTerm?: string; tooltipDef?: string }[] = [
   { key: "name", label: "기업" },
-  { key: "mau", label: "활성 유저" },
-  { key: "marketShare", label: "시장점유율" },
-  { key: "convRate", label: "전환율" },
-  { key: "cac", label: "고객 획득비용" },
-  { key: "estimatedAdSpend", label: "광고비" },
+  { key: "mau", label: "활성 유저", tooltipTerm: "MAU", tooltipDef: METRIC_DEFINITIONS.MAU },
+  { key: "marketShare", label: "시장점유율", tooltipTerm: "시장 점유율", tooltipDef: METRIC_DEFINITIONS["시장 점유율"] },
+  { key: "convRate", label: "전환율", tooltipTerm: "전환율", tooltipDef: METRIC_DEFINITIONS.전환율 },
+  { key: "cac", label: "고객 획득비용", tooltipTerm: "CAC", tooltipDef: METRIC_DEFINITIONS.CAC },
+  { key: "estimatedAdSpend", label: "광고비", tooltipTerm: "광고 채널", tooltipDef: METRIC_DEFINITIONS["광고 채널"] },
 ];
 
 export function Comparison() {
@@ -138,7 +139,7 @@ export function Comparison() {
       </h2>
 
       {/* 한눈에 비교 인사이트 */}
-      <div className="rounded-lg border border-blue-300/50 bg-blue-50/80 p-5 shadow-sm dark:border-blue-800/50 dark:bg-blue-950/20 mb-6">
+      <div className="rounded-sm border border-blue-300/20 bg-blue-50/80 p-5 dark:border-blue-800/20 dark:bg-blue-950/20 mb-6">
         <p className="text-sm font-semibold text-blue-800 dark:text-blue-200">
           💡 한눈에 비교
         </p>
@@ -149,7 +150,7 @@ export function Comparison() {
           <li><strong>Google:</strong> 200M 유저, 안드로이드 번들이라는 독보적 배포망 보유</li>
         </ul>
       </div>
-      <div className="rounded-xl border border-border">
+      <div className="rounded-sm border border-border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -161,6 +162,9 @@ export function Comparison() {
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.label}
+                    {col.tooltipTerm && col.tooltipDef && (
+                      <MetricTooltip term={col.tooltipTerm} definition={col.tooltipDef} />
+                    )}
                     {sortKey === col.key && (
                       <span className="text-xs">
                         {sortDir === "asc" ? "↑" : "↓"}
@@ -178,7 +182,7 @@ export function Comparison() {
               <TableRow
                 key={row.slug}
                 className={cn("group")}
-                style={{ borderLeft: `3px solid ${row.color}` }}
+                style={{ borderLeft: `1px solid ${row.color}` }}
               >
                 <TableCell className="font-medium">
                   <span className="inline-flex items-center gap-2">
