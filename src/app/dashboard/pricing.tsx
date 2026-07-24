@@ -209,7 +209,7 @@ export function Pricing() {
   }));
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* 가격 전쟁 핵심 인사이트 */}
       <div className="rounded-sm border border-green-300/20 bg-green-50/80 p-5 dark:border-green-800/20 dark:bg-green-950/20 mb-6">
         <p className="text-sm font-semibold text-green-800 dark:text-green-200">

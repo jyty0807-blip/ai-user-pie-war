@@ -75,6 +75,14 @@ const QUESTIONS = [
       { value: "random", label: "추천해줘", emoji: "🤔", desc: "잘 모르겠어요" },
     ]
   },
+  {
+    id: "service", q: "주로 몇 개의 AI 서비스를 사용하시나요?", sub: "하나만 집중할지, 여러 개 조합할지 선택하세요", multi: false,
+    options: [
+      { value: "single", label: "1개만 사용할게요", emoji: "1️⃣" },
+      { value: "multi", label: "여러 개 써볼게요", emoji: "2️⃣" },
+      { value: "many", label: "가리지 않고 다 써요", emoji: "♾️" },
+    ]
+  },
 ];
 
 const COMBO_DATA: Record<string, { title: string; emoji: string; plans: { slug: string; plan: string; price: string; reason: string[] }[]; krwNote: string }[]> = {
@@ -152,7 +160,7 @@ function getKRW(usd: string): string {
   return Math.round(total).toLocaleString();
 }
 
-function getPlans(answers: Record<string, any>): ComboRecommendation[] {
+function getPlans(answers: Record<string, string | string[]>): ComboRecommendation[] {
   const role = answers.role as string;
   const tasks = answers.task as string[];
   const tasksKey = tasks?.[0] || "chat";
@@ -182,7 +190,7 @@ const FEE_TIPS = [
 
 export default function RecommendPage() {
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [done, setDone] = useState(false);
   const [showLegal, setShowLegal] = useState(false);
 
@@ -190,7 +198,7 @@ export default function RecommendPage() {
 
   const toggle = (id: string, val: string) => {
     if (QUESTIONS.find(q => q.id === id)?.multi) {
-      const arr = answers[id] || [];
+      const arr = (answers[id] || []) as string[];
       setAnswers(a => ({ ...a, [id]: arr.includes(val) ? arr.filter((v: string) => v !== val) : [...arr, val] }));
     } else {
       setAnswers(a => ({ ...a, [id]: val }));
@@ -198,7 +206,7 @@ export default function RecommendPage() {
   };
 
   const next = () => {
-    if (step < 5) setStep(s => s + 1);
+    if (step < QUESTIONS.length - 1) setStep(s => s + 1);
     else setDone(true);
   };
   const prev = () => setStep(s => s - 1);
@@ -206,9 +214,10 @@ export default function RecommendPage() {
   const results = useMemo(() => done ? getPlans(answers) : [], [done, answers]);
 
   if (done) {
+    const topResults = results.slice(0, 3);
     return (
       <div className="min-h-screen bg-[#fdfcfc] dark:bg-[#1a1a1a]">
-        <header className="border-b border-[rgba(15,0,0,0.12)] dark:border-[rgba(255,255,255,0.08)]">
+        <header className="border-b border-[rgba(15,0,0,0.08)] dark:border-[rgba(255,255,255,0.06)]">
           <div className="mx-auto max-w-4xl px-4 py-3 sm:px-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -222,81 +231,91 @@ export default function RecommendPage() {
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-          {results.map((r, i) => (
-            <div key={i} className="space-y-6">
-              <div className="flex items-center gap-3 mb-2">
+        <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+          <p className="text-xs text-[#9a9898] dark:text-[#666] mb-8">
+            {answers.role && `현재 상황 · `}{answers.task && `주요 작업 · `}{answers.exp && `AI 경험 · `}
+            {topResults.length}개의 추천 플랜
+          </p>
+
+          {topResults.map((r, i) => (
+            <div key={i} className="rounded-xl shadow-sm border border-[rgba(15,0,0,0.08)] bg-[#fdfcfc] p-6 mb-6 hover:shadow-md transition-shadow dark:border-[rgba(255,255,255,0.08)] dark:bg-[#1a1a1a]">
+              {/* Combo title */}
+              <div className="flex items-center gap-3 mb-5">
                 <span className="text-2xl">{r.emoji}</span>
                 <div>
                   <h1 className="text-2xl font-bold text-[#201d1d] dark:text-[#fdfcfc]">{r.title}</h1>
-                  <p className="text-sm text-[#646262] dark:text-[#888]">{r.summary}</p>
+                  <p className="text-sm text-[#646262] dark:text-[#888] mt-0.5">{r.summary}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+              {/* Plan cards */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-5">
                 {r.plans.map((p, j) => {
                   const sw = MODEL_SWOT.find(m => m.slug === p.slug);
                   return (
-                    <div key={j} className="rounded-sm border border-[rgba(15,0,0,0.12)] bg-[#f8f7f7] p-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#222]">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">{p.plan}</span>
-                        {sw && <span className="text-[0.55rem] text-[#646262] px-1.5 py-0.5 rounded-full bg-[#fdfcfc] dark:bg-[#333]">{sw.priceIn}/{sw.priceOut}</span>}
+                    <div key={j} className="rounded-xl border border-[rgba(15,0,0,0.08)] bg-[#fdfcfc] shadow-sm p-5 dark:border-[rgba(255,255,255,0.08)] dark:bg-[#1a1a1a] flex flex-col">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="inline-flex rounded-full bg-[#f8f7f7] px-3 py-1 text-xs font-semibold text-[#201d1d] dark:bg-[#333] dark:text-[#fdfcfc]">{p.plan}</span>
+                        {sw && <span className="text-[0.65rem] text-[#646262] px-2 py-0.5 rounded-full bg-[#f8f7f7] dark:bg-[#333] dark:text-[#a0a0a0]">{sw.priceIn}/{sw.priceOut}</span>}
                       </div>
-                      <p className="text-lg font-bold text-[#201d1d] dark:text-[#fdfcfc]">{p.price}</p>
-                      <ul className="mt-3 space-y-1">
+                      <p className="text-2xl font-bold text-[#201d1d] dark:text-[#fdfcfc] mb-3">{p.price}</p>
+                      <ul className="flex-1 space-y-1.5">
                         {p.reason.map((r2, k) => (
-                          <li key={k} className="flex items-start gap-1.5 text-[0.6rem] text-[#424245] dark:text-[#a0a0a0]">
-                            <span className="mt-0.5 shrink-0">✓</span><span>{r2}</span>
+                          <li key={k} className="flex items-start gap-2 text-[0.7rem] text-[#424245] leading-relaxed dark:text-[#a0a0a0]">
+                            <span className="mt-0.5 shrink-0 text-[#D97757]">✓</span><span>{r2}</span>
                           </li>
                         ))}
                       </ul>
                       {sw && sw.specs.swebench !== "N/A" && sw.specs.swebench !== "N/A†" && (
-                        <p className="mt-2 text-[0.5rem] text-[#9a9898] dark:text-[#666]">Benchmark: SWE-bench {sw.specs.swebench} · GPQA {sw.specs.gpqa}</p>
+                        <p className="mt-3 pt-3 border-t border-[rgba(15,0,0,0.06)] text-[0.6rem] text-[#9a9898] dark:border-[rgba(255,255,255,0.06)] dark:text-[#666]">SWE-bench {sw.specs.swebench} · GPQA {sw.specs.gpqa} · {sw.specs.context}</p>
                       )}
                     </div>
                   );
                 })}
               </div>
+
               {/* KRW Pricing */}
-              <div className="rounded-sm border border-[rgba(15,0,0,0.12)] bg-[#fdfcfc] p-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#1a1a1a]">
+              <div className="rounded-xl shadow-sm border border-[rgba(15,0,0,0.08)] p-5 bg-gradient-to-br from-[#fdfcfc] to-[#f8f7f7] dark:from-[#1a1a1a] dark:to-[#222] dark:border-[rgba(255,255,255,0.08)]">
                 <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">💰 한국 원화 결제 예상</p>
-                <p className="mt-1 text-[0.6rem] text-[#424245] dark:text-[#a0a0a0]">{r.krwNote}</p>
-                <p className="mt-1 text-[0.55rem] text-[#9a9898] dark:text-[#666]">※ 환율: 1 USD = {KRW_EXCHANGE_RATE}원 (변동 가능) · 해외 결제 수수료 3% 포함 · 실시간 환율은 매일 갱신</p>
+                <p className="mt-1 text-[0.7rem] text-[#424245] leading-relaxed dark:text-[#a0a0a0]">{r.krwNote}</p>
+                <p className="mt-1 text-[0.6rem] text-[#9a9898] dark:text-[#666]">※ 환율: 1 USD = {KRW_EXCHANGE_RATE}원 (변동 가능) · 해외 결제 수수료 3% 포함 · 실시간 환율은 매일 갱신</p>
               </div>
             </div>
           ))}
+
           {/* Fee Saving Tips */}
-          <div className="mt-8 border-t border-[rgba(15,0,0,0.08)] pt-6 dark:border-[rgba(255,255,255,0.06)]">
-            <div className="flex items-center justify-between mb-3">
+          <div className="mt-8 border-t border-[rgba(15,0,0,0.08)] pt-8 dark:border-[rgba(255,255,255,0.06)]">
+            <div className="flex items-center justify-between mb-4">
               <p className="text-sm font-semibold text-[#201d1d] dark:text-[#fdfcfc]">💡 해외 결제 수수료 절약 팁</p>
-              <button onClick={() => setShowLegal(!showLegal)} className="text-[0.55rem] text-[#9a9898] underline hover:text-[#646262]">법적 고지</button>
+              <button onClick={() => setShowLegal(!showLegal)} className="text-[0.6rem] text-[#9a9898] underline hover:text-[#646262] dark:text-[#666]">법적 고지</button>
             </div>
             {showLegal && (
-              <div className="rounded-sm border border-[rgba(15,0,0,0.12)] bg-amber-50/50 p-3 mb-3 dark:border-[rgba(255,255,255,0.1)] dark:bg-amber-950/20">
-                <p className="text-[0.55rem] text-[#646262] leading-relaxed">
-                  ⚖️ 법적 고지: 당사는 아래 링크된 업체로부터 어떠한 금전적 보상도 받지 않습니다. 
-                  링크는 일반 정보 제공 목적이며, 특정 상품의 가입을 권유하지 않습니다. 
-                  각 카드사의 약관과 수수료 정책은 변경될 수 있으므로 가입 전 반드시 확인하세요. 
+              <div className="rounded-xl border border-[rgba(15,0,0,0.12)] bg-amber-50/50 p-4 mb-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-amber-950/20">
+                <p className="text-[0.6rem] text-[#646262] leading-relaxed dark:text-[#a0a0a0]">
+                  ⚖️ 법적 고지: 당사는 아래 링크된 업체로부터 어떠한 금전적 보상도 받지 않습니다.
+                  링크는 일반 정보 제공 목적이며, 특정 상품의 가입을 권유하지 않습니다.
+                  각 카드사의 약관과 수수료 정책은 변경될 수 있으므로 가입 전 반드시 확인하세요.
                   대한민국 「표시광고법」 및 「전자상거래법」을 준수합니다.
                 </p>
               </div>
             )}
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {FEE_TIPS.map((tip, i) => (
                 <a key={i} href={tip.link} target="_blank" rel="noopener noreferrer"
-                  className="block rounded-sm border border-[rgba(15,0,0,0.12)] p-3 hover:bg-[#f8f7f7] dark:border-[rgba(255,255,255,0.1)] dark:hover:bg-[#222] group">
+                  className="block rounded-xl shadow-sm border border-[rgba(15,0,0,0.08)] p-4 hover:shadow-md transition-shadow hover:bg-[#fdfcfc] dark:border-[rgba(255,255,255,0.08)] dark:bg-[#1a1a1a] dark:hover:bg-[#222] group">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">{tip.name}</p>
-                    <span className="text-[0.55rem] text-[#007aff] opacity-0 group-hover:opacity-100 transition-opacity">바로가기 →</span>
+                    <span className="text-[0.6rem] text-[#007aff] opacity-0 group-hover:opacity-100 transition-opacity">바로가기 →</span>
                   </div>
-                  <div className="flex gap-2 mt-1">
-                    <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300">수수료 {tip.fee}</span>
-                    {tip.cashback !== "-" && <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">캐시백 {tip.cashback}</span>}
+                  <div className="flex gap-2 mt-2">
+                    <span className="text-[0.6rem] px-2 py-0.5 rounded-full bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300">수수료 {tip.fee}</span>
+                    {tip.cashback !== "-" && <span className="text-[0.6rem] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">캐시백 {tip.cashback}</span>}
                   </div>
-                  <p className="mt-1.5 text-[0.55rem] text-[#646262] dark:text-[#888]">{tip.desc}</p>
+                  <p className="mt-2 text-[0.6rem] text-[#646262] leading-relaxed dark:text-[#888]">{tip.desc}</p>
                 </a>
               ))}
             </div>
-            <p className="mt-2 text-[0.5rem] text-[#9a9898] dark:text-[#666]">※ 제휴 마케팅 링크가 아닙니다. 업체로부터 대가를 받지 않습니다. 정보는 참고용입니다.</p>
+            <p className="mt-3 text-[0.55rem] text-[#9a9898] dark:text-[#666]">※ 제휴 마케팅 링크가 아닙니다. 업체로부터 대가를 받지 않습니다. 정보는 참고용입니다.</p>
           </div>
         </main>
       </div>
@@ -305,7 +324,7 @@ export default function RecommendPage() {
 
   return (
     <div className="min-h-screen bg-[#fdfcfc] dark:bg-[#1a1a1a] flex flex-col">
-      <header className="border-b border-[rgba(15,0,0,0.12)] dark:border-[rgba(255,255,255,0.08)]">
+      <header className="border-b border-[rgba(15,0,0,0.08)] dark:border-[rgba(255,255,255,0.06)]">
         <div className="mx-auto max-w-2xl px-4 py-3 sm:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-lg">🎯</span>
@@ -314,50 +333,54 @@ export default function RecommendPage() {
           <Link href="/dashboard" className="rounded-full border border-[rgba(15,0,0,0.12)] px-3 py-1 text-xs text-[#424245] hover:bg-[#f8f7f7] dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#222]">📊 연구소</Link>
         </div>
       </header>
-      <main className="flex-1 mx-auto max-w-2xl px-4 py-12 sm:px-6 w-full">
+
+      <main className="flex-1 mx-auto max-w-2xl px-4 py-10 sm:px-6 w-full flex flex-col">
         {/* Progress */}
-        <div className="mb-8">
+        <div className="mb-10">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs text-[#646262] dark:text-[#888]">질문 {step + 1} / {QUESTIONS.length}</p>
             <p className="text-xs font-medium text-[#201d1d] dark:text-[#fdfcfc]">{q.q}</p>
           </div>
-          <div className="h-1.5 rounded-full bg-[#f1eeee] dark:bg-[#333]">
-            <div className="h-1.5 rounded-full bg-[#201d1d] dark:bg-[#fdfcfc] transition-all duration-300" style={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }} />
+          <div className="h-2 rounded-full bg-[#f1eeee] dark:bg-[#333]">
+            <div className="h-2 rounded-full bg-[#201d1d] dark:bg-[#fdfcfc] transition-all duration-300" style={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }} />
           </div>
-          <p className="mt-1 text-[0.6rem] text-[#9a9898] dark:text-[#666]">{q.sub}</p>
+          <p className="mt-2 text-[0.65rem] text-[#9a9898] dark:text-[#666]">{q.sub}</p>
         </div>
-        {/* Question */}
-        <div className="space-y-3">
-          {q.options.map((opt: any) => {
-            const selected = q.multi ? (answers[q.id] || []).includes(opt.value) : answers[q.id] === opt.value;
-            return (
-              <button key={opt.value} onClick={() => toggle(q.id, opt.value)}
-                className={`w-full flex items-center gap-3 rounded-full border px-4 py-3 text-left text-sm transition-all ${
-                  selected
-                    ? "border-[#201d1d] bg-[#201d1d] text-[#fdfcfc] dark:border-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"
-                    : "border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7] dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#222]"
-                }`}
-              >
-                <span className="text-lg">{opt.emoji}</span>
-                <div className="flex-1">
-                  <p className="font-semibold">{opt.label}</p>
-                  {opt.desc && <p className="text-[0.6rem] text-inherit opacity-70">{opt.desc}</p>}
-                  {opt.price && <p className="text-[0.55rem] text-inherit opacity-50">{opt.price}</p>}
-                </div>
-                {selected && <span className="text-sm">✓</span>}
-              </button>
-            );
-          })}
+
+        {/* Question — 2-column pill grid */}
+        <div className="flex-1">
+          <div className="grid grid-cols-2 gap-3">
+            {q.options.map((opt) => {
+              const selected = q.multi ? ((answers[q.id] || []) as string[]).includes(opt.value) : answers[q.id] === opt.value;
+              return (
+                <button key={opt.value} onClick={() => toggle(q.id, opt.value)}
+                  className={`rounded-full w-full flex flex-col items-center justify-center gap-1 px-4 py-4 text-center transition-all ${
+                    selected
+                      ? "border-[#201d1d] bg-[#201d1d] text-[#fdfcfc] shadow-sm dark:border-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"
+                      : "border border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7] hover:border-[rgba(15,0,0,0.2)] dark:border-[rgba(255,255,255,0.12)] dark:text-[#a0a0a0] dark:hover:bg-[#222]"
+                  }`}
+                >
+                  <span className="text-xl">{opt.emoji}</span>
+                  <span className="text-xs font-semibold leading-tight">{opt.label}</span>
+                  {(opt as any).desc && <span className="text-[0.6rem] opacity-70 leading-tight">{(opt as any).desc}</span>}
+                  {(opt as any).price && <span className="text-[0.6rem] opacity-50">{(opt as any).price}</span>}
+                  {selected && <span className="text-[0.6rem] mt-0.5 opacity-70">선택됨</span>}
+                </button>
+              );
+            })}
+          </div>
         </div>
+
         {/* Navigation */}
-        <div className="mt-8 flex justify-between">
+        <div className="mt-8 flex justify-between pt-4">
           <button onClick={prev} disabled={step === 0}
-            className="rounded-full border border-[rgba(15,0,0,0.12)] px-4 py-2 text-xs text-[#424245] hover:bg-[#f8f7f7] disabled:opacity-30 dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#222]">
+            className="rounded-full border border-[rgba(15,0,0,0.12)] px-5 py-2.5 text-xs text-[#424245] hover:bg-[#f8f7f7] disabled:opacity-30 dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#222]">
             ← 이전
           </button>
           <button onClick={next}
-            className="rounded-full bg-[#201d1d] px-6 py-2 text-xs font-medium text-[#fdfcfc] hover:bg-[#0f0000] dark:bg-[#fdfcfc] dark:text-[#201d1d] dark:hover:bg-[#e8e8e8]">
-            {step < 5 ? "다음 →" : "🎯 추천 받기"}
+            disabled={!answers[q.id] || (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)}
+            className="rounded-full bg-[#201d1d] px-6 py-2.5 text-xs font-medium text-[#fdfcfc] hover:bg-[#0f0000] disabled:opacity-30 dark:bg-[#fdfcfc] dark:text-[#201d1d] dark:hover:bg-[#e8e8e8]">
+            {step < QUESTIONS.length - 1 ? "다음 →" : "🎯 추천 받기"}
           </button>
         </div>
       </main>

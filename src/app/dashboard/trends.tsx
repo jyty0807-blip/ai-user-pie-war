@@ -26,7 +26,7 @@ interface TrendPoint {
   anthropic: number;
   deepseek: number;
   google: number;
-  event: string;
+  event?: string;
 }
 
 const trendData: TrendPoint[] = [
@@ -80,11 +80,36 @@ const trendData: TrendPoint[] = [
   },
 ];
 
+const weeklyData: TrendPoint[] = [
+  { month: "7/19", openai: 595, anthropic: 112, deepseek: 78, google: 195 },
+  { month: "7/20", openai: 590, anthropic: 114, deepseek: 79, google: 196 },
+  { month: "7/21", openai: 588, anthropic: 116, deepseek: 79, google: 197 },
+  { month: "7/22", openai: 585, anthropic: 117, deepseek: 80, google: 198 },
+  { month: "7/23", openai: 583, anthropic: 118, deepseek: 80, google: 199 },
+  { month: "7/24", openai: 581, anthropic: 119, deepseek: 80, google: 200 },
+  { month: "7/25", openai: 580, anthropic: 120, deepseek: 80, google: 200 },
+];
+
+const monthlyData: TrendPoint[] = [
+  { month: "7/1", openai: 590, anthropic: 110, deepseek: 78, google: 195 },
+  { month: "7/8", openai: 585, anthropic: 114, deepseek: 79, google: 197 },
+  { month: "7/15", openai: 582, anthropic: 117, deepseek: 80, google: 199 },
+  { month: "7/22", openai: 580, anthropic: 120, deepseek: 80, google: 200 },
+];
+
 const companyColors: Record<string, string> = {
   openai: "#10A37F",
   anthropic: "#D97757",
   deepseek: "#4F46E5",
   google: "#4285F4",
+};
+
+/** Stroke dash patterns for color-blind accessibility — each company gets a unique pattern */
+const companyDashArrays: Record<string, string> = {
+  openai: "0",           // solid line
+  anthropic: "8 4",      // dashed
+  deepseek: "2 4",       // dotted
+  google: "12 4 2 4",   // dash-dot
 };
 
 const companyLabels: Record<string, string> = {
@@ -94,15 +119,26 @@ const companyLabels: Record<string, string> = {
   google: "Google",
 };
 
-const ranges = [
-  { label: "6개월", months: 6 },
-  { label: "1년", months: 12 },
-  { label: "전체", months: 18 },
+type RangeKey = "1w" | "1m" | "6m" | "1y" | "all";
+
+const ranges: { label: string; key: RangeKey }[] = [
+  { label: "1주일", key: "1w" },
+  { label: "1개월", key: "1m" },
+  { label: "6개월", key: "6m" },
+  { label: "1년", key: "1y" },
+  { label: "전체", key: "all" },
 ];
 
 export function Trends() {
-  const [range, setRange] = useState(6);
-  const data = trendData.slice(-range);
+  const [range, setRange] = useState<RangeKey>("6m");
+  const dataMap: Record<RangeKey, TrendPoint[]> = {
+    "1w": weeklyData,
+    "1m": monthlyData,
+    "6m": trendData.slice(-6),
+    "1y": trendData.slice(-12),
+    "all": trendData,
+  };
+  const data = dataMap[range];
   const marketShareData = data.map((point) => {
     const total = point.openai + point.anthropic + point.deepseek + point.google;
     return {
@@ -172,10 +208,10 @@ export function Trends() {
           <div className="flex gap-1">
             {ranges.map((r) => (
               <Button
-                key={r.label}
-                variant={range === r.months ? "default" : "ghost"}
+                key={r.key}
+                variant={range === r.key ? "default" : "ghost"}
                 size="xs"
-                onClick={() => setRange(r.months)}
+                onClick={() => setRange(r.key)}
               >
                 {r.label}
               </Button>
@@ -234,6 +270,7 @@ export function Trends() {
                 dataKey={k}
                 stroke={color}
                 strokeWidth={2}
+                strokeDasharray={companyDashArrays[k]}
                 dot={{ r: 4, fill: color }}
                 activeDot={{ r: 6 }}
               />

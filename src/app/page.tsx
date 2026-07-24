@@ -111,7 +111,7 @@ export default function LandingPage() {
                 <div key={item.step} className="rounded-sm border border-[rgba(15,0,0,0.08)] bg-[#f8f7f7] p-4 text-center dark:border-[rgba(255,255,255,0.06)] dark:bg-[#222]">
                   <span className="text-2xl">{item.emoji}</span>
                   <p className="mt-1 text-sm font-semibold text-[#201d1d] dark:text-[#fdfcfc]">{item.step}. {item.title}</p>
-                  <p className="mt-0.5 text-[0.6rem] text-[#646262] dark:text-[#888]">{item.desc}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-[#646262] dark:text-[#888]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -161,14 +161,14 @@ export default function LandingPage() {
                         <h3 className="text-sm font-semibold text-[#201d1d] dark:text-[#fdfcfc]">
                           {section.title}
                         </h3>
-                        <span className="shrink-0 text-[0.6rem] text-[#9a9898] dark:text-[#666] transition-colors group-hover:text-[#201d1d] dark:group-hover:text-[#fdfcfc]">
+                        <span className="shrink-0 text-xs text-[#9a9898] dark:text-[#666] transition-colors group-hover:text-[#201d1d] dark:group-hover:text-[#fdfcfc]">
                           바로가기 →
                         </span>
                       </div>
                       <p className="mt-0.5 text-xs text-[#646262] dark:text-[#888]">
                         {section.desc}
                       </p>
-                      <p className="mt-1 text-[0.6rem] leading-relaxed text-[#9a9898] dark:text-[#666]">
+                      <p className="mt-1 text-xs leading-relaxed text-[#9a9898] dark:text-[#666]">
                         {section.detail}
                       </p>
                     </div>
@@ -186,7 +186,7 @@ export default function LandingPage() {
               <p className="text-xs font-medium text-[#201d1d] dark:text-[#fdfcfc]">
                 ⚠️ 데이터 안내
               </p>
-              <p className="mt-1 text-[0.6rem] leading-relaxed text-[#646262] dark:text-[#888]">
+              <p className="mt-1 text-xs leading-relaxed text-[#646262] dark:text-[#888]">
                 이 대시보드는 포트폴리오 목적의 프로젝트입니다. 모든 데이터는 공개 출처 기반 추정치이며,
                 실제 기업 내부 데이터가 아닙니다. 각 데이터의 출처와 방법론은{' '}
                 <Link href="/dashboard/onboarding" className="underline hover:text-[#201d1d] dark:hover:text-[#fdfcfc]">
@@ -201,10 +201,10 @@ export default function LandingPage() {
 
       <footer className="border-t border-[rgba(15,0,0,0.08)] dark:border-[rgba(255,255,255,0.06)]">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-          <p className="text-[0.55rem] text-[#9a9898] dark:text-[#666]">
+          <p className="text-xs text-[#9a9898] dark:text-[#666]">
             데이터 출처: SEC filings · Sensor Tower · SimilarWeb · 각사 공식 발표
           </p>
-          <p className="text-[0.55rem] text-[#9a9898] dark:text-[#666]">
+          <p className="text-xs text-[#9a9898] dark:text-[#666]">
             🕐 2026년 7월 25일 기준
           </p>
         </div>

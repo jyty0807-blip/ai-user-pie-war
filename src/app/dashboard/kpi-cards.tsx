@@ -93,7 +93,7 @@ const mockKPIs: CompanyKpi[] = [
 
 export function KpiCards() {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
       {mockKPIs.map((company) => (
         <KpiCard key={company.slug} company={company} />
       ))}
@@ -105,7 +105,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
   return (
     <Card
       className={cn(
-        "relative overflow-hidden rounded-sm"
+        "relative overflow-hidden rounded-sm [--card-spacing:--spacing(5)]"
       )}
     >
       {/* Brand color accent bar */}
@@ -124,7 +124,7 @@ function KpiCard({ company }: { company: CompanyKpi }) {
       <CardContent className="space-y-3.5">
         {/* Primary metric — MAU */}
         <div>
-          <p className="text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             월간 활성 유저 (WAU, 추정)
             <MetricTooltip term="WAU" definition={METRIC_DEFINITIONS.WAU} />
           </p>
@@ -132,9 +132,13 @@ function KpiCard({ company }: { company: CompanyKpi }) {
             {company.mau}
           </p>
           <p
-            className="mt-0.5 text-xs font-semibold"
+            className="mt-0.5 text-xs font-semibold inline-flex items-center gap-0.5"
             style={{ color: company.yoyColor }}
+            aria-label={`${company.name} YoY growth: ${company.yoyGrowth}`}
           >
+            <span aria-hidden="true">
+              {company.yoyGrowth.startsWith("전년비 +") ? "▲" : company.yoyGrowth.startsWith("전년비 -") ? "▼" : "→"}
+            </span>
             {company.yoyGrowth}
           </p>
         </div>
@@ -173,7 +177,7 @@ function Metric({
 }) {
   return (
     <div>
-      <p className="text-[0.65rem] font-medium text-muted-foreground">
+      <p className="text-xs font-medium text-muted-foreground">
         {label}
         {tooltipTerm && tooltipDef && (
           <MetricTooltip term={tooltipTerm} definition={tooltipDef} />

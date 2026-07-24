@@ -124,10 +124,22 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    color: #424245;
+    /* Minimum 12px for body text — WCAG readability floor */
+    font-size: 0.75rem;
+    line-height: 1.6;
   }
   html {
     @apply font-sans;
+  }
+
+  /* Headings: improve text wrapping balance */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  /* Body prose: reduce orphan words */
+  p, li {
+    text-wrap: pretty;
   }
 
   /* Consistent transition for interactive elements */

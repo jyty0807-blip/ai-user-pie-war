@@ -1,6 +1,7 @@
 "use client";
 
 import { ExternalLink, Info } from "lucide-react";
+import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo } from "@/components/company-logos";
 import {
   Card,
   CardContent,
@@ -175,10 +176,10 @@ const newsItems: NewsData = {
 };
 
 const companies = [
-  { slug: "openai", name: "OpenAI", logo: "🧠", color: "#10A37F", description: "ChatGPT · GPT-5 · 광고 수익화" },
-  { slug: "anthropic", name: "Anthropic", logo: "🔬", color: "#D97757", description: "Claude · MCP · IPO 준비" },
-  { slug: "deepseek", name: "DeepSeek", logo: "🐋", color: "#4F46E5", description: "V4 Flash · 화웨이 · 오픈소스" },
-  { slug: "google", name: "Google", logo: "🔍", color: "#4285F4", description: "Gemini · Android · AI Mode" },
+  { slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6" />, color: "#10A37F", description: "ChatGPT · GPT-5 · 광고 수익화" },
+  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6" />, color: "#D97757", description: "Claude · MCP · IPO 준비" },
+  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6" />, color: "#4F46E5", description: "V4 Flash · 화웨이 · 오픈소스" },
+  { slug: "google", name: "Google", logo: <GoogleAILogo className="h-6 w-6" />, color: "#4285F4", description: "Gemini · Android · AI Mode" },
 ];
 
 function companyLabel(slug: string): string {
@@ -284,7 +285,7 @@ export default function NewsPage() {
               backgroundColor: company.color + "08",
             }}
           >
-            <span className="text-2xl">{company.logo}</span>
+            {company.logo}
             <span className="text-sm font-semibold text-foreground">
               {company.name}
             </span>

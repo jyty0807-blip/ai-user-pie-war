@@ -282,7 +282,7 @@ export default function ReviewsPage() {
               }
             >
               <div
-                className="absolute inset-x-0 top-0 h-1 rounded-t-xl"
+                className="absolute inset-x-0 top-0 h-0.5 rounded-t-sm"
                 style={{ backgroundColor: color }}
               />
               <CardHeader>

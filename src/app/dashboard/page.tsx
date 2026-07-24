@@ -21,7 +21,7 @@ export default function DashboardPage() {
   const [tab, setTab] = useState("kpi");
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-6 py-8 sm:px-8 lg:px-12">
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
@@ -50,18 +50,20 @@ export default function DashboardPage() {
 
       {/* Tab navigation */}
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="mb-8">
-          <TabsTrigger value="kpi">핵심 지표</TabsTrigger>
-          <TabsTrigger value="comparison">4사 비교표</TabsTrigger>
-          <TabsTrigger value="timeline">📖 스토리</TabsTrigger>
-          <TabsTrigger value="pricing">💰 가격 전쟁</TabsTrigger>
-          <TabsTrigger value="trends">📊 시장 트렌드</TabsTrigger>
-        </TabsList>
+        <div className="mb-8 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+          <TabsList>
+            <TabsTrigger value="kpi">핵심 지표</TabsTrigger>
+            <TabsTrigger value="comparison">4사 비교표</TabsTrigger>
+            <TabsTrigger value="timeline">📖 스토리</TabsTrigger>
+            <TabsTrigger value="pricing">💰 가격 전쟁</TabsTrigger>
+            <TabsTrigger value="trends">📊 시장 트렌드</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="kpi">
-          <div className="space-y-8">
+          <div className="space-y-10">
             {/* 한줄요약 인사이트 */}
-            <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-5 dark:border-slate-700/20 dark:bg-slate-900/30">
+            <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-6 dark:border-slate-700/20 dark:bg-slate-900/30">
               <p className="text-lg font-bold text-slate-800 dark:text-slate-200">
                 💡 한줄 요약
                 <EvidenceTooltip section="핵심 지표 (KPI)" sources={SECTION_EVIDENCE["kpi-cards"].sources} methodology={SECTION_EVIDENCE["kpi-cards"].methodology} className="ml-1 -mb-0.5" />
@@ -91,9 +93,9 @@ export default function DashboardPage() {
         </TabsContent>
 
         <TabsContent value="trends">
-          <div className="space-y-6">
+          <div className="space-y-10">
             {/* Executive Summary */}
-            <div className="rounded-sm border border-violet-300/20 bg-violet-50/80 p-5 dark:border-violet-800/20 dark:bg-violet-950/20">
+            <div className="rounded-sm border border-violet-300/20 bg-violet-50/80 p-6 dark:border-violet-800/20 dark:bg-violet-950/20">
               <p className="text-base font-bold text-violet-800 dark:text-violet-200">📊 AI 시장 트렌드 요약</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-violet-700 dark:text-violet-300">
                 <li><strong>800M vs 120M:</strong> OpenAI가 아직 유저 볼륨 1위지만, 성장률은 Anthropic이 600%로 압도</li>

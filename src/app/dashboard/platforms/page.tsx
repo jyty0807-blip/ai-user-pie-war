@@ -18,6 +18,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
+import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo } from "@/components/company-logos";
+
+function PlatformIcon({ slug }: { slug: string }) {
+  const cls = "h-8 w-8";
+  switch (slug) {
+    case "claude-code": return <AnthropicLogo className={cls} />;
+    case "openai-codex": return <OpenAILogo className={cls} />;
+    case "opencode": return <DeepSeekLogo className={cls} />;
+    case "zen": return <GoogleAILogo className={cls} />;
+    default: return <span className="text-2xl">?</span>;
+  }
+}
 
 interface PlatformData {
   name: string;
@@ -146,13 +158,13 @@ function PlatformCard({ platform, index }: PlatformCardProps) {
     <Card size="sm" className="relative overflow-hidden">
       {/* Color accent bar */}
       <div
-        className="absolute inset-x-0 top-0 h-1"
+        className="absolute inset-x-0 top-0 h-0.5"
         style={{ backgroundColor: platform.color }}
       />
       <CardHeader>
         <div className="flex items-center gap-2">
           <span className="text-xl" aria-hidden="true">
-            {platform.icon}
+            <PlatformIcon slug={platform.slug} />
           </span>
           <div>
             <CardTitle className="text-base">{platform.name}</CardTitle>

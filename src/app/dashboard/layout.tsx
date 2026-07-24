@@ -128,7 +128,7 @@ export default function DashboardLayout({
 
         {/* Footer: data freshness + sources */}
         <footer className="border-t border-border bg-background">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8 lg:px-12">
             <p className="text-[0.65rem] text-muted-foreground">
               📊 데이터 출처: SEC filings · Sensor Tower · SimilarWeb · 각사 공식 발표 · API 가격 페이지
             </p>
