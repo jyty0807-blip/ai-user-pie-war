@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { MessageSquare, CheckCircle, XCircle, BarChart3, AlertTriangle, Rocket, Pin } from "lucide-react";
+import { ClaudeLogo, OpenAILogo, OpenRouterLogo } from "@/components/company-logos";
 import {
   Table,
   TableBody,
@@ -170,16 +172,22 @@ function getPlatformColor(platform: string): string {
   }
 }
 
-function getPlatformIcon(platform: string): string {
+function PlatformIcon({ slug }: { slug: string }) {
+  const cls = "h-5 w-5 shrink-0";
+  switch (slug) {
+    case "claude-code": return <ClaudeLogo className={cls} />;
+    case "openai-codex": return <OpenAILogo className={cls} />;
+    case "opencode": return <OpenRouterLogo className={cls} />;
+    default: return null;
+  }
+}
+
+function getPlatformIconNode(platform: string): React.ReactNode {
   switch (platform) {
-    case "Claude Code":
-      return "🤖";
-    case "OpenAI Codex":
-      return "🧠";
-    case "OpenCode (OMC)":
-      return "⚡";
-    default:
-      return "💬";
+    case "Claude Code": return <PlatformIcon slug="claude-code" />;
+    case "OpenAI Codex": return <PlatformIcon slug="openai-codex" />;
+    case "OpenCode (OMC)": return <PlatformIcon slug="opencode" />;
+    default: return null;
   }
 }
 
@@ -241,7 +249,7 @@ export default function ReviewsPage() {
     <div className="space-y-8">
       {/* 한줄요약 */}
       <div className="rounded-sm border border-pink-200 border-l border-l-pink-400 bg-pink-50 p-5 dark:border-pink-800 dark:border-l-pink-400 dark:bg-pink-950/30 mb-6">
-        <p className="text-sm font-medium text-pink-800 dark:text-pink-200">🗣️ 개발자들의 목소리</p>
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><MessageSquare className="h-3.5 w-3.5" />개발자들의 목소리</p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-pink-700 dark:text-pink-300">
           <li><strong>Claude Code:</strong> 68% 긍정 — MCP 생태계와 에이전트 코딩에 압도적 호평</li>
           <li><strong>OpenAI Codex:</strong> 45% 긍정 — GPT-5 품질 편차로 기복 있음</li>
@@ -252,7 +260,7 @@ export default function ReviewsPage() {
 
       {/* Header */}
       <div>
-        <h2 className="font-heading text-xl font-semibold tracking-tight">
+        <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
           Community Sentiment — 개발자 커뮤니티 반응 (2026년 3분기)
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -264,7 +272,7 @@ export default function ReviewsPage() {
       <div className="grid gap-4 md:grid-cols-3">
         {sentimentData.map((entry) => {
           const color = getPlatformColor(entry.platform);
-          const icon = getPlatformIcon(entry.platform);
+          const iconNode = getPlatformIconNode(entry.platform);
           const isSelected = selectedPlatform === entry.platform;
 
           return (
@@ -287,8 +295,8 @@ export default function ReviewsPage() {
               />
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg" aria-hidden="true">
-                    {icon}
+                  <span className="inline-flex shrink-0">
+                    {iconNode}
                   </span>
                   <CardTitle className="text-sm">{entry.platform}</CardTitle>
                 </div>
@@ -315,8 +323,8 @@ export default function ReviewsPage() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-xl" aria-hidden="true">
-                  {getPlatformIcon(selectedPlatform)}
+                <span className="inline-flex shrink-0">
+                  {getPlatformIconNode(selectedPlatform)}
                 </span>
                 <CardTitle className="text-base">{selectedPlatform} — 상세 분석</CardTitle>
               </div>
@@ -342,7 +350,7 @@ export default function ReviewsPage() {
             <div className="grid gap-4 md:grid-cols-2">
               {/* Pros */}
               <div className="rounded-md border border-emerald-200 bg-emerald-50/60 p-4 dark:border-emerald-800 dark:bg-emerald-950/20">
-                <h4 className="mb-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">✅ 장점 (Pros)</h4>
+                <h4 className="mb-2 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-400"><CheckCircle className="h-4 w-4" />장점 (Pros)</h4>
                 <ul className="space-y-1.5">
                   {selectedDetails.pros.map((item, i) => (
                     <li key={`pro-${i}`} className="flex items-start gap-2 text-sm text-emerald-800 dark:text-emerald-200">
@@ -355,7 +363,7 @@ export default function ReviewsPage() {
 
               {/* Cons */}
               <div className="rounded-md border border-red-200 bg-red-50/60 p-4 dark:border-red-800 dark:bg-red-950/20">
-                <h4 className="mb-2 text-sm font-semibold text-red-700 dark:text-red-400">❌ 단점 (Cons)</h4>
+                <h4 className="mb-2 inline-flex items-center gap-1.5 text-sm font-semibold text-red-700 dark:text-red-400"><XCircle className="h-4 w-4" />단점 (Cons)</h4>
                 <ul className="space-y-1.5">
                   {selectedDetails.cons.map((item, i) => (
                     <li key={`con-${i}`} className="flex items-start gap-2 text-sm text-red-800 dark:text-red-200">
@@ -369,10 +377,10 @@ export default function ReviewsPage() {
 
             {/* SWOT analysis */}
             <div>
-              <h4 className="mb-3 text-sm font-semibold">📊 SWOT 분석</h4>
+              <h4 className="mb-3 inline-flex items-center gap-1.5 text-sm font-semibold"><BarChart3 className="h-4 w-4" />SWOT 분석</h4>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="rounded-md border border-blue-200 bg-blue-50/60 p-3 dark:border-blue-800 dark:bg-blue-950/20">
-                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">💪 STRENGTHS</span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400"><CheckCircle className="h-3 w-3" />STRENGTHS</span>
                   <ul className="mt-1.5 space-y-0.5">
                     {selectedDetails.swot.strength.map((item, i) => (
                       <li key={`swot-s-${i}`} className="text-xs text-blue-800 dark:text-blue-200">• {item}</li>
@@ -380,7 +388,7 @@ export default function ReviewsPage() {
                   </ul>
                 </div>
                 <div className="rounded-md border border-orange-200 bg-orange-50/60 p-3 dark:border-orange-800 dark:bg-orange-950/20">
-                  <span className="text-xs font-semibold text-orange-600 dark:text-orange-400">⚠️ WEAKNESSES</span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 dark:text-orange-400"><AlertTriangle className="h-3 w-3" />WEAKNESSES</span>
                   <ul className="mt-1.5 space-y-0.5">
                     {selectedDetails.swot.weakness.map((item, i) => (
                       <li key={`swot-w-${i}`} className="text-xs text-orange-800 dark:text-orange-200">• {item}</li>
@@ -388,7 +396,7 @@ export default function ReviewsPage() {
                   </ul>
                 </div>
                 <div className="rounded-md border border-green-200 bg-green-50/60 p-3 dark:border-green-800 dark:bg-green-950/20">
-                  <span className="text-xs font-semibold text-green-600 dark:text-green-400">🚀 OPPORTUNITIES</span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-600 dark:text-green-400"><Rocket className="h-3 w-3" />OPPORTUNITIES</span>
                   <ul className="mt-1.5 space-y-0.5">
                     {selectedDetails.swot.opportunity.map((item, i) => (
                       <li key={`swot-o-${i}`} className="text-xs text-green-800 dark:text-green-200">• {item}</li>
@@ -396,7 +404,7 @@ export default function ReviewsPage() {
                   </ul>
                 </div>
                 <div className="rounded-md border border-red-200 bg-red-50/60 p-3 dark:border-red-800 dark:bg-red-950/20">
-                  <span className="text-xs font-semibold text-red-600 dark:text-red-400">🔻 THREATS</span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-red-600 dark:text-red-400"><AlertTriangle className="h-3 w-3" />THREATS</span>
                   <ul className="mt-1.5 space-y-0.5">
                     {selectedDetails.swot.threat.map((item, i) => (
                       <li key={`swot-t-${i}`} className="text-xs text-red-800 dark:text-red-200">• {item}</li>
@@ -408,7 +416,7 @@ export default function ReviewsPage() {
 
             {/* Community quotes */}
             <div>
-              <h4 className="mb-3 text-sm font-semibold">💬 주요 커뮤니티 인용</h4>
+              <h4 className="mb-3 inline-flex items-center gap-1.5 text-sm font-semibold"><MessageSquare className="h-4 w-4" />주요 커뮤니티 인용</h4>
               <div className="space-y-2">
                 {selectedDetails.topQuotes.map((quote, i) => (
                   <div key={`quote-${i}`} className="rounded-md border bg-muted/40 p-3">
@@ -451,8 +459,8 @@ export default function ReviewsPage() {
                 <TableRow key={entry.platform}>
                   <TableCell>
                     <span className="inline-flex items-center gap-1.5 text-sm font-medium">
-                      <span aria-hidden="true">
-                        {getPlatformIcon(entry.platform)}
+                      <span className="inline-flex shrink-0">
+                        {getPlatformIconNode(entry.platform)}
                       </span>{" "}
                       <span style={{ color: getPlatformColor(entry.platform) }}>
                         {entry.platform}
@@ -483,7 +491,7 @@ export default function ReviewsPage() {
       <Card size="sm">
         <CardContent className="py-3">
           <p className="text-xs text-muted-foreground">
-            📌 Reddit, Hacker News, X에서 수집. 2026년 7월 기준. 감정 분석은 키워드 기반입니다.
+            <Pin className="h-3 w-3 inline -mt-0.5" /> Reddit, Hacker News, X에서 수집. 2026년 7월 기준. 감정 분석은 키워드 기반입니다.
           </p>
         </CardContent>
       </Card>

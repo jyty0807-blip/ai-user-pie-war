@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Calendar } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -38,7 +39,7 @@ function CalendarChip({ open, onClick }: { open: boolean; onClick: () => void })
           : "border-[rgba(15,0,0,0.12)] text-[#424245] hover:bg-[#f8f7f7] dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#222]"
       )}
     >
-      <span>📅</span>
+      <Calendar className="h-3.5 w-3.5" />
       <span>업데이트 일정</span>
       <span className={cn("text-[0.55rem] transition-transform", open && "rotate-180")}>
         ▼
@@ -58,7 +59,7 @@ export function UpdateSchedule() {
         <div className="mt-3 rounded-sm border border-[rgba(15,0,0,0.12)] bg-[#f8f7f7] p-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#222]">
           <div className="flex items-center justify-between mb-3">
             <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">
-              📅 업데이트 캘린더
+              <Calendar className="h-3.5 w-3.5" /> 업데이트 캘린더
             </p>
             <p className="text-[0.55rem] text-[#9a9898] dark:text-[#666]">
               한국시간(KST) 기준

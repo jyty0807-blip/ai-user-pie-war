@@ -144,4 +144,4 @@ export const MODEL_SWOT: ModelSWOT[] = [
     specs: { context: "1M", swebench: "79.0%", gpqa: "N/A", speed: "빠름" },
   },
 ];
-export const KRW_EXCHANGE_RATE = 1380; // approx USD/KRW
+export const KRW_EXCHANGE_RATE = 1474; // approx USD/KRW (updated 2026-07-25 via er-api.com)

@@ -19,14 +19,15 @@ export function MetricTooltip({ term, definition }: MetricTooltipProps) {
           </button>
         }
       />
-      <TooltipContent className="max-w-[260px] p-3.5 bg-[#fdfcfc] dark:bg-[#1a1a1a] text-[#201d1d] dark:text-[#fdfcfc]">
-        <p className="text-xs font-semibold mb-1">{term}</p>
-        <p className="text-[0.65rem] leading-relaxed opacity-80">{definition}</p>
+      <TooltipContent className="max-w-[320px] p-4 bg-[#fdfcfc] dark:bg-[#1a1a1a] text-[#201d1d] dark:text-[#fdfcfc] border border-border shadow-sm">
+        <p className="text-xs font-semibold mb-1.5">{term}</p>
+        <p className="text-xs leading-relaxed text-[#424245] dark:text-[#a0a0a0]">{definition}</p>
         <Link
           href="/dashboard/onboarding"
-          className="mt-1.5 inline-block text-[0.6rem] text-[#007aff] hover:text-[#0056b3] dark:text-[#4da3ff] dark:hover:text-[#80bfff] hover:underline"
+          className="mt-2 inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#201d1d] text-[#fdfcfc] text-xs font-bold hover:bg-[#0f0000] dark:bg-[#fdfcfc] dark:text-[#201d1d] dark:hover:bg-[#e8e8e8] transition-colors"
+          aria-label="온보딩 페이지에서 자세히 보기"
         >
-          자세히 보기 →
+          +
         </Link>
       </TooltipContent>
     </Tooltip>

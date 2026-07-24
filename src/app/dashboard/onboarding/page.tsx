@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, ShieldCheck, Database, Newspaper, Scale, FileText, Info } from "lucide-react";
+import { ExternalLink, ShieldCheck, Database, Newspaper, Scale, FileText, Info, Compass, ScrollText, FolderOpen, Cog, AlertTriangle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const ethicsPrinciples = [
@@ -88,8 +88,8 @@ export default function OnboardingPage() {
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <div className="mb-10 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          🧭 데이터 윤리 · 출처 안내
+        <h1 className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <Compass className="h-3.5 w-3.5" />데이터 윤리 · 출처 안내
         </h1>
         <p className="mt-2 text-sm text-muted-foreground max-w-2xl mx-auto">
           이 대시보드는 신뢰할 수 있는 데이터와 윤리적인 정보 수집을 원칙으로 합니다.
@@ -99,7 +99,7 @@ export default function OnboardingPage() {
 
       {/* Data Ethics Principles */}
       <div className="mb-10">
-        <h2 className="text-lg font-semibold text-foreground mb-4">📜 데이터 윤리 지침</h2>
+        <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><ScrollText className="h-3.5 w-3.5" />데이터 윤리 지침</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {ethicsPrinciples.map((principle, idx) => (
             <Card key={idx} className="border-l" style={{ borderLeftColor: "var(--primary)" }}>
@@ -119,7 +119,7 @@ export default function OnboardingPage() {
 
       {/* Data Sources */}
       <div className="mb-10">
-        <h2 className="text-lg font-semibold text-foreground mb-4">📂 데이터 출처</h2>
+        <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><FolderOpen className="h-3.5 w-3.5" />데이터 출처</h2>
         <Accordion className="space-y-2">
           {dataSources.map((group) => (
             <AccordionItem
@@ -161,7 +161,7 @@ export default function OnboardingPage() {
 
       {/* Methodology */}
       <div className="mb-10">
-        <h2 className="text-lg font-semibold text-foreground mb-4">⚙️ 데이터 수집 방법론</h2>
+        <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><Cog className="h-3.5 w-3.5" />데이터 수집 방법론</h2>
         <Card>
           <CardContent className="pt-6 space-y-4">
             <div>
@@ -204,9 +204,9 @@ export default function OnboardingPage() {
       {/* Disclaimer */}
       <div className="rounded-sm border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/50">
         <div className="flex items-start gap-3">
-          <span className="text-lg shrink-0">⚠️</span>
+          <span className="shrink-0 text-amber-500"><AlertTriangle className="h-5 w-5" /></span>
           <div>
-            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">
+            <p className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
               면접 포트폴리오 목적 고지
             </p>
             <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">

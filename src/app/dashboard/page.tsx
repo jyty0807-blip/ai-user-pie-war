@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { BookOpen, DollarSign, BarChart3, Lightbulb, Target, TrendingUp } from "lucide-react";
 import { KpiCards } from "./kpi-cards";
 import { Trends } from "./trends";
 import { Comparison } from "./comparison";
@@ -18,7 +18,14 @@ import {
 } from "@/components/company-logos";
 
 export default function DashboardPage() {
-  const [tab, setTab] = useState("kpi");
+  const [dashTab, setDashTab] = useState("kpi");
+  const tabs = [
+    { value: "kpi", label: "핵심 지표", icon: null as React.ReactNode },
+    { value: "comparison", label: "4사 비교표", icon: null as React.ReactNode },
+    { value: "timeline", label: "스토리", icon: <BookOpen className="h-3.5 w-3.5" /> },
+    { value: "pricing", label: "가격 전쟁", icon: <DollarSign className="h-3.5 w-3.5" /> },
+    { value: "trends", label: "시장 트렌드", icon: <BarChart3 className="h-3.5 w-3.5" /> },
+  ];
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-8 sm:px-8 lg:px-12">
@@ -48,26 +55,33 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Tab navigation */}
-      <Tabs value={tab} onValueChange={setTab}>
-        <div className="mb-8 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-          <TabsList>
-            <TabsTrigger value="kpi">핵심 지표</TabsTrigger>
-            <TabsTrigger value="comparison">4사 비교표</TabsTrigger>
-            <TabsTrigger value="timeline">📖 스토리</TabsTrigger>
-            <TabsTrigger value="pricing">💰 가격 전쟁</TabsTrigger>
-            <TabsTrigger value="trends">📊 시장 트렌드</TabsTrigger>
-          </TabsList>
-        </div>
+      <div className="flex flex-wrap items-center gap-1 rounded-full border border-[rgba(15,0,0,0.12)] bg-[#f8f7f7] p-1 w-fit mb-8 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#222]">
+        {tabs.map((tab) => (
+          <button
+            key={tab.value}
+            onClick={() => setDashTab(tab.value)}
+            className={`rounded-full px-4 py-2 text-xs font-medium transition-all ${
+              dashTab === tab.value
+                ? "bg-[#201d1d] text-[#fdfcfc] shadow-sm dark:bg-[#fdfcfc] dark:text-[#201d1d]"
+                : "text-[#424245] hover:text-[#201d1d] dark:text-[#a0a0a0] dark:hover:text-[#fdfcfc]"
+            }`}
+          >
+            {tab.icon && <span className="inline-flex">{tab.icon}</span>}
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-        <TabsContent value="kpi">
+        {dashTab === "kpi" && (
           <div className="space-y-10">
             {/* 한줄요약 인사이트 */}
             <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-6 dark:border-slate-700/20 dark:bg-slate-900/30">
-              <p className="text-lg font-bold text-slate-800 dark:text-slate-200">
-                💡 한줄 요약
-                <EvidenceTooltip section="핵심 지표 (KPI)" sources={SECTION_EVIDENCE["kpi-cards"].sources} methodology={SECTION_EVIDENCE["kpi-cards"].methodology} className="ml-1 -mb-0.5" />
-              </p>
+              <div className="mb-2 flex items-center gap-1">
+                <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+                  <Lightbulb className="h-3.5 w-3.5" />한줄 요약
+                </p>
+                <EvidenceTooltip section="핵심 지표 (KPI)" sources={SECTION_EVIDENCE["kpi-cards"].sources} methodology={SECTION_EVIDENCE["kpi-cards"].methodology} className="-mb-0.5" />
+              </div>
               <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-700 dark:text-slate-300">
                 <li><strong>OpenAI</strong> — 800M WAU<MetricTooltip term="WAU" definition={METRIC_DEFINITIONS.WAU} /> 유지중 but 광고 도입 후 25% 이탈 가속화, 유료 전환율 6.2%로 최저</li>
                 <li><strong>Anthropic</strong> — 120M WAU, 무광고 전략으로 600% 폭발적 성장, 전환율 46% 업계 1위</li>
@@ -78,25 +92,25 @@ export default function DashboardPage() {
             <KpiCards />
             <Trends />
           </div>
-        </TabsContent>
+        )}
 
-        <TabsContent value="comparison">
+        {dashTab === "comparison" && (
           <Comparison />
-        </TabsContent>
+        )}
 
-        <TabsContent value="timeline">
+        {dashTab === "timeline" && (
           <Timeline />
-        </TabsContent>
+        )}
 
-        <TabsContent value="pricing">
+        {dashTab === "pricing" && (
           <Pricing />
-        </TabsContent>
+        )}
 
-        <TabsContent value="trends">
+        {dashTab === "trends" && (
           <div className="space-y-10">
             {/* Executive Summary */}
             <div className="rounded-sm border border-violet-300/20 bg-violet-50/80 p-6 dark:border-violet-800/20 dark:bg-violet-950/20">
-              <p className="text-base font-bold text-violet-800 dark:text-violet-200">📊 AI 시장 트렌드 요약</p>
+              <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><BarChart3 className="h-3.5 w-3.5" />AI 시장 트렌드 요약</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-violet-700 dark:text-violet-300">
                 <li><strong>800M vs 120M:</strong> OpenAI가 아직 유저 볼륨 1위지만, 성장률은 Anthropic이 600%로 압도</li>
                 <li><strong>멀티호밍 79%:</strong> 대부분 유저가 2개 이상 AI 서비스 동시 사용 — 전환율이 아닌 유지율이 진짜 승부</li>
@@ -108,7 +122,7 @@ export default function DashboardPage() {
             {/* Key Metrics Comparison */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="rounded-sm border border-border bg-card p-5">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">💰 예산 효율</p>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide"><DollarSign className="h-3.5 w-3.5 inline -mt-0.5" /> 예산 효율</p>
                 <ul className="mt-3 space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <span className="mt-0.5 text-green-500">▲</span>
@@ -130,7 +144,7 @@ export default function DashboardPage() {
               </div>
 
               <div className="rounded-sm border border-border bg-card p-5">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">🎯 핵심 전환 지표</p>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide"><Target className="h-3.5 w-3.5 inline -mt-0.5" /> 핵심 전환 지표</p>
                 <ul className="mt-3 space-y-2 text-sm">
                   <li className="flex items-start gap-2"><span className="text-green-500">🥇</span><span><strong>전환율 1위:</strong> Anthropic 46% — 유료전환율 업계 최고</span></li>
                   <li className="flex items-start gap-2"><span className="text-gray-400">🥈</span><span><strong>전환율 2위:</strong> Google (Gemini) 15% — 안드로이드 번들 효과</span></li>
@@ -142,7 +156,7 @@ export default function DashboardPage() {
 
             {/* Prediction Card */}
             <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-5 dark:border-slate-700/20 dark:bg-slate-900/30">
-              <p className="text-base font-semibold text-slate-800 dark:text-slate-200">🔮 2026년 하반기 전망</p>
+              <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><TrendingUp className="h-3.5 w-3.5" />2026년 하반기 전망</p>
               <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-slate-700 dark:text-slate-300">
                 <li><strong>OpenAI:</strong> 광고 수익이 구독 수익을 추월 — 기업가치 재평가 불가피</li>
                 <li><strong>Anthropic:</strong> IPO 후 자금력으로 공격적 UA 확장 — Google 광고 집행 본격화 예상</li>
@@ -151,8 +165,7 @@ export default function DashboardPage() {
               </ul>
             </div>
           </div>
-        </TabsContent>
-      </Tabs>
+        )}
     </div>
   );
 }

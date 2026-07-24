@@ -12,7 +12,9 @@ export default function AboutPage() {
         </div>
 
         <div className="rounded-sm border border-border bg-card p-6">
-          <h2 className="text-lg font-semibold">🎯 프로젝트 목적</h2>
+          <h2 className="inline-flex items-center gap-1.5 text-lg font-semibold">
+            프로젝트 목적
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
             OpenAI, Anthropic, DeepSeek, Google — 4개 AI 기업이 2026년 벌이고 있는 
             &apos;유저 파이(User Pie) 전쟁&apos;을 추적합니다. 단순한 모델 성능 비교가 아닌, 
@@ -21,7 +23,7 @@ export default function AboutPage() {
         </div>
 
         <div className="rounded-sm border border-border bg-card p-6">
-          <h2 className="text-lg font-semibold">📊 데이터 소스</h2>
+          <h2 className="text-lg font-semibold">데이터 소스</h2>
           <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
             <li className="flex gap-2">
               <span className="text-muted-foreground">•</span>
@@ -46,7 +48,7 @@ export default function AboutPage() {
         </div>
 
         <div className="rounded-sm border border-border bg-card p-6">
-          <h2 className="text-lg font-semibold">⚙️ 기술 스택</h2>
+          <h2 className="text-lg font-semibold">기술 스택</h2>
           <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
             {[
               { label: "프레임워크", value: "Next.js 16" },
@@ -68,7 +70,7 @@ export default function AboutPage() {
 
         <div className="rounded-sm border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/50">
           <p className="text-xs font-medium text-slate-800 dark:text-slate-200">
-            ⚠️ 면접 포트폴리오 안내
+            면접 포트폴리오 안내
           </p>
           <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
             이 대시보드는 AI 성능 마케팅 역량을 보여주기 위해 제작된 포트폴리오 프로젝트입니다.

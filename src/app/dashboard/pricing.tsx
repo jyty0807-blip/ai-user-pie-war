@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { DollarSign, Lightbulb, Zap } from "lucide-react";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import {
@@ -122,7 +123,7 @@ const pricingData: PricingRow[] = [
     outputPrice: "$0.28",
     cached: "$0.003",
     context: "1M",
-    note: "Cheapest frontier! ⚡",
+    note: "Cheapest frontier!",
   },
   {
     company: "DeepSeek",
@@ -212,8 +213,8 @@ export function Pricing() {
     <div className="space-y-10">
       {/* 가격 전쟁 핵심 인사이트 */}
       <div className="rounded-sm border border-green-300/20 bg-green-50/80 p-5 dark:border-green-800/20 dark:bg-green-950/20 mb-6">
-        <p className="text-sm font-semibold text-green-800 dark:text-green-200">
-          💰 가격 전쟁 핵심
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <DollarSign className="h-3.5 w-3.5" />가격 전쟁 핵심
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-green-700 dark:text-green-300">
           <li><strong>DeepSeek V4 Flash</strong> $0.28/MTok vs <strong>Claude Fable 5</strong> $50/MTok — 178배 차이가 유저 획득 전략 차이로 이어짐</li>
@@ -225,11 +226,13 @@ export function Pricing() {
 
       {/* Pricing table */}
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">
-          AI 모델 가격 전쟁 (2026년 7월)
+        <div className="mb-4 flex items-center gap-1">
+          <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+            AI 모델 가격 전쟁 (2026년 7월)
+          </h2>
           <MetricTooltip term="MTok" definition={METRIC_DEFINITIONS.MTok} />
-          <EvidenceTooltip section="가격 전쟁" sources={SECTION_EVIDENCE.pricing.sources} methodology={SECTION_EVIDENCE.pricing.methodology} className="ml-1 -mb-0.5" />
-        </h2>
+          <EvidenceTooltip section="가격 전쟁" sources={SECTION_EVIDENCE.pricing.sources} methodology={SECTION_EVIDENCE.pricing.methodology} className="-mb-0.5" />
+        </div>
         <div className="rounded-sm border border-border">
           <Table>
             <TableHeader>
@@ -308,7 +311,7 @@ export function Pricing() {
 
       {/* Output price comparison bar chart */}
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">
+        <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
           출력 토큰 가격 비교 (낮을수록 좋음)
         </h2>
         <div className="rounded-sm border border-border bg-card p-4">
@@ -351,7 +354,7 @@ export function Pricing() {
 
       {/* 가성비 모델 하이라이트 */}
       <div className="rounded-sm border border-[rgba(15,0,0,0.12)] bg-[#f8f7f7] p-4 dark:border-[rgba(255,255,255,0.1)] dark:bg-[#222]">
-        <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">💡 가성비 모델 하이라이트</p>
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><Lightbulb className="h-3.5 w-3.5" />가성비 모델 하이라이트</p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-[0.6rem] text-[#424245] dark:text-[#a0a0a0]">
           <li><strong>OpenCode ZEN</strong> ($0.14/$0.28) — OMC 전용 번들, DeepSeek V4 Flash 기반 최저가</li>
           <li><strong>GLM-5</strong> ($0.20/$0.40) — 중국 MIT 오픈소스, 1M 컨텍스트, 서방 대비 10-50% 저렴</li>

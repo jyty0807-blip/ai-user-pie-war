@@ -4,13 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
+import { Rocket, Target, Zap, Crown, TrendingUp, BookOpen, Lightbulb, type LucideIcon } from "lucide-react";
 
 interface TimelineEvent {
   date: string;
   title: string;
   desc: string;
   type: "product_launch" | "marketing" | "business";
-  icon: string;
+  Icon: LucideIcon;
 }
 
 const events: TimelineEvent[] = [
@@ -19,42 +20,42 @@ const events: TimelineEvent[] = [
     title: "OpenAI, ChatGPT 광고 전격 도입",
     desc: "OpenAI가 ChatGPT 내 광고를 시작합니다. CPM $60, 최소 구매액 $200K. 6주 만에 600개 이상 광고주 가입. 시장 점유율 하락 시작.",
     type: "product_launch",
-    icon: "📢",
+    Icon: Rocket,
   },
   {
     date: "2026년 2월 9일",
     title: "Anthropic, 슈퍼볼 맞불 광고",
     desc: "Anthropic이 블랙코미디풍 반격 광고 4편을 방영. '광고가 적합한 자리는 따로 있습니다. 당신의 대화는 그 자리가 아닙니다.' 클리오 광고상 수상. Claude 앱스토어 1위 등극.",
     type: "marketing",
-    icon: "🎯",
+    Icon: Target,
   },
   {
     date: "2026년 2월 10-16일",
     title: "QuitGPT 운동 폭발",
     desc: "참여자 250만 명. ChatGPT 삭제율 하루 295% 급증. 70만 명이 Claude로 이주. OpenAI 시장점유율 60% → 45% 추락.",
     type: "marketing",
-    icon: "🔥",
+    Icon: Zap,
   },
   {
     date: "2026년 4월",
     title: "Anthropic, OpenAI 매출 추월",
     desc: "Anthropic 연매출 $300억 도달 (16개월 만에 30배 성장). 기업 고객은 광고 없는 AI에 프리미엄 지불. OpenAI 매출은 광고에도 불구하고 정체.",
     type: "business",
-    icon: "💎",
+    Icon: Crown,
   },
   {
     date: "2026년 6월",
     title: "Anthropic IPO 신청",
     desc: "비공개 IPO 서류 제출. 기업가치 $9,650억. 가장 가치 있는 AI 기업이 광고 수익 대신 신뢰를 선택하다.",
     type: "business",
-    icon: "📈",
+    Icon: TrendingUp,
   },
   {
     date: "2026년 7월",
     title: "GPT-5.6 3단계 전략 출시",
     desc: "OpenAI, Sol($5/$30)·Terra($2.50/$15)·Luna($1/$6) 3종 출시. 유연한 가격으로 시장 재탈환 시도. DeepSeek V4 Flash는 $0.14/$0.28로 맞불.",
     type: "product_launch",
-    icon: "🚀",
+    Icon: Rocket,
   },
 ];
 
@@ -79,15 +80,17 @@ const typeLabels: Record<string, string> = {
 export function Timeline() {
   return (
     <div className="mx-auto max-w-3xl">
-      <h2 className="mb-8 text-lg font-semibold text-foreground">
-        2026 AI 유저 파이 전쟁 — 스토리
-        <EvidenceTooltip section="타임라인 스토리" sources={SECTION_EVIDENCE.timeline.sources} methodology={SECTION_EVIDENCE.timeline.methodology} className="ml-1 -mb-0.5" />
-      </h2>
+      <div className="mb-8 flex items-center gap-1">
+        <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          2026 AI 유저 파이 전쟁 — 스토리
+        </h2>
+        <EvidenceTooltip section="타임라인 스토리" sources={SECTION_EVIDENCE.timeline.sources} methodology={SECTION_EVIDENCE.timeline.methodology} className="-mb-0.5" />
+      </div>
 
       {/* 이야기 요약 */}
       <div className="rounded-sm border border-purple-300/20 bg-purple-50/80 p-5 dark:border-purple-800/20 dark:bg-purple-950/20 mb-6">
-        <p className="text-sm font-semibold text-purple-800 dark:text-purple-200">
-          📖 이야기 요약
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <BookOpen className="h-3.5 w-3.5" />이야기 요약
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-purple-700 dark:text-purple-300">
           <li>2026년 2월, <strong>OpenAI의 ChatGPT 광고 도입</strong>이 업계 분수령</li>
@@ -115,9 +118,7 @@ export function Timeline() {
               >
                 {/* Timeline dot */}
                 <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-card md:left-1/2">
-                  <span className="text-sm" aria-hidden="true">
-                    {event.icon}
-                  </span>
+                  <event.Icon className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
                 </div>
 
                 {/* Card */}
@@ -160,8 +161,8 @@ export function Timeline() {
 
       {/* Key insight callout */}
       <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-6 dark:border-slate-700/20 dark:bg-slate-900/30">
-        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-          🔑 마케팅 인사이트
+        <h3 className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <Lightbulb className="h-3.5 w-3.5" />마케팅 인사이트
         </h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted-foreground">
           <li>

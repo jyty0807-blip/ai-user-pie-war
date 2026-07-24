@@ -10,6 +10,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { ClipboardList, Users, Megaphone, DollarSign, Zap, TrendingUp } from "lucide-react";
 
 // Company data with comprehensive reports
 interface CompanyReport {
@@ -63,17 +64,17 @@ export function DialogButton({ company, report }: DialogButtonProps) {
         <div className="max-h-[65vh] overflow-y-auto pr-4">
           <div className="space-y-6">
             {/* Overview */}
-            <Section title="📋 개요" items={report.overview} />
+            <Section title={<><ClipboardList className="h-4 w-4 inline -mt-0.5" /> 개요</>} items={report.overview} />
             {/* User Metrics */}
-            <Section title="👥 유저 현황" items={report.users} />
+            <Section title={<><Users className="h-4 w-4 inline -mt-0.5" /> 유저 현황</>} items={report.users} />
             {/* Marketing Strategy */}
-            <Section title="📢 마케팅 전략" items={report.marketing} />
+            <Section title={<><Megaphone className="h-4 w-4 inline -mt-0.5" /> 마케팅 전략</>} items={report.marketing} />
             {/* Pricing Strategy */}
-            <Section title="💰 가격 전략" items={report.pricing} />
+            <Section title={<><DollarSign className="h-4 w-4 inline -mt-0.5" /> 가격 전략</>} items={report.pricing} />
             {/* Recent Issues */}
-            <Section title="🔥 최근 이슈" items={report.recent} />
+            <Section title={<><Zap className="h-4 w-4 inline -mt-0.5" /> 최근 이슈</>} items={report.recent} />
             {/* Outlook */}
-            <Section title="🔮 전망" items={report.outlook} />
+            <Section title={<><TrendingUp className="h-4 w-4 inline -mt-0.5" /> 전망</>} items={report.outlook} />
           </div>
         </div>
       </DialogContent>
@@ -81,7 +82,7 @@ export function DialogButton({ company, report }: DialogButtonProps) {
   );
 }
 
-function Section({ title, items }: { title: string; items: { point: string; detail: string }[] }) {
+function Section({ title, items }: { title: React.ReactNode; items: { point: string; detail: string }[] }) {
   return (
     <div>
       <h3 className="text-sm font-semibold text-foreground mb-2">{title}</h3>

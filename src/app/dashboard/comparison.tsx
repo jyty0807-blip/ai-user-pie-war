@@ -11,15 +11,21 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ArrowUpIcon, ArrowDownIcon, MinusIcon } from "lucide-react";
+import { ArrowUpIcon, ArrowDownIcon, MinusIcon, Lightbulb } from "lucide-react";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
+import {
+  OpenAILogo,
+  AnthropicLogo,
+  DeepSeekLogo,
+  GoogleAILogo,
+} from "@/components/company-logos";
 
 interface CompanyRow {
   name: string;
   slug: string;
   color: string;
-  logo: string;
+  logo: React.ReactNode;
   estimatedAdSpend: string;
   mau: string;
   convRate: string;
@@ -34,7 +40,7 @@ const comparisonData: CompanyRow[] = [
     name: "OpenAI",
     slug: "openai",
     color: "#10A37F",
-    logo: "🧠",
+    logo: <OpenAILogo className="h-6 w-6" />,
     estimatedAdSpend: "200M",
     mau: "800M",
     convRate: "6.2%",
@@ -47,7 +53,7 @@ const comparisonData: CompanyRow[] = [
     name: "Anthropic",
     slug: "anthropic",
     color: "#D97757",
-    logo: "🔬",
+    logo: <AnthropicLogo className="h-6 w-6" />,
     estimatedAdSpend: "45M",
     mau: "120M",
     convRate: "46%",
@@ -60,7 +66,7 @@ const comparisonData: CompanyRow[] = [
     name: "DeepSeek",
     slug: "deepseek",
     color: "#4F46E5",
-    logo: "🐋",
+    logo: <DeepSeekLogo className="h-6 w-6" />,
     estimatedAdSpend: "12M",
     mau: "80M",
     convRate: "8%",
@@ -73,7 +79,7 @@ const comparisonData: CompanyRow[] = [
     name: "Google",
     slug: "google-ai",
     color: "#4285F4",
-    logo: "🔍",
+    logo: <GoogleAILogo className="h-6 w-6" />,
     estimatedAdSpend: "500M+",
     mau: "200M",
     convRate: "15%",
@@ -135,15 +141,17 @@ export function Comparison() {
 
   return (
     <div>
-      <h2 className="mb-4 text-lg font-semibold text-foreground">
-        4사 비교 — 정렬 가능 비교표
-        <EvidenceTooltip section="4사 비교표" sources={SECTION_EVIDENCE.comparison.sources} methodology={SECTION_EVIDENCE.comparison.methodology} className="ml-1 -mb-0.5" />
-      </h2>
+      <div className="mb-4 flex items-center gap-1">
+        <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          4사 비교 — 정렬 가능 비교표
+        </h2>
+        <EvidenceTooltip section="4사 비교표" sources={SECTION_EVIDENCE.comparison.sources} methodology={SECTION_EVIDENCE.comparison.methodology} className="-mb-0.5" />
+      </div>
 
       {/* 한눈에 비교 인사이트 */}
       <div className="rounded-sm border border-blue-300/20 bg-blue-50/80 p-5 dark:border-blue-800/20 dark:bg-blue-950/20 mb-6">
-        <p className="text-sm font-semibold text-blue-800 dark:text-blue-200">
-          💡 한눈에 비교
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <Lightbulb className="h-3.5 w-3.5" />한눈에 비교
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-blue-700 dark:text-blue-300">
           <li><strong>OpenAI:</strong> 유저 800M로 압도적 1위지만, 전년비 -25% 감소 중 — 광고 도입 후 이탈 가속화</li>
@@ -184,7 +192,7 @@ export function Comparison() {
               <TableRow key={row.slug} className={cn("group")}>
                 <TableCell className="font-medium">
                   <span className="inline-flex items-center gap-2">
-                    <span className="text-lg" aria-hidden="true">
+                    <span className="inline-flex shrink-0" aria-hidden="true">
                       {row.logo}
                     </span>
                     {row.name}

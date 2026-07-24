@@ -31,25 +31,25 @@ export function EvidenceTooltip({ section, sources, methodology, className }: Ev
         }
       />
       <TooltipContent
-        className="max-w-[280px] p-3.5 bg-[#fdfcfc] dark:bg-[#1a1a1a] border border-border"
-        side="left"
+        className="max-w-[300px] p-4 bg-[#fdfcfc] dark:bg-[#1a1a1a] border border-border shadow-sm"
+        side="right"
         align="start"
       >
         <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc] mb-2">
           📋 {section} — 데이터 근거
         </p>
-        <ul className="space-y-1">
+        <ul className="space-y-1.5">
           {sources.map((source, i) => (
-            <li key={i} className="flex items-start gap-1.5 text-[0.6rem] leading-relaxed text-[#424245] dark:text-[#a0a0a0]">
-              <span className="mt-0.5 shrink-0">•</span>
+            <li key={i} className="flex items-start gap-1.5 text-xs leading-relaxed text-[#424245] dark:text-[#a0a0a0]">
+              <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-[#646262]" />
               <span>{source}</span>
             </li>
           ))}
         </ul>
         {methodology && (
-          <div className="mt-2 pt-2 border-t border-border">
-            <p className="text-[0.55rem] font-medium text-[#646262] dark:text-[#888] mb-0.5">방법론</p>
-            <p className="text-[0.55rem] leading-relaxed text-[#646262] dark:text-[#888]">{methodology}</p>
+          <div className="mt-3 pt-3 border-t border-border">
+            <p className="text-xs font-medium text-[#646262] dark:text-[#888] mb-1">방법론</p>
+            <p className="text-xs leading-relaxed text-[#646262] dark:text-[#888]">{methodology}</p>
           </div>
         )}
       </TooltipContent>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe, Cpu, Network, Layers } from "lucide-react";
+import { Globe, Cpu, Network, Layers, Calendar, Newspaper, Pin } from "lucide-react";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 
 interface CompanyInfo {
@@ -8,6 +8,7 @@ interface CompanyInfo {
   slug: string;
   desc: string;
   news: string;
+  url?: string;
 }
 
 interface InsightCategory {
@@ -19,17 +20,17 @@ interface InsightCategory {
 
 function categoryIcon(cat: string): React.ReactNode {
   const map: Record<string, React.ReactNode> = {
-    "🇨🇳 중국 AI 모델": <Globe className="h-4 w-4" />,
-    "💾 NVIDIA AI": <Cpu className="h-4 w-4" />,
-    "🔀 OpenRouter": <Network className="h-4 w-4" />,
-    "🌍 글로벌 AI": <Layers className="h-4 w-4" />,
+    "중국 AI 모델": <Globe className="h-4 w-4" />,
+    "NVIDIA AI": <Cpu className="h-4 w-4" />,
+    "OpenRouter": <Network className="h-4 w-4" />,
+    "글로벌 AI": <Layers className="h-4 w-4" />,
   };
   return map[cat] || <Globe className="h-4 w-4" />;
 }
 
 const insightsData: InsightCategory[] = [
   {
-    category: "🇨🇳 중국 AI 모델",
+    category: "중국 AI 모델",
     color: "#E53935",
     icon: <Globe className="h-4 w-4" />,
     companies: [
@@ -38,23 +39,26 @@ const insightsData: InsightCategory[] = [
         slug: "glm",
         desc: "중국 대표 AI. GLM-5 출시. MIT 라이선스. 1M 컨텍스트. $0.20/MTok.",
         news: "2026년 7월 Codex-0902 추론 모델 출시, SWE-bench 70.2% 달성",
+        url: "https://www.zhipu.ai",
       },
       {
         name: "Qwen (Alibaba)",
         slug: "qwen",
         desc: "알리바바 AI. Qwen3.5 공개. 72B 파라미터. Apache 2.0 라이선스.",
         news: "2026년 6월 Qwen3.5-72B 출시, 오픈소스 커뮤니티서 호평",
+        url: "https://qwen.alibaba.com",
       },
       {
         name: "Yi (01.AI)",
         slug: "yi",
         desc: "카이푸 리의 AI. Yi-Lightning 추론 특화. 가격 대비 성능 우수.",
         news: "2026년 5월 Yi-Lightning 출시, GPT-4o 대비 40% 저렴",
+        url: "https://01.ai",
       },
     ],
   },
   {
-    category: "💾 NVIDIA AI",
+    category: "NVIDIA AI",
     color: "#76B900",
     icon: <Cpu className="h-4 w-4" />,
     companies: [
@@ -79,7 +83,7 @@ const insightsData: InsightCategory[] = [
     ],
   },
   {
-    category: "🔀 OpenRouter",
+    category: "OpenRouter",
     color: "#FF6B35",
     icon: <Network className="h-4 w-4" />,
     companies: [
@@ -98,7 +102,7 @@ const insightsData: InsightCategory[] = [
     ],
   },
   {
-    category: "🌍 글로벌 AI",
+    category: "글로벌 AI",
     color: "#8B5CF6",
     icon: <Layers className="h-4 w-4" />,
     companies: [
@@ -129,15 +133,17 @@ export default function InsightsPage() {
     <div className="mx-auto max-w-7xl px-6 py-8 sm:px-8 lg:px-12">
       {/* Title */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          AI 업계 인사이트 · 아카이브
-          <EvidenceTooltip section="AI 업계 인사이트" sources={SECTION_EVIDENCE.insights.sources} methodology={SECTION_EVIDENCE.insights.methodology} className="ml-1 -mb-0.5" />
-        </h1>
+        <div className="flex items-center gap-1">
+          <h1 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+            AI 업계 인사이트 · 아카이브
+          </h1>
+          <EvidenceTooltip section="AI 업계 인사이트" sources={SECTION_EVIDENCE.insights.sources} methodology={SECTION_EVIDENCE.insights.methodology} className="-mb-0.5" />
+        </div>
         <p className="mt-1 text-sm text-muted-foreground">
           4사 비교를 넘어 — 글로벌 AI 업계의 모든 중요한 소식
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          📅 매일 오전 9시 (KST) 업데이트
+          <Calendar className="h-3 w-3 inline -mt-0.5" /> 매일 오전 9시 (KST) 업데이트
         </p>
       </div>
 
@@ -158,7 +164,7 @@ export default function InsightsPage() {
               style={{ borderBottomColor: category.color + "40" }}
             >
               <span className="text-muted-foreground">{category.icon}</span>
-              <h2 className="text-base font-semibold text-foreground">
+              <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
                 {category.category}
               </h2>
               <span className="text-[0.65rem] text-muted-foreground">
@@ -168,29 +174,31 @@ export default function InsightsPage() {
 
             {/* Company Cards Grid */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {category.companies.map((company) => (
-                <div
-                  key={company.slug}
-                  className="flex flex-col rounded-sm border border-border bg-background p-4 transition-colors hover:border-muted-foreground/20"
-                >
-                  <h3 className="text-sm font-semibold text-foreground">
-                    {company.name}
-                  </h3>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {company.desc}
-                  </p>
-                  <div className="mt-3 flex-1 rounded-sm border-l-2 bg-muted/40 p-2"
-                    style={{ borderLeftColor: category.color }}
+              {category.companies.map((company) => {
+                const Wrapper = company.url ? "a" : "div";
+                const wrapperProps = company.url
+                  ? { href: company.url, target: "_blank", rel: "noopener noreferrer" as const }
+                  : {};
+                return (
+                  <Wrapper
+                    key={company.slug}
+                    {...wrapperProps}
+                    className="flex flex-col rounded-sm border border-border bg-background p-4 transition-colors hover:border-muted-foreground/20 hover:bg-[#f8f7f7] dark:hover:bg-[#222]"
                   >
-                    <p className="text-[0.65rem] font-medium text-foreground">
-                      📰 최근 소식
-                    </p>
-                    <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                      {company.news}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-semibold text-foreground">{company.name}</h3>
+                      {company.url && <span className="text-[0.55rem] text-[#646262]">바로가기 →</span>}
+                    </div>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{company.desc}</p>
+                    <div className="mt-3 flex-1 rounded-sm border-l-2 bg-muted/40 p-2"
+                      style={{ borderLeftColor: category.color }}
+                    >
+                      <p className="text-xs font-medium text-foreground"><Newspaper className="h-3 w-3 inline -mt-0.5" /> 최근 소식</p>
+                      <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{company.news}</p>
+                    </div>
+                  </Wrapper>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -199,7 +207,7 @@ export default function InsightsPage() {
       {/* Source Notice */}
       <div className="mt-8 rounded-sm bg-muted p-3 text-center">
         <p className="flex items-center justify-center gap-1 text-[0.65rem] text-muted-foreground">
-          📌 출처: 각사 공식 블로그 및 보도자료. 저작권을 존중하여 요약만 제공합니다.
+          <Pin className="h-3 w-3 inline -mt-0.5" /> 출처: 각사 공식 블로그 및 보도자료. 저작권을 존중하여 요약만 제공합니다.
         </p>
       </div>
     </div>

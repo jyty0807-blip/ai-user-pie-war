@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Info } from "lucide-react";
+import { ExternalLink, Info, Calendar, Newspaper, Paperclip, Pin } from "lucide-react";
 import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo } from "@/components/company-logos";
 import {
   Card,
@@ -212,22 +212,24 @@ export default function NewsPage() {
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       {/* Title */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          AI 업계 뉴스 · 업데이트
-          <EvidenceTooltip section="AI 업계 뉴스" sources={SECTION_EVIDENCE.news.sources} methodology={SECTION_EVIDENCE.news.methodology} className="ml-1 -mb-0.5" />
-        </h1>
+        <div className="flex items-center gap-1">
+          <h1 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+            AI 업계 뉴스 · 업데이트
+          </h1>
+          <EvidenceTooltip section="AI 업계 뉴스" sources={SECTION_EVIDENCE.news.sources} methodology={SECTION_EVIDENCE.news.methodology} className="-mb-0.5" />
+        </div>
         <p className="mt-1 text-sm text-muted-foreground">
           각사 공식 블로그 — snippet만 제공, 전체 내용은 원문 링크
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          📅 매일 오전 9시 (KST) 업데이트
+          <Calendar className="h-3 w-3 inline -mt-0.5" /> 매일 오전 9시 (KST) 업데이트
         </p>
       </div>
 
       {/* SECTION 1: 종합 의견 (Summary + Accordion Links) */}
       <div className="mb-6 rounded-sm border border-sky-300/20 bg-sky-50/80 p-5 dark:border-sky-800/20 dark:bg-sky-950/20">
-        <p className="text-sm font-semibold text-sky-800 dark:text-sky-200">
-          📰 이번 주 AI 업계 종합
+        <p className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
+          <Newspaper className="h-3.5 w-3.5" />이번 주 AI 업계 종합
         </p>
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-sky-700 dark:text-sky-300">
           <li><strong>유저 파이 재편:</strong> OpenAI 800M→580M, Anthropic 20M→120M — 6개월 만에 6배 격차 해소</li>
@@ -240,7 +242,9 @@ export default function NewsPage() {
         <Accordion className="mt-4">
           <AccordionItem value="links" className="border-none">
             <AccordionTrigger className="py-2 text-xs font-medium text-sky-700 hover:text-sky-800 dark:text-sky-300 dark:hover:text-sky-200 hover:no-underline">
-              📎 전체 뉴스 링크 보기 ({Object.values(newsItems).flat().length}개)
+              <span className="inline-flex items-center gap-1">
+                <Paperclip className="h-3 w-3" /> 전체 뉴스 링크 보기 ({Object.values(newsItems).flat().length}개)
+              </span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="mt-2 space-y-1">
@@ -307,7 +311,7 @@ export default function NewsPage() {
             >
               <span className="text-xl">{company.logo}</span>
               <div>
-                <h2 className="text-lg font-semibold text-foreground">
+                <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
                   {company.name}
                 </h2>
                 <p className="text-xs text-muted-foreground">
@@ -368,7 +372,7 @@ export default function NewsPage() {
       {/* Source Notice */}
       <div className="mt-8 rounded-sm bg-muted p-3 text-center">
         <p className="flex items-center justify-center gap-1 text-[0.65rem] text-muted-foreground">
-          📌 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
+          <Pin className="h-3 w-3" /> 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
         </p>
       </div>
     </div>
