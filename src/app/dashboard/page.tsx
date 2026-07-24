@@ -35,15 +35,16 @@ export default function DashboardPage() {
         <TabsContent value="kpi">
           <div className="space-y-8">
             {/* 한줄요약 인사이트 */}
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
+            <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-5 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
               <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
                 💡 한줄 요약
               </p>
-              <p className="mt-1 text-sm text-amber-700 dark:text-amber-300">
-                OpenAI는 광고 도입 후 MAU 600M→450M으로 25% 하락. 반면 Anthropic은 &apos;무광고&apos; 전략으로 20M→120M 6배 성장. 
-                AI 시장은 &apos;누가 더 똑똑한 모델을 만드느냐&apos;에서 &apos;누가 유저의 신뢰를 얻느냐&apos;로 전쟁터가 바뀌었습니다.
-                가장 비싼 모델(Fable 5, $50/MTok)과 가장 싼 모델(DeepSeek V4 Flash, $0.28/MTok)의 가격 차이는 178배입니다.
-              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-amber-700 dark:text-amber-300">
+                <li><strong>OpenAI</strong> — 광고 도입 후 MAU 600M→450M, 25% 하락</li>
+                <li><strong>Anthropic</strong> — &apos;무광고&apos; 전략으로 20M→120M, 6배 성장</li>
+                <li><strong>DeepSeek</strong> — $0.28/MTok 극저가로 가격 전쟁 주도</li>
+                <li><strong>&quot;신뢰&quot; vs &quot;광고&quot;</strong> — AI 시장의 승부처가 모델 성능에서 유저 획득 전략으로 이동</li>
+              </ul>
             </div>
             <KpiCards />
             <Trends />

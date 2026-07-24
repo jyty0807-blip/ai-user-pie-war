@@ -112,6 +112,18 @@ export default function DashboardLayout({
 
         {/* Page content */}
         <main className="flex-1">{children}</main>
+
+        {/* Footer: data freshness + sources */}
+        <footer className="border-t border-border bg-background">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+            <p className="text-[0.65rem] text-muted-foreground">
+              📊 데이터 출처: SEC filings · Sensor Tower · SimilarWeb · 각사 공식 발표 · API 가격 페이지
+            </p>
+            <p className="text-[0.65rem] text-muted-foreground">
+              🕐 마지막 업데이트: 2026년 7월 25일
+            </p>
+          </div>
+        </footer>
       </div>
     </TooltipProvider>
   );

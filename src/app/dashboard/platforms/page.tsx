@@ -174,14 +174,14 @@ export default function PlatformsPage() {
   return (
     <div className="space-y-8">
       {/* 한줄요약 */}
-      <div className="rounded-lg border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-800 dark:bg-indigo-950/30 mb-6">
+      <div className="rounded-lg border border-indigo-200 border-l-4 border-l-indigo-400 bg-indigo-50 p-5 dark:border-indigo-800 dark:border-l-indigo-400 dark:bg-indigo-950/30 mb-6">
         <p className="text-sm font-medium text-indigo-800 dark:text-indigo-200">🔧 개발자 도구 비교</p>
-        <p className="mt-1 text-sm text-indigo-700 dark:text-indigo-300">
-          AI 개발 도구 3종을 가격, 성능, 기능으로 비교했습니다.
-          Claude Code는 SWE-bench 1위, OpenAI Codex는 최대 커뮤니티,
-          OpenCode는 무료 오픈소스+멀티에이전트가 강점입니다.
-          여러분의 작업에 가장 잘 맞는 도구를 골라보세요.
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-indigo-700 dark:text-indigo-300">
+          <li><strong>Claude Code:</strong> SWE-bench 80.8% 1위, MCP 97M+ 설치 — 에이전트 코딩 최강</li>
+          <li><strong>OpenAI Codex:</strong> 10M+ 개발자 최대 커뮤니티, GPT-5.6 생태계</li>
+          <li><strong>OpenCode (OMC):</strong> 무료 오픈소스, 멀티에이전트 오케스트레이션 — 이 대시보드 제작 도구</li>
+          <li>개발자 도구 선택 = <strong>작업 유형에 맞는 전략적 결정</strong></li>
+        </ul>
       </div>
 
       {/* Top: Platform cards */}

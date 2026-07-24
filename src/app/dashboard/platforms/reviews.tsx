@@ -140,13 +140,14 @@ export default function ReviewsPage() {
   return (
     <div className="space-y-8">
       {/* 한줄요약 */}
-      <div className="rounded-lg border border-pink-200 bg-pink-50 p-4 dark:border-pink-800 dark:bg-pink-950/30 mb-6">
+      <div className="rounded-lg border border-pink-200 border-l-4 border-l-pink-400 bg-pink-50 p-5 dark:border-pink-800 dark:border-l-pink-400 dark:bg-pink-950/30 mb-6">
         <p className="text-sm font-medium text-pink-800 dark:text-pink-200">🗣️ 개발자들의 목소리</p>
-        <p className="mt-1 text-sm text-pink-700 dark:text-pink-300">
-          Claude Code는 &apos;MCP 생태계&apos;로 68% 압도적 긍정, OpenCode는 &apos;멀티에이전트 미래&apos;로 81% 긍정.
-          OpenAI Codex는 GPT-5 품질 편차로 긍정률 45%로 가장 낮습니다.
-          개발자들은 &apos;단일 모델&apos;보다 &apos;오케스트레이션&apos;으로 방향을 잡아가고 있습니다.
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-pink-700 dark:text-pink-300">
+          <li><strong>Claude Code:</strong> 68% 긍정 — MCP 생태계와 에이전트 코딩에 압도적 호평</li>
+          <li><strong>OpenAI Codex:</strong> 45% 긍정 — GPT-5 품질 편차로 기복 있음</li>
+          <li><strong>OpenCode:</strong> 81% 긍정 — 멀티에이전트 오케스트레이션의 미래에 기대</li>
+          <li>개발자 커뮤니티는 <strong>&apos;단일 모델&apos; → &apos;오케스트레이션&apos;</strong>으로 패러다임 전환 중</li>
+        </ul>
       </div>
 
       {/* Header */}

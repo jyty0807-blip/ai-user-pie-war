@@ -30,7 +30,7 @@ interface TrendPoint {
 const trendData: TrendPoint[] = [
   {
     month: "Feb 2026",
-    openai: 600,
+    openai: 800,
     anthropic: 20,
     deepseek: 30,
     google: 100,
@@ -38,7 +38,7 @@ const trendData: TrendPoint[] = [
   },
   {
     month: "Mar 2026",
-    openai: 520,
+    openai: 720,
     anthropic: 45,
     deepseek: 55,
     google: 120,
@@ -46,7 +46,7 @@ const trendData: TrendPoint[] = [
   },
   {
     month: "Apr 2026",
-    openai: 490,
+    openai: 680,
     anthropic: 65,
     deepseek: 60,
     google: 140,
@@ -54,7 +54,7 @@ const trendData: TrendPoint[] = [
   },
   {
     month: "May 2026",
-    openai: 470,
+    openai: 650,
     anthropic: 85,
     deepseek: 70,
     google: 160,
@@ -62,7 +62,7 @@ const trendData: TrendPoint[] = [
   },
   {
     month: "Jun 2026",
-    openai: 460,
+    openai: 620,
     anthropic: 105,
     deepseek: 75,
     google: 180,
@@ -70,7 +70,7 @@ const trendData: TrendPoint[] = [
   },
   {
     month: "Jul 2026",
-    openai: 450,
+    openai: 580,
     anthropic: 120,
     deepseek: 80,
     google: 200,
@@ -124,14 +124,14 @@ export function Trends() {
       </div>
 
       {/* Summary banner */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+      <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-4 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
         <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
           💡 핵심 인사이트
         </p>
-        <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-300">
-          2026년 2월 OpenAI의 광고 도입은 업계 분수령이었습니다.
-          ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈했습니다.
-        </p>
+        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
+          <li>2026년 2월 OpenAI의 광고 도입은 업계 분수령</li>
+          <li>ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈</li>
+        </ul>
       </div>
 
       {/* MAU Line Chart */}
@@ -177,14 +177,15 @@ export function Trends() {
       </div>
 
       {/* 한줄요약 인사이트 */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+      <div className="rounded-lg border border-amber-200 border-l-4 border-l-amber-400 bg-amber-50 p-4 dark:border-amber-800 dark:border-l-amber-400 dark:bg-amber-950/30">
         <p className="text-xs font-medium text-amber-800 dark:text-amber-200">
-          💡 핵심 인사이트
+          💡 한줄 요약
         </p>
-        <p className="mt-0.5 text-xs text-amber-700 dark:text-amber-300">
-          2026년 2월 OpenAI의 광고 도입은 업계 분수령이었습니다.
-          ChatGPT 광고 도입 후 295% 급증한 앱 삭제로 700K+ 유저가 Claude로 이탈했습니다.
-        </p>
+        <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-amber-700 dark:text-amber-300">
+          <li>2026년 2월 OpenAI 광고 도입 = 업계 분수령</li>
+          <li>앱 삭제 295% 급증, 700K+ 유저 Claude로 이탈</li>
+          <li>Anthropic 무광고 전략의 승리</li>
+        </ul>
       </div>
 
       {/* Monthly Ad Spend Bar Chart */}

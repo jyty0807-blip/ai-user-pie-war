@@ -138,15 +138,16 @@ export function Comparison() {
       </h2>
 
       {/* 한눈에 비교 인사이트 */}
-      <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30 mb-6">
+      <div className="rounded-lg border border-blue-200 border-l-4 border-l-blue-400 bg-blue-50 p-5 dark:border-blue-800 dark:border-l-blue-400 dark:bg-blue-950/30 mb-6">
         <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
           💡 한눈에 비교
         </p>
-        <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
-          OpenAI가 광고비 2억달러로 가장 많이 쓰지만, 유료 전환율은 6.2%로 가장 낮습니다.
-          반면 Anthropic은 광고비 1/4 수준으로 46%의 전환율을 기록하며 효율 1위.
-          DeepSeek은 극저가 전략으로 CAC $8로 가장 싸게 유저를 데려옵니다.
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-blue-700 dark:text-blue-300">
+          <li><strong>OpenAI:</strong> 광고비 2억달러, 전환율 6.2% — 가장 많이 쓰지만 효율은 꼴찌</li>
+          <li><strong>Anthropic:</strong> 광고비 1/4 수준, 전환율 46% — 효율 1위의 비결은 &apos;신뢰&apos;</li>
+          <li><strong>DeepSeek:</strong> CAC $8로 가장 싸게 유저 획득</li>
+          <li><strong>Google:</strong> 5억달러+ 광고비, 안드로이드+검색 배포망이 핵심 경쟁력</li>
+        </ul>
       </div>
       <div className="rounded-xl border border-border">
         <Table>

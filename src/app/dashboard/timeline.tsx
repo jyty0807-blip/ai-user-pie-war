@@ -83,15 +83,16 @@ export function Timeline() {
       </h2>
 
       {/* 이야기 요약 */}
-      <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-800 dark:bg-purple-950/30 mb-6">
+      <div className="rounded-lg border border-purple-200 border-l-4 border-l-purple-400 bg-purple-50 p-5 dark:border-purple-800 dark:border-l-purple-400 dark:bg-purple-950/30 mb-6">
         <p className="text-sm font-medium text-purple-800 dark:text-purple-200">
           📖 이야기 요약
         </p>
-        <p className="mt-1 text-sm text-purple-700 dark:text-purple-300">
-          2026년 2월, OpenAI가 ChatGPT에 광고를 도입한 순간 AI 업계의 판도가 바뀌었습니다.
-          &lsquo;퀴트GPT(QuitGPT)&rsquo; 운동으로 70만명이 Claude로 이주했고, 4개월 만에 Anthropic이 매출 1위를 탈환했습니다.
-          AI 유저 파이 전쟁의 교훈: &lsquo;신뢰는 쌓이고, 광고는 잠식된다.&rsquo;
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-purple-700 dark:text-purple-300">
+          <li>2026년 2월, <strong>OpenAI의 ChatGPT 광고 도입</strong>이 업계 분수령</li>
+          <li><strong>QuitGPT 운동</strong>으로 70만명이 Claude로 이주, 295% 앱 삭제 급증</li>
+          <li><strong>Anthropic, 4개월 만에 매출 1위 탈환</strong> ($30B ARR)</li>
+          <li>교훈: <strong>&quot;신뢰는 쌓이고, 광고는 잠식된다&quot;</strong></li>
+        </ul>
       </div>
 
       {/* Vertical timeline */}
@@ -157,21 +158,30 @@ export function Timeline() {
       <Separator className="my-8" />
 
       {/* Key insight callout */}
-      <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-6">
+      <div className="rounded-xl border border-amber-500/20 border-l-4 border-l-amber-400 bg-amber-500/5 p-6">
         <h3 className="text-sm font-semibold text-amber-400">
           🔑 마케팅 인사이트
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          2026년 AI 유저 파이 전쟁이 보여주는 교훈은 분명합니다: AI 업계에서는{' '}
-          <strong className="text-foreground">신뢰와 브랜드 정직성</strong>이
-          막대한 광고 예산을 능가할 수 있다는 것입니다. Anthropic은 월
-          광고비 약 $4,500만으로 — OpenAI의 $2억+, Google의 $5억+에 비해
-          극히 일부에 불과한 비용으로 — OpenAI의 광고 전략을 역이용해
-          전략적 브랜드 반격에 성공했습니다. QuitGPT 운동은 6개월도 안
-          되어 시장점유율을 60:40에서 45:18로 재편한 촉매제가 되었습니다.
-          교훈: 경쟁자가 유저의 주목을 상품화할 때, 신뢰와 프리미엄 경험으로
-          차별화할 수 있습니다.
-        </p>
+        <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted-foreground">
+          <li>
+            AI 업계에서는{' '}
+            <strong className="text-foreground">신뢰와 브랜드 정직성</strong>이
+            막대한 광고 예산을 능가할 수 있음
+          </li>
+          <li>
+            Anthropic은 월 광고비 약 $4,500만으로 — OpenAI의 $2억+, Google의
+            $5억+에 비해 극히 일부에 불과한 비용으로 — 전략적 브랜드 반격에
+            성공
+          </li>
+          <li>
+            QuitGPT 운동은 6개월도 안 되어 시장점유율을 60:40에서 45:18로
+            재편한 촉매제
+          </li>
+          <li>
+            교훈: 경쟁자가 유저의 주목을 상품화할 때, 신뢰와 프리미엄 경험으로
+            차별화할 수 있음
+          </li>
+        </ul>
       </div>
     </div>
   );

@@ -197,13 +197,14 @@ export default function NewsPage() {
       <Separator />
 
       {/* 한줄요약 */}
-      <div className="rounded-lg border border-sky-200 bg-sky-50 p-4 dark:border-sky-800 dark:bg-sky-950/30 mb-6">
+      <div className="rounded-lg border border-sky-200 border-l-4 border-l-sky-400 bg-sky-50 p-5 dark:border-sky-800 dark:border-l-sky-400 dark:bg-sky-950/30 mb-6">
         <p className="text-sm font-medium text-sky-800 dark:text-sky-200">📰 요즘 AI 업계 소식</p>
-        <p className="mt-1 text-sm text-sky-700 dark:text-sky-300">
-          OpenAI는 GPT-5.6 Luna($1/$6)로 가격 장벽을 낮추고, Anthropic은 IPO를 준비하며 가치 $965B 인정.
-          DeepSeek은 1/8 가격으로 서방을 압박하고, Google은 20억 안드로이드 기기에 AI를 심고 있습니다.
-          각 사의 공식 발표만 모았습니다. (자세한 내용은 원문 링크 참조)
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-sky-700 dark:text-sky-300">
+          <li><strong>OpenAI:</strong> GPT-5.6 Luna($1/$6) 출시 + ChatGPT 광고 전환 추적 도입</li>
+          <li><strong>Anthropic:</strong> Sonnet 5 가격 연장 + IPO $965B 가치 평가</li>
+          <li><strong>DeepSeek:</strong> V4 Flash 1M 컨텍스트 + 화웨이 칩 독자 노선</li>
+          <li><strong>Google:</strong> Gemini 3.5 Flash 기본 탑재 + 2B 안드로이드 기기 AI 적용</li>
+        </ul>
       </div>
 
       {/* Source notice */}

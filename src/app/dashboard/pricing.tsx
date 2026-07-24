@@ -159,15 +159,16 @@ export function Pricing() {
   return (
     <div className="space-y-8">
       {/* 가격 전쟁 핵심 인사이트 */}
-      <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950/30 mb-6">
+      <div className="rounded-lg border border-green-200 border-l-4 border-l-green-400 bg-green-50 p-5 dark:border-green-800 dark:border-l-green-400 dark:bg-green-950/30 mb-6">
         <p className="text-sm font-medium text-green-800 dark:text-green-200">
           💰 가격 전쟁 핵심
         </p>
-        <p className="mt-1 text-sm text-green-700 dark:text-green-300">
-          DeepSeek V4 Flash($0.28/MTok)와 Claude Fable 5($50/MTok)의 가격 차이는 무려 178배.
-          비싼 모델이 무조건 좋은 건 아닙니다. 작업에 맞는 모델을 고르는 것이 진짜 효율입니다.
-          AI 업계의 &lsquo;가격 전쟁&rsquo;은 이제 막 시작됐습니다.
-        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-green-700 dark:text-green-300">
+          <li><strong>DeepSeek V4 Flash</strong> $0.28/MTok vs <strong>Claude Fable 5</strong> $50/MTok — 178배 차이</li>
+          <li>비싼 모델이 항상 좋은 건 아님 — <strong>작업에 맞는 모델 선택</strong>이 진짜 효율</li>
+          <li>Sonnet 5 프로모션($2/$10)은 <strong>8월 31일까지</strong> — 이후 $3/$15로 인상</li>
+          <li>AI 가격 전쟁은 <strong>이제 막 시작</strong>, 2026년 하반기 더 격화 전망</li>
+        </ul>
       </div>
 
       {/* Pricing table */}
