@@ -9,8 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
 interface NewsItem {
@@ -144,134 +148,199 @@ const newsItems: NewsData = {
 };
 
 const companies = [
-  { key: "openai", label: "OpenAI", color: "#10A37F" },
-  { key: "anthropic", label: "Anthropic", color: "#D97757" },
-  { key: "deepseek", label: "DeepSeek", color: "#3B82F6" },
-  { key: "google", label: "Google", color: "#8B5CF6" },
-] as const;
+  { slug: "openai", name: "OpenAI", logo: "🧠", color: "#10A37F", description: "ChatGPT · GPT-5 · 광고 수익화" },
+  { slug: "anthropic", name: "Anthropic", logo: "🔬", color: "#D97757", description: "Claude · MCP · IPO 준비" },
+  { slug: "deepseek", name: "DeepSeek", logo: "🐋", color: "#4F46E5", description: "V4 Flash · 화웨이 · 오픈소스" },
+  { slug: "google", name: "Google", logo: "🔍", color: "#4285F4", description: "Gemini · Android · AI Mode" },
+];
 
-type CategoryStyle = {
-  label: string;
-  className: string;
-};
+function companyLabel(slug: string): string {
+  const labels: Record<string, string> = {
+    openai: "OpenAI",
+    anthropic: "Anthropic",
+    deepseek: "DeepSeek",
+    google: "Google",
+  };
+  return labels[slug] || slug;
+}
 
-const categoryStyles: Record<string, CategoryStyle> = {
-  product: { label: "제품", className: "bg-[#10A37F]/10 text-[#10A37F]" },
-  pricing: { label: "가격", className: "bg-yellow-500/10 text-yellow-500" },
-  business: {
-    label: "비즈니스",
-    className: "bg-[#8B5CF6]/10 text-[#8B5CF6]",
-  },
-  update: { label: "업데이트", className: "bg-amber-500/10 text-amber-500" },
-};
+function categoryLabel(cat: string): string {
+  const labels: Record<string, string> = {
+    product: "제품",
+    pricing: "가격",
+    business: "비즈니스",
+    update: "업데이트",
+  };
+  return labels[cat] || cat;
+}
 
-function formatRelativeDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  const now = new Date("2026-07-25");
-  const diffTime = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return "Today";
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return `${diffDays}d ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return `${d.getMonth() + 1}월 ${d.getDate()}일`;
 }
 
 export default function NewsPage() {
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="font-heading text-2xl font-semibold tracking-tight">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* Title */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           AI 업계 뉴스 · 업데이트
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          각사 공식 블로그에서 수집한 최신 소식 (전문 링크, snippet만 표시)
+          각사 공식 블로그 — snippet만 제공, 전체 내용은 원문 링크
         </p>
       </div>
 
-      <Separator />
-
-      {/* 한줄요약 */}
-      <div className="rounded-lg border border-sky-200 border-l-4 border-l-sky-400 bg-sky-50 p-5 dark:border-sky-800 dark:border-l-sky-400 dark:bg-sky-950/30 mb-6">
-        <p className="text-sm font-medium text-sky-800 dark:text-sky-200">📰 요즘 AI 업계 소식</p>
-        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-sky-700 dark:text-sky-300">
-          <li><strong>OpenAI:</strong> GPT-5.6 Luna($1/$6) 출시 + ChatGPT 광고 전환 추적 도입</li>
-          <li><strong>Anthropic:</strong> Sonnet 5 가격 연장 + IPO $965B 가치 평가</li>
-          <li><strong>DeepSeek:</strong> V4 Flash 1M 컨텍스트 + 화웨이 칩 독자 노선</li>
-          <li><strong>Google:</strong> Gemini 3.5 Flash 기본 탑재 + 2B 안드로이드 기기 AI 적용</li>
+      {/* SECTION 1: 종합 의견 (Summary + Accordion Links) */}
+      <div className="mb-6 rounded-lg border border-sky-200 border-l-4 border-l-sky-400 bg-sky-50 p-5 dark:border-sky-800 dark:border-l-sky-400 dark:bg-sky-950/30">
+        <p className="text-sm font-medium text-sky-800 dark:text-sky-200">
+          📰 이번 주 AI 업계 종합
+        </p>
+        <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-sky-700 dark:text-sky-300">
+          <li>
+            <strong>가격 전쟁 격화:</strong> GPT-5.6 Luna ($1/$6) vs Sonnet 5 프로모션 ($2/$10) — 중간 티어 가격 인하 경쟁 본격화
+          </li>
+          <li>
+            <strong>광고 시장 확대:</strong> ChatGPT Ads 전환 추적 도입으로 퍼포먼스 마케터 유입 — AI 플랫폼이 새 광고 채널로 부상
+          </li>
+          <li>
+            <strong>생태계 경쟁:</strong> MCP 97M+ 설치 vs OpenAI Codex 독자 노선 — 개발자 도구 시장 지형 변화 중
+          </li>
+          <li>
+            <strong>규제 리스크:</strong> DeepSeek 화웨이 칩 전환 — 미-중 AI 반도체 갈등의 직접적 영향
+          </li>
         </ul>
-      </div>
 
-      {/* Source notice */}
-      <Card size="sm">
-        <CardContent className="flex items-center gap-2 py-3">
-          <Info className="size-4 shrink-0 text-muted-foreground" />
-          <p className="text-xs text-muted-foreground">
-            📌 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Company Tabs */}
-      <Tabs defaultValue="openai">
-        <TabsList className="mb-6">
-          {companies.map((company) => (
-            <TabsTrigger key={company.key} value={company.key}>
-              {company.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        {companies.map((company) => (
-          <TabsContent key={company.key} value={company.key}>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {newsItems[company.key].map((item, idx) => (
-                <Card key={`${company.key}-${idx}`} size="sm">
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs text-muted-foreground">
-                        {formatRelativeDate(item.date)}
-                      </span>
-                      <Badge
-                        variant="outline"
-                        className={cn(
-                          "border-transparent font-medium",
-                          categoryStyles[item.category]?.className
-                        )}
-                      >
-                        {categoryStyles[item.category]?.label ??
-                          item.category}
-                      </Badge>
-                    </div>
-                    <CardTitle className="mt-1 text-sm leading-snug">
+        {/* Accordion Links — collapsible */}
+        <Accordion className="mt-4">
+          <AccordionItem value="links" className="border-none">
+            <AccordionTrigger className="py-2 text-xs font-medium text-sky-700 hover:text-sky-800 dark:text-sky-300 dark:hover:text-sky-200 hover:no-underline">
+              📎 전체 뉴스 링크 보기 ({Object.values(newsItems).flat().length}개)
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="mt-2 space-y-1">
+                {Object.entries(newsItems).map(([slug, items]) => (
+                  <div key={slug}>
+                    <p className="mt-2 text-xs font-semibold text-foreground first:mt-0">
+                      {companyLabel(slug)}
+                    </p>
+                    {items.map((item, i) => (
                       <a
+                        key={i}
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 transition-colors hover:text-primary hover:underline"
+                        className="flex items-center gap-1.5 py-0.5 pl-3 text-xs text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-sky-200"
                       >
+                        <ExternalLink className="h-2.5 w-2.5 shrink-0" />
                         {item.title}
-                        <ExternalLink className="size-3 shrink-0" />
                       </a>
-                    </CardTitle>
-                    <CardDescription>{item.snippet}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Badge variant="secondary" className="text-[10px]">
-                      출처: {item.source}
-                    </Badge>
-                  </CardContent>
-                </Card>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+
+      {/* SECTION 2: 4사 Rounded Rectangle Navigation Cards */}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {companies.map((company) => (
+          <a
+            key={company.slug}
+            href={`#section-${company.slug}`}
+            className={cn(
+              "flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition-all duration-200",
+              "hover:-translate-y-0.5 hover:shadow-md",
+            )}
+            style={{
+              borderColor: company.color + "30",
+              backgroundColor: company.color + "08",
+            }}
+          >
+            <span className="text-2xl">{company.logo}</span>
+            <span className="text-sm font-semibold text-foreground">
+              {company.name}
+            </span>
+            <span className="text-[0.65rem] text-muted-foreground">
+              뉴스 {newsItems[company.slug]?.length || 0}개
+            </span>
+          </a>
+        ))}
+      </div>
+
+      {/* SECTION 3: Company News Sections */}
+      <div className="space-y-8">
+        {companies.map((company) => (
+          <div key={company.slug} id={`section-${company.slug}`}>
+            {/* Company Section Header */}
+            <div
+              className={cn("mb-4 flex items-center gap-3 border-b-2 pb-2")}
+              style={{ borderBottomColor: company.color }}
+            >
+              <span className="text-xl">{company.logo}</span>
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">
+                  {company.name}
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  {company.description}
+                </p>
+              </div>
+            </div>
+
+            {/* News Items */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {newsItems[company.slug]?.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                    <CardHeader className="pb-2">
+                      <div className="flex items-center justify-between">
+                        <Badge
+                          variant="secondary"
+                          className="px-1.5 py-0 text-[0.6rem]"
+                        >
+                          {categoryLabel(item.category)}
+                        </Badge>
+                        <span className="text-[0.6rem] text-muted-foreground">
+                          {formatDate(item.date)}
+                        </span>
+                      </div>
+                      <CardTitle className="mt-1.5 text-sm font-medium leading-snug group-hover:underline">
+                        {item.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        {item.snippet}
+                      </p>
+                      <div className="mt-2 flex items-center gap-1 text-[0.6rem] text-muted-foreground">
+                        <ExternalLink className="h-2.5 w-2.5" />
+                        {item.source}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
             </div>
-          </TabsContent>
+          </div>
         ))}
-      </Tabs>
+      </div>
+
+      {/* Source Notice */}
+      <div className="mt-8 rounded-lg bg-muted p-3 text-center">
+        <p className="flex items-center justify-center gap-1 text-[0.65rem] text-muted-foreground">
+          📌 출처: 각사 공식 블로그. 저작권을 존중하여 snippet과 링크만 제공합니다.
+        </p>
+      </div>
     </div>
   );
 }

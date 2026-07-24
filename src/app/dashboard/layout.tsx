@@ -18,6 +18,7 @@ const navItems = [
   { label: "대시보드", href: "/dashboard" },
   { label: "뉴스", href: "/dashboard/news" },
   { label: "플랫폼 비교", href: "/dashboard/platforms" },
+  { label: "온보딩", href: "/dashboard/onboarding" },
   { label: "소개", href: "/dashboard/about" },
 ];
 
