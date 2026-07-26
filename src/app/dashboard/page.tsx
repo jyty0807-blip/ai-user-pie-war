@@ -8,6 +8,7 @@ import { Comparison } from "./comparison";
 import { Timeline } from "./timeline";
 import { Pricing } from "./pricing";
 import { DialogButton, companyReports } from "./company-report";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import {
@@ -16,6 +17,7 @@ import {
   DeepSeekLogo,
   GoogleAILogo,
 } from "@/components/company-logos";
+import { getBrandColor } from "@/data/brand";
 
 export default function DashboardPage() {
   const [dashTab, setDashTab] = useState("kpi");
@@ -42,10 +44,10 @@ export default function DashboardPage() {
       {/* Company quick-report buttons */}
       <div className="mb-6 flex flex-wrap gap-3">
         {[
-{ slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6 shrink-0" />, color: "#10A37F" },
-  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6 shrink-0" />, color: "#D97757" },
-  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6 shrink-0" />, color: "#4F46E5" },
-  { slug: "google-ai", name: "Google (Gemini)", logo: <GoogleAILogo className="h-6 w-6 shrink-0" />, color: "#4285F4" },
+{ slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6 shrink-0" />, color: getBrandColor("openai") },
+  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6 shrink-0" />, color: getBrandColor("anthropic") },
+  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6 shrink-0" />, color: getBrandColor("deepseek") },
+  { slug: "google-ai", name: "Google (Gemini)", logo: <GoogleAILogo className="h-6 w-6 shrink-0" />, color: getBrandColor("google") },
         ].map((company) => (
           <DialogButton
             key={company.slug}
@@ -89,24 +91,35 @@ export default function DashboardPage() {
                 <li><strong>Google (Gemini)</strong> — 200M WAU, 안드로이드 20억 기기 번들이 핵심 유저 획득 채널</li>
               </ul>
             </div>
-            <KpiCards />
-            <Trends />
+            <ErrorBoundary sectionName="KPI">
+              <KpiCards />
+            </ErrorBoundary>
+            <ErrorBoundary sectionName="Trends">
+              <Trends />
+            </ErrorBoundary>
           </div>
         )}
 
         {dashTab === "comparison" && (
-          <Comparison />
+          <ErrorBoundary sectionName="Comparison">
+            <Comparison />
+          </ErrorBoundary>
         )}
 
         {dashTab === "timeline" && (
-          <Timeline />
+          <ErrorBoundary sectionName="Timeline">
+            <Timeline />
+          </ErrorBoundary>
         )}
 
         {dashTab === "pricing" && (
-          <Pricing />
+          <ErrorBoundary sectionName="Pricing">
+            <Pricing />
+          </ErrorBoundary>
         )}
 
         {dashTab === "trends" && (
+          <ErrorBoundary sectionName="Trends">
           <div className="space-y-10">
             {/* Executive Summary */}
             <div className="rounded-sm border border-violet-300/20 bg-violet-50/80 p-6 dark:border-violet-800/20 dark:bg-violet-950/20">
@@ -146,10 +159,10 @@ export default function DashboardPage() {
               <div className="rounded-sm border border-border bg-card p-5">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide"><Target className="h-3.5 w-3.5 inline -mt-0.5" /> 핵심 전환 지표</p>
                 <ul className="mt-3 space-y-2 text-sm">
-                  <li className="flex items-start gap-2"><span className="text-green-500">🥇</span><span><strong>전환율 1위:</strong> Anthropic 46% — 유료전환율 업계 최고</span></li>
-                  <li className="flex items-start gap-2"><span className="text-gray-400">🥈</span><span><strong>전환율 2위:</strong> Google (Gemini) 15% — 안드로이드 번들 효과</span></li>
-                  <li className="flex items-start gap-2"><span className="text-orange-400">🥉</span><span><strong>전환율 3위:</strong> DeepSeek 8% — 가격 민감층 중심</span></li>
-                  <li className="flex items-start gap-2"><span className="text-red-400">4위</span><span><strong>전환율 최저:</strong> OpenAI 6.2% — 광고 도입 후 신규유저 질 하락</span></li>
+                  <li className="flex items-start gap-2"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-500/10 text-[0.6rem] font-bold text-green-600">1</span><span><strong>전환율 1위:</strong> Anthropic 46% — 유료전환율 업계 최고</span></li>
+                  <li className="flex items-start gap-2"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500/10 text-[0.6rem] font-bold text-gray-500">2</span><span><strong>전환율 2위:</strong> Google (Gemini) 15% — 안드로이드 번들 효과</span></li>
+                  <li className="flex items-start gap-2"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-orange-500/10 text-[0.6rem] font-bold text-orange-500">3</span><span><strong>전환율 3위:</strong> DeepSeek 8% — 가격 민감층 중심</span></li>
+                  <li className="flex items-start gap-2"><span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500/10 text-[0.6rem] font-bold text-red-500">4</span><span><strong>전환율 최저:</strong> OpenAI 6.2% — 광고 도입 후 신규유저 질 하락</span></li>
                 </ul>
               </div>
             </div>
@@ -165,6 +178,7 @@ export default function DashboardPage() {
               </ul>
             </div>
           </div>
+          </ErrorBoundary>
         )}
     </div>
   );

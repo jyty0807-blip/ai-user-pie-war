@@ -20,7 +20,7 @@ export default function PlatformsLayout({
           AI 개발 플랫폼 비교
         </h1>
         <p className="mt-1 text-sm text-[#424245] dark:text-[#a0a0a0]">
-          Claude Code · OpenAI Codex · OpenCode — 개발자 도구 3종 비교
+           Claude Code · OpenAI Codex · OpenRouter · OpenCode — 개발자 도구 4종 비교
         </p>
       </div>
 
@@ -36,7 +36,7 @@ export default function PlatformsLayout({
               : "text-[#424245] hover:text-[#201d1d] dark:text-[#a0a0a0] dark:hover:text-[#fdfcfc]"
           )}
         >
-          📊 비교
+          비교
         </button>
         <button
           onClick={() => setTab("reviews")}
@@ -47,7 +47,7 @@ export default function PlatformsLayout({
               : "text-[#424245] hover:text-[#201d1d] dark:text-[#a0a0a0] dark:hover:text-[#fdfcfc]"
           )}
         >
-          💬 커뮤니티 의견
+          커뮤니티 의견
         </button>
       </div>
 

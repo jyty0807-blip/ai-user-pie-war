@@ -5,59 +5,38 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import { Rocket, Target, Zap, Crown, TrendingUp, BookOpen, Lightbulb, type LucideIcon } from "lucide-react";
+import { timelineEvents, type TimelineEvent as DataEvent } from "@/data/timeline-events";
 
-interface TimelineEvent {
+interface MappedTimelineEvent {
   date: string;
   title: string;
   desc: string;
-  type: "product_launch" | "marketing" | "business";
+  type: string;
   Icon: LucideIcon;
 }
 
-const events: TimelineEvent[] = [
-  {
-    date: "2026년 2월 9일",
-    title: "OpenAI, ChatGPT 광고 전격 도입",
-    desc: "OpenAI가 ChatGPT 내 광고를 시작합니다. CPM $60, 최소 구매액 $200K. 6주 만에 600개 이상 광고주 가입. 시장 점유율 하락 시작.",
-    type: "product_launch",
-    Icon: Rocket,
-  },
-  {
-    date: "2026년 2월 9일",
-    title: "Anthropic, 슈퍼볼 맞불 광고",
-    desc: "Anthropic이 블랙코미디풍 반격 광고 4편을 방영. '광고가 적합한 자리는 따로 있습니다. 당신의 대화는 그 자리가 아닙니다.' 클리오 광고상 수상. Claude 앱스토어 1위 등극.",
-    type: "marketing",
-    Icon: Target,
-  },
-  {
-    date: "2026년 2월 10-16일",
-    title: "QuitGPT 운동 폭발",
-    desc: "참여자 250만 명. ChatGPT 삭제율 하루 295% 급증. 70만 명이 Claude로 이주. OpenAI 시장점유율 60% → 45% 추락.",
-    type: "marketing",
-    Icon: Zap,
-  },
-  {
-    date: "2026년 4월",
-    title: "Anthropic, OpenAI 매출 추월",
-    desc: "Anthropic 연매출 $300억 도달 (16개월 만에 30배 성장). 기업 고객은 광고 없는 AI에 프리미엄 지불. OpenAI 매출은 광고에도 불구하고 정체.",
-    type: "business",
-    Icon: Crown,
-  },
-  {
-    date: "2026년 6월",
-    title: "Anthropic IPO 신청",
-    desc: "비공개 IPO 서류 제출. 기업가치 $9,650억. 가장 가치 있는 AI 기업이 광고 수익 대신 신뢰를 선택하다.",
-    type: "business",
-    Icon: TrendingUp,
-  },
-  {
-    date: "2026년 7월",
-    title: "GPT-5.6 3단계 전략 출시",
-    desc: "OpenAI, Sol($5/$30)·Terra($2.50/$15)·Luna($1/$6) 3종 출시. 유연한 가격으로 시장 재탈환 시도. DeepSeek V4 Flash는 $0.14/$0.28로 맞불.",
-    type: "product_launch",
-    Icon: Rocket,
-  },
-];
+const companyIcons: Record<string, LucideIcon> = {
+  openai: Rocket,
+  anthropic: Target,
+  deepseek: Zap,
+};
+
+function formatDate(dateStr: string): string {
+  const parts = dateStr.split("-");
+  if (parts.length === 3) {
+    const [year, month, day] = parts;
+    return `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
+  }
+  return dateStr;
+}
+
+const events: MappedTimelineEvent[] = timelineEvents.map((event) => ({
+  date: formatDate(event.event_date),
+  title: event.title,
+  desc: event.description,
+  type: event.event_type,
+  Icon: companyIcons[event.company_slug] || Rocket,
+}));
 
 const typeStyles: Record<string, string> = {
   product_launch:

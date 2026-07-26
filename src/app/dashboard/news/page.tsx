@@ -2,6 +2,7 @@
 
 import { ExternalLink, Info, Calendar, Newspaper, Paperclip, Pin } from "lucide-react";
 import { OpenAILogo, AnthropicLogo, DeepSeekLogo, GoogleAILogo } from "@/components/company-logos";
+import { getBrandColor } from "@/data/brand";
 import {
   Card,
   CardContent,
@@ -176,10 +177,10 @@ const newsItems: NewsData = {
 };
 
 const companies = [
-  { slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6" />, color: "#10A37F", description: "ChatGPT · GPT-5 · 광고 수익화" },
-  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6" />, color: "#D97757", description: "Claude · MCP · IPO 준비" },
-  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6" />, color: "#4F46E5", description: "V4 Flash · 화웨이 · 오픈소스" },
-  { slug: "google", name: "Google", logo: <GoogleAILogo className="h-6 w-6" />, color: "#4285F4", description: "Gemini · Android · AI Mode" },
+  { slug: "openai", name: "OpenAI", logo: <OpenAILogo className="h-6 w-6" />, color: getBrandColor("openai"), description: "ChatGPT · GPT-5 · 광고 수익화" },
+  { slug: "anthropic", name: "Anthropic", logo: <AnthropicLogo className="h-6 w-6" />, color: getBrandColor("anthropic"), description: "Claude · MCP · IPO 준비" },
+  { slug: "deepseek", name: "DeepSeek", logo: <DeepSeekLogo className="h-6 w-6" />, color: getBrandColor("deepseek"), description: "V4 Flash · 화웨이 · 오픈소스" },
+  { slug: "google", name: "Google", logo: <GoogleAILogo className="h-6 w-6" />, color: getBrandColor("google"), description: "Gemini · Android · AI Mode" },
 ];
 
 function companyLabel(slug: string): string {
@@ -314,7 +315,7 @@ export default function NewsPage() {
                 <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
                   {company.name}
                 </h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground whitespace-nowrap">
                   {company.description}
                 </p>
               </div>

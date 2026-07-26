@@ -20,6 +20,7 @@ import {
   DeepSeekLogo,
   GoogleAILogo,
 } from "@/components/company-logos";
+import { getBrandColor } from "@/data/brand";
 
 interface CompanyRow {
   name: string;
@@ -39,7 +40,7 @@ const comparisonData: CompanyRow[] = [
   {
     name: "OpenAI",
     slug: "openai",
-    color: "#10A37F",
+    color: getBrandColor("openai"),
     logo: <OpenAILogo className="h-6 w-6" />,
     estimatedAdSpend: "200M",
     mau: "800M",
@@ -52,7 +53,7 @@ const comparisonData: CompanyRow[] = [
   {
     name: "Anthropic",
     slug: "anthropic",
-    color: "#D97757",
+    color: getBrandColor("anthropic"),
     logo: <AnthropicLogo className="h-6 w-6" />,
     estimatedAdSpend: "45M",
     mau: "120M",
@@ -65,7 +66,7 @@ const comparisonData: CompanyRow[] = [
   {
     name: "DeepSeek",
     slug: "deepseek",
-    color: "#4F46E5",
+    color: getBrandColor("deepseek"),
     logo: <DeepSeekLogo className="h-6 w-6" />,
     estimatedAdSpend: "12M",
     mau: "80M",
@@ -78,7 +79,7 @@ const comparisonData: CompanyRow[] = [
   {
     name: "Google",
     slug: "google-ai",
-    color: "#4285F4",
+    color: getBrandColor("google"),
     logo: <GoogleAILogo className="h-6 w-6" />,
     estimatedAdSpend: "500M+",
     mau: "200M",

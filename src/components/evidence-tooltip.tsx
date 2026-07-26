@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface EvidenceTooltipProps {
@@ -31,27 +32,65 @@ export function EvidenceTooltip({ section, sources, methodology, className }: Ev
         }
       />
       <TooltipContent
-        className="max-w-[300px] p-4 bg-[#fdfcfc] dark:bg-[#1a1a1a] border border-border shadow-sm"
+        className={cn(
+          "block max-w-[320px] p-5",
+          "bg-popover text-popover-foreground",
+          "rounded-lg border border-border",
+          "shadow-lg shadow-black/[0.04] dark:shadow-black/30"
+        )}
         side="right"
         align="start"
+        sideOffset={8}
       >
-        <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc] mb-2">
-          📋 {section} — 데이터 근거
-        </p>
-        <ul className="space-y-1.5">
+        {/* Title */}
+        <div className="pb-3 mb-3 border-b border-border/60">
+          <p className="text-sm font-semibold leading-snug">
+            📋 {section}
+          </p>
+          <p className="text-[0.65rem] text-muted-foreground/80 mt-0.5 font-medium">
+            데이터 근거
+          </p>
+        </div>
+
+        {/* Sources */}
+        <ul className="space-y-2">
           {sources.map((source, i) => (
-            <li key={i} className="flex items-start gap-1.5 text-xs leading-relaxed text-[#424245] dark:text-[#a0a0a0]">
-              <span className="mt-1 shrink-0 w-1 h-1 rounded-full bg-[#646262]" />
-              <span>{source}</span>
+            <li key={i} className="flex items-start gap-2">
+              <span className="mt-[0.4em] shrink-0 w-1.5 h-1.5 rounded-full bg-muted-foreground/35" />
+              <span className="text-xs leading-relaxed text-muted-foreground">
+                {source}
+              </span>
             </li>
           ))}
         </ul>
+
+        {/* Methodology */}
         {methodology && (
-          <div className="mt-3 pt-3 border-t border-border">
-            <p className="text-xs font-medium text-[#646262] dark:text-[#888] mb-1">방법론</p>
-            <p className="text-xs leading-relaxed text-[#646262] dark:text-[#888]">{methodology}</p>
+          <div className="mt-4 p-3 rounded-md bg-muted/70 border border-border/40">
+            <p className="text-[0.65rem] font-semibold text-foreground/70 mb-1">
+              방법론
+            </p>
+            <p className="text-[0.65rem] leading-relaxed text-muted-foreground">
+              {methodology}
+            </p>
           </div>
         )}
+
+        {/* CTA Link */}
+        <div className="mt-4 pt-3 border-t border-border/60">
+          <Link
+            href="/dashboard/onboarding"
+            className={cn(
+              "inline-flex items-center gap-1.5",
+              "text-xs font-medium",
+              "text-primary hover:text-primary/80",
+              "transition-colors"
+            )}
+          >
+            자세히 보기
+            <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
       </TooltipContent>
     </Tooltip>
   );

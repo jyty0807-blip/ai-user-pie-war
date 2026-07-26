@@ -3,6 +3,7 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface MetricTooltipProps {
   term: string;
@@ -19,16 +20,50 @@ export function MetricTooltip({ term, definition }: MetricTooltipProps) {
           </button>
         }
       />
-      <TooltipContent className="max-w-[320px] p-4 bg-[#fdfcfc] dark:bg-[#1a1a1a] text-[#201d1d] dark:text-[#fdfcfc] border border-border shadow-sm">
-        <p className="text-xs font-semibold mb-1.5">{term}</p>
-        <p className="text-xs leading-relaxed text-[#424245] dark:text-[#a0a0a0]">{definition}</p>
-        <Link
-          href="/dashboard/onboarding"
-          className="mt-2 inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#201d1d] text-[#fdfcfc] text-xs font-bold hover:bg-[#0f0000] dark:bg-[#fdfcfc] dark:text-[#201d1d] dark:hover:bg-[#e8e8e8] transition-colors"
-          aria-label="온보딩 페이지에서 자세히 보기"
+      <TooltipContent
+        className={cn(
+          "block max-w-[320px] p-5",
+          "bg-popover text-popover-foreground",
+          "rounded-lg border border-border",
+          "shadow-lg shadow-black/[0.04] dark:shadow-black/30"
+        )}
+        side="top"
+        sideOffset={8}
+      >
+        {/* Term badge */}
+        <span
+          className={cn(
+            "inline-block px-2.5 py-0.5 mb-3",
+            "text-xs font-semibold",
+            "rounded-md",
+            "bg-primary/10 text-primary"
+          )}
         >
-          +
-        </Link>
+          {term}
+        </span>
+
+        {/* Definition */}
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {definition}
+        </p>
+
+        {/* CTA */}
+        <div className="mt-4 pt-3 border-t border-border/60">
+          <Link
+            href="/dashboard/onboarding"
+            className={cn(
+              "inline-flex items-center gap-2",
+              "text-xs font-medium",
+              "text-primary hover:text-primary/80",
+              "transition-colors"
+            )}
+          >
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[0.65rem] font-bold leading-none">
+              +
+            </span>
+            자세히 보기
+          </Link>
+        </div>
       </TooltipContent>
     </Tooltip>
   );

@@ -182,7 +182,7 @@ export default function OnboardingPage() {
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-4">
           <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
-            🕸️ 크롤링 수집 데이터
+            크롤링 수집 데이터
           </h2>
         </div>
         <Accordion className="space-y-2">

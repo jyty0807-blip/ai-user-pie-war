@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -32,8 +31,7 @@ export default function DashboardLayout({
   const pathname = usePathname();
 
   return (
-    <TooltipProvider>
-      <div className="flex min-h-full flex-col">
+    <div className="flex min-h-full flex-col">
         {/* Top navigation bar */}
         <header className="sticky top-0 z-40 w-full border-b border-border bg-[#fdfcfc]">
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -138,6 +136,5 @@ export default function DashboardLayout({
           </div>
         </footer>
       </div>
-    </TooltipProvider>
   );
 }

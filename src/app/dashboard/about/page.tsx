@@ -49,20 +49,20 @@ export default function AboutPage() {
 
         <div className="rounded-sm border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">기술 스택</h2>
-          <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
             {[
               { label: "프레임워크", value: "Next.js 16" },
               { label: "스타일링", value: "Tailwind v4 + shadcn/ui" },
               { label: "차트", value: "Recharts" },
-              { label: "데이터베이스", value: "PostgreSQL (Railway)" },
+              { label: "DB", value: "PostgreSQL (Railway)" },
               { label: "ORM", value: "Drizzle ORM" },
               { label: "배포", value: "Railway ($5 Hobby)" },
               { label: "오케스트레이션", value: "OpenCode (OMC)" },
               { label: "언어", value: "TypeScript strict" },
             ].map((item) => (
-                <div key={item.label} className="rounded-full bg-muted p-2">
-                <p className="text-[0.65rem] text-muted-foreground">{item.label}</p>
-                <p className="text-xs font-medium text-foreground">{item.value}</p>
+              <div key={item.label} className="rounded-full bg-muted p-3 text-center">
+                <p className="text-[0.6rem] text-muted-foreground">{item.label}</p>
+                <p className="mt-0.5 text-xs font-semibold text-foreground">{item.value}</p>
               </div>
             ))}
           </div>

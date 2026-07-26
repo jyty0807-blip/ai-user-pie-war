@@ -101,6 +101,12 @@ export default function LandingPage() {
               >
                 <BarChart3 className="h-4 w-4" /> 데이터 연구소
               </Link>
+              <Link
+                href="/dashboard/onboarding"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(15,0,0,0.12)] px-5 py-2.5 text-sm font-medium text-[#424245] transition-colors hover:bg-[#f8f7f7] dark:border-[rgba(255,255,255,0.15)] dark:text-[#a0a0a0] dark:hover:bg-[#2a2a2a]"
+              >
+                <Compass className="h-4 w-4" /> 데이터 출처
+              </Link>
             </div>
             {/* How it works */}
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">

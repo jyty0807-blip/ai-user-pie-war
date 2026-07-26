@@ -18,6 +18,7 @@ import {
 import { cn } from "@/lib/utils";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
 import { UpdateSchedule } from "@/components/update-schedule";
+import { getBrandColor } from "@/data/brand";
 
 interface TrendPoint {
   month: string;
@@ -96,11 +97,20 @@ const monthlyData: TrendPoint[] = [
   { month: "7/22", openai: 580, anthropic: 120, deepseek: 80, google: 200 },
 ];
 
+const adSpendData: TrendPoint[] = [
+  { month: "Feb 2026", openai: 200, anthropic: 45, deepseek: 12, google: 80 },
+  { month: "Mar 2026", openai: 180, anthropic: 50, deepseek: 15, google: 85 },
+  { month: "Apr 2026", openai: 160, anthropic: 55, deepseek: 18, google: 90 },
+  { month: "May 2026", openai: 150, anthropic: 48, deepseek: 20, google: 95 },
+  { month: "Jun 2026", openai: 145, anthropic: 42, deepseek: 22, google: 100 },
+  { month: "Jul 2026", openai: 140, anthropic: 40, deepseek: 25, google: 110 },
+];
+
 const companyColors: Record<string, string> = {
-  openai: "#10A37F",
-  anthropic: "#D97757",
-  deepseek: "#4F46E5",
-  google: "#4285F4",
+  openai: getBrandColor("openai"),
+  anthropic: getBrandColor("anthropic"),
+  deepseek: getBrandColor("deepseek"),
+  google: getBrandColor("google"),
 };
 
 /** Stroke dash patterns for color-blind accessibility — each company gets a unique pattern */
@@ -119,10 +129,10 @@ const companyLabels: Record<string, string> = {
 };
 
 const companies = [
-  { slug: "openai", name: "OpenAI", color: "#10A37F" },
-  { slug: "anthropic", name: "Anthropic", color: "#D97757" },
-  { slug: "deepseek", name: "DeepSeek", color: "#4F46E5" },
-  { slug: "google", name: "Google", color: "#4285F4" },
+  { slug: "openai", name: "OpenAI", color: getBrandColor("openai") },
+  { slug: "anthropic", name: "Anthropic", color: getBrandColor("anthropic") },
+  { slug: "deepseek", name: "DeepSeek", color: getBrandColor("deepseek") },
+  { slug: "google", name: "Google", color: getBrandColor("google") },
 ];
 
 type RangeKey = "1w" | "1m" | "6m";
@@ -153,6 +163,7 @@ export function Trends() {
   });
 
   const [viewMode, setViewMode] = useState<"absolute" | "growth">("absolute");
+  const [adViewMode, setAdViewMode] = useState<"absolute" | "growth">("absolute");
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
 
   const growthData = useMemo(() => {
@@ -167,6 +178,18 @@ export function Trends() {
       event: point.event,
     }));
   }, [data]);
+
+  const adGrowthData = useMemo(() => {
+    if (adSpendData.length === 0) return [];
+    const baseline = adSpendData[0];
+    return adSpendData.map((point) => ({
+      month: point.month,
+      openai: ((point.openai - baseline.openai) / baseline.openai) * 100,
+      anthropic: ((point.anthropic - baseline.anthropic) / baseline.anthropic) * 100,
+      deepseek: ((point.deepseek - baseline.deepseek) / baseline.deepseek) * 100,
+      google: ((point.google - baseline.google) / baseline.google) * 100,
+    }));
+  }, []);
 
   const chartData = viewMode === "growth" ? growthData : data;
 
@@ -263,7 +286,7 @@ export function Trends() {
       {/* Summary banner */}
       <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-4 dark:border-slate-700/20 dark:bg-slate-900/30">
         <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-          💡 핵심 인사이트
+          핵심 인사이트
         </p>
         <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
           <li>2026년 2월 OpenAI 광고 도입으로 유저 이탈 가속화 — 6개월간 800M→580M, 27.5% 감소</li>
@@ -325,7 +348,7 @@ export function Trends() {
       {viewMode === "growth" && (
         <div className="rounded-sm border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900/50">
           <p className="text-xs font-medium text-slate-800 dark:text-slate-200">
-            💡 성장률 기준으로 보면 이야기가 완전히 달라집니다
+            성장률 기준으로 보면 이야기가 완전히 달라집니다
           </p>
           <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
             <li>
@@ -344,10 +367,90 @@ export function Trends() {
         </div>
       )}
 
+      {/* Ad Spend Trend Chart */}
+      <div>
+        <h2 className="mb-4 text-lg font-semibold text-foreground">
+          광고비 트렌드
+          <EvidenceTooltip section="시장 트렌드" sources={SECTION_EVIDENCE.trends.sources} methodology={SECTION_EVIDENCE.trends.methodology} className="ml-1 -mb-0.5" />
+        </h2>
+        <div className="flex items-center justify-end gap-2 mb-4">
+          <div className="flex rounded-full border border-border bg-muted p-0.5">
+            <button
+              onClick={() => setAdViewMode("absolute")}
+              className={cn(
+                "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
+                adViewMode === "absolute"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              절대값
+            </button>
+            <button
+              onClick={() => setAdViewMode("growth")}
+              className={cn(
+                "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
+                adViewMode === "growth"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              성장률
+            </button>
+          </div>
+        </div>
+        <div className="rounded-sm border border-border bg-card p-4">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={adViewMode === "growth" ? adGrowthData : adSpendData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              {adViewMode === "growth" && (
+                <ReferenceLine y={0} stroke="var(--border)" strokeDasharray="3 3" />
+              )}
+              <XAxis
+                dataKey="month"
+                tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              />
+              <YAxis
+                tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                tickFormatter={
+                  adViewMode === "growth"
+                    ? (v: number) => `${v > 0 ? "+" : ""}${v}%`
+                    : (v: number) => `${v}`
+                }
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "var(--card)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "8px",
+                  color: "var(--card-foreground)",
+                  fontSize: "13px",
+                }}
+              />
+              <Legend
+                formatter={(value: string) => companyLabels[value] ?? value}
+              />
+              {Object.entries(companyColors).map(([k, color]) => (
+                <Line
+                  key={k}
+                  type="monotone"
+                  dataKey={k}
+                  stroke={color}
+                  strokeWidth={3}
+                  strokeDasharray={companyDashArrays[k]}
+                  dot={{ r: 4, fill: color }}
+                  activeDot={{ r: 6 }}
+                />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
       {/* 한줄요약 인사이트 */}
       <div className="rounded-sm border border-slate-300/20 bg-slate-50/80 p-4 dark:border-slate-700/20 dark:bg-slate-900/30">
         <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-          💡 한줄 요약
+          한줄 요약
         </p>
         <ul className="mt-1.5 list-disc space-y-0.5 pl-4 text-xs text-slate-700 dark:text-slate-300">
           <li>OpenAI: 800M→580M, 유저 이탈 지속 — 광고 도입이 역효과</li>

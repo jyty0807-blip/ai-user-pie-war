@@ -23,6 +23,7 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
+import { getBrandColor } from "@/data/brand";
 
 interface PricingRow {
   company: string;
@@ -182,12 +183,12 @@ const pricingData: PricingRow[] = [
 ];
 
 const companyColors: Record<string, string> = {
-  OpenAI: "#10A37F",
-  Anthropic: "#D97757",
-  Google: "#4285F4",
-  DeepSeek: "#4F46E5",
-  OpenRouter: "#FF6B35",
-  "OpenCode ZEN": "#8B5CF6",
+  OpenAI: getBrandColor("openai"),
+  Anthropic: getBrandColor("anthropic"),
+  Google: getBrandColor("google"),
+  DeepSeek: getBrandColor("deepseek"),
+  OpenRouter: getBrandColor("openrouter"),
+  "OpenCode ZEN": getBrandColor("opencode"),
   "GLM (Zhipu)": "#E53935",
   "Qwen (Alibaba)": "#FF6A00",
   "Mistral AI": "#F59E0B",

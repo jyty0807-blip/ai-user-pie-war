@@ -11,7 +11,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { MessageSquare, CheckCircle, XCircle, BarChart3, AlertTriangle, Rocket, Pin } from "lucide-react";
-import { ClaudeLogo, OpenAILogo, OpenRouterLogo } from "@/components/company-logos";
+import { ClaudeLogo, OpenAILogo, OpenRouterLogo, OpenCodeLogo } from "@/components/company-logos";
+import { getBrandColor } from "@/data/brand";
 import {
   Table,
   TableBody,
@@ -61,6 +62,16 @@ const sentimentData: SentimentEntry[] = [
       "OMC multi-agent pattern is the future of AI-assisted development",
     source: "r/ClaudeAI",
     score: 567,
+  },
+  {
+    platform: "OpenRouter",
+    positive: 72,
+    neutral: 20,
+    negative: 8,
+    topPost:
+      "OpenRouter saved us $40K/mo by routing to cheapest model automatically",
+    source: "Hacker News",
+    score: 1234,
   },
 ];
 
@@ -144,6 +155,31 @@ const platformDetails: Record<string, {
       { text: "무료인데 이 정도면 착한 거지. DeepSeek 조합으로 운영비 제로에 가깝다.", source: "Hacker News", url: "https://news.ycombinator.com" },
     ],
   },
+  openrouter: {
+    pros: [
+      "200+ 모델 단일 API — 벤더 종속성 제거",
+      "자동 라우팅 (:nitro/:floor/:exacto)으로 비용 최적화",
+      "무료 티어 제공 (비율 제한) — 프로토타이핑에 적합",
+      "SOC 2 규정 준수, BYOK 지원",
+      "5.5% 수수료만으로 모든 모델 접근 가능",
+    ],
+    cons: [
+      "자체 모델 없음 — 타사 API 의존",
+      "고급 기능은 PayGo 요금제 필요",
+      "실시간 스트리밍 지연 간헐적 발생",
+      "일부 지역에서 레이턴시 변동",
+    ],
+    swot: {
+      strength: ["멀티모델 라우팅 독보적", "200+ 모델 접근성", "가격 최적화", "SOC 2 규정 준수"],
+      weakness: ["자체 모델 부재", "고급 기능 유료", "네트워크 의존성"],
+      opportunity: ["멀티모델 워크플로우 수요 증가", "AI 비용 최적화 시장 성장", "글로벌 AI 서비스 확대"],
+      threat: ["OpenAI/Anthropic의 독점 모델 전략", "Google Cloud의 통합 AI 서비스", "오픈소스 모델의 품질 향상"],
+    },
+    topQuotes: [
+      { text: "OpenRouter로 모델 라우팅하니까 API 비용이 60% 줄었다. :floor 옵션이 게임 체인저.", source: "Hacker News", url: "https://news.ycombinator.com" },
+      { text: "하나의 API로 200개 모델에 접근할 수 있다는 게 엄청난 생산성 향상이다.", source: "Reddit r/programming", url: "https://reddit.com" },
+    ],
+  },
 };
 
 function getPlatformDetailKey(platform: string): string {
@@ -154,22 +190,21 @@ function getPlatformDetailKey(platform: string): string {
       return "openai-codex";
     case "OpenCode (OMC)":
       return "opencode";
+    case "OpenRouter":
+      return "openrouter";
     default:
       return "";
   }
 }
 
 function getPlatformColor(platform: string): string {
-  switch (platform) {
-    case "Claude Code":
-      return "#D97757";
-    case "OpenAI Codex":
-      return "#10A37F";
-    case "OpenCode (OMC)":
-      return "#8B5CF6";
-    default:
-      return "#6B7280";
-  }
+  const slug =
+    platform === "Claude Code" ? "claude-code" :
+    platform === "OpenAI Codex" ? "openai-codex" :
+    platform === "OpenCode (OMC)" ? "omc" :
+    platform === "OpenRouter" ? "openrouter" :
+    "";
+  return slug ? getBrandColor(slug) : "#6B7280";
 }
 
 function PlatformIcon({ slug }: { slug: string }) {
@@ -177,7 +212,8 @@ function PlatformIcon({ slug }: { slug: string }) {
   switch (slug) {
     case "claude-code": return <ClaudeLogo className={cls} />;
     case "openai-codex": return <OpenAILogo className={cls} />;
-    case "opencode": return <OpenRouterLogo className={cls} />;
+    case "opencode": return <OpenCodeLogo className={cls} />;
+    case "openrouter": return <OpenRouterLogo className={cls} />;
     default: return null;
   }
 }
@@ -187,6 +223,7 @@ function getPlatformIconNode(platform: string): React.ReactNode {
     case "Claude Code": return <PlatformIcon slug="claude-code" />;
     case "OpenAI Codex": return <PlatformIcon slug="openai-codex" />;
     case "OpenCode (OMC)": return <PlatformIcon slug="opencode" />;
+    case "OpenRouter": return <PlatformIcon slug="openrouter" />;
     default: return null;
   }
 }

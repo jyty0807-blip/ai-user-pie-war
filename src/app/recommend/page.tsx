@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { MODEL_SWOT, KRW_EXCHANGE_RATE } from "@/data/model-swot";
+import { useState, useMemo, useEffect } from "react";
+import { MODEL_SWOT } from "@/data/model-swot";
 import Link from "next/link";
 
-const QUESTIONS = [
+interface QuestionOption {
+  value: string; label: string; emoji: string; desc?: string; price?: string;
+}
+interface Question {
+  id: string; q: string; sub: string; multi: boolean; options: QuestionOption[];
+}
+const QUESTIONS: Question[] = [
   {
     id: "role", q: "당신의 현재 상황은?", sub: "상황에 맞는 플랜을 추천합니다", multi: false,
     options: [
@@ -171,10 +177,89 @@ const TASK_BEST: Record<string, string> = {
   "study": "sonnet-5", "chat": "gpt-5-5",
 };
 
-function getKRW(usd: string): string {
+// ── Scoring Engine ──────────────────────────────────────────
+
+type BudgetLevel = "free" | "budget" | "standard" | "pro" | "unlimited";
+
+const BUDGET_MAX: Record<BudgetLevel, number> = {
+  free: 0, budget: 20, standard: 50, pro: 100, unlimited: Infinity,
+};
+
+const BUDGET_ORDER: Record<BudgetLevel, number> = {
+  free: 0, budget: 1, standard: 2, pro: 3, unlimited: 4,
+};
+
+/** 환경 · 예산 · 스타일 · 작업 태그. `slug`를 키로 lookup. */
+const PLAN_TAGS: Record<string, {
+  env: string[]; budgetMax: BudgetLevel; style: string[]; tasks: string[];
+}> = {
+  opencode:           { env: ["cli","ide"],          budgetMax: "free",     style: ["fast","value"], tasks: ["web-dev","ai-ml","game-dev"] },
+  "deepseek-v4-flash":{ env: ["api","web"],           budgetMax: "budget",   style: ["value","fast"],  tasks: ["web-dev","data","translate","study","chat"] },
+  "deepseek-v4-pro":  { env: ["api"],                 budgetMax: "standard", style: ["value","precise"],tasks: ["web-dev","ai-ml","game-dev","data"] },
+  "sonnet-5":         { env: ["web","mobile","ide"],  budgetMax: "budget",   style: ["precise","fast"],tasks: ["web-dev","study","chat","resume","data"] },
+  "gpt-5-5":          { env: ["web","mobile","api"],  budgetMax: "standard", style: ["precise","fast"], tasks: ["writing","marketing","chat","resume","study","design","web-dev"] },
+  "opus-4-8":         { env: ["cli","ide","web"],     budgetMax: "standard", style: ["precise"],        tasks: ["web-dev","ai-ml","game-dev","resume","data"] },
+  "gemini-3-1":       { env: ["web","mobile","api"],  budgetMax: "standard", style: ["context","precise"],tasks:["data","study","writing","translate"] },
+  "gemini-3-5-flash": { env: ["api","web"],           budgetMax: "budget",   style: ["fast","value"],  tasks: ["chat","data","study"] },
+  "fable-5":          { env: ["cli","api"],           budgetMax: "unlimited",style: ["precise","context"],tasks:["writing","web-dev","ai-ml","game-dev"] },
+  "gpt-5-6-sol":      { env: ["cli","api","web"],     budgetMax: "pro",      style: ["precise","fast"],tasks: ["web-dev","ai-ml","game-dev","marketing"] },
+};
+
+/** 질문 → 응답 enum 리터럴 문자열 타입 */
+type Answers = Record<string, string | string[]>;
+
+/** 각 plan에 대해 환경 · 예산 · 스타일 · 작업 점수를 내고 합계를 반환한다. */
+function scorePlan(slug: string, answers: Answers): number {
+  const tags = PLAN_TAGS[slug];
+  if (!tags) return 0;
+  const { env, budget, style, task } = answers as Record<string, string>;
+  const primaryTask = Array.isArray(task) ? task[0] || "" : task || "";
+
+  let sc = 0;
+  // 환경 (가중치 높음 — UX 일관성)
+  if (env && tags.env.includes(env)) sc += 25;
+  else if (env) sc -= 15;
+
+  // 예산
+  if (budget) {
+    const userLevel = BUDGET_ORDER[budget as BudgetLevel] ?? 0;
+    const planLevel = BUDGET_ORDER[tags.budgetMax];
+    if (planLevel <= userLevel) sc += 20;
+    else sc -= 30;
+  }
+
+  // 스타일
+  if (style && style !== "random" && tags.style.includes(style)) sc += 12;
+
+  // 작업 적합도 — 첫 번째 작업 기준
+  if (primaryTask && tags.tasks.includes(primaryTask)) sc += 15;
+
+  // 해당 작업 최적 모델 추가 보너스
+  if (primaryTask && TASK_BEST[primaryTask] === slug) sc += 10;
+
+  return sc;
+}
+
+/** 콤보 전체 점수 = plan 점수 합 + 서비스 수 적합도 */
+function scoreCombo(plans: { slug: string }[], answers: Answers): number {
+  const planScore = plans.reduce((sum, p) => sum + scorePlan(p.slug, answers), 0);
+  const avg = plans.length > 0 ? planScore / plans.length : 0;
+
+  const service = answers.service as string | undefined;
+  let serviceBonus = 0;
+  if (service === "single" && plans.length === 1) serviceBonus = 15;
+  else if (service === "multi" && plans.length === 2) serviceBonus = 12;
+  else if (service === "many" && plans.length >= 3) serviceBonus = 10;
+  else if (service === "single" && plans.length > 1) serviceBonus = -5;
+  else if (service === "many" && plans.length === 1) serviceBonus = -3;
+
+  return avg * plans.length + serviceBonus;
+}
+
+function getKRW(usd: string, rate: number): string {
   const n = parseFloat(usd.replace(/[^0-9.]/g, "")) || 0;
   if (n === 0) return "무료";
-  const total = n * 1474 * 1.03;
+  const total = n * rate * 1.03;
   if (total < 1000) return `${Math.round(total).toLocaleString()}원`;
   return `${Math.round(total / 10) * 10}원`;
 }
@@ -197,24 +282,90 @@ function getTotalUSD(plans: { price: string; type: string }[]): number {
   return Math.round(total);
 }
 
-function getPlans(answers: Record<string, string | string[]>): ComboRecommendation[] {
+function getPlans(answers: Answers, rate: number = 1474): ComboRecommendation[] {
   const role = answers.role as string;
   const tasks = answers.task as string[];
   const tasksKey = tasks?.[0] || "chat";
-  const bestModel = TASK_BEST[tasksKey] || "opus-4-8";
   const combos = COMBO_DATA[role] || COMBO_DATA["student"];
-  const primary: ComboRecommendation[] = combos.map(c => ({
-    ...c,
-    totalUSD: getTotalUSD(c.plans),
-    summary: `💰 총 월 $${getTotalUSD(c.plans)} (약 ${getKRW(getTotalUSD(c.plans).toString())})`,
-    benchmarkNote: `${MODEL_SWOT.find(m => m.slug === bestModel)?.specs.swebench || ""}`,
-  }));
-  return primary;
+
+  const scored = combos.map(c => {
+    const totalUSD = getTotalUSD(c.plans);
+    const bestModelSlug = TASK_BEST[tasksKey] || "opus-4-8";
+    const bestModel = MODEL_SWOT.find(m => m.slug === bestModelSlug);
+    return {
+      ...c,
+      totalUSD,
+      summary: `💰 총 월 $${totalUSD} (약 ${getKRW(totalUSD.toString(), rate)})`,
+      benchmarkNote: `${bestModel?.specs.swebench || ""}`,
+      matchScore: scoreCombo(c.plans, answers),
+      matchReasons: buildMatchReasons(c.plans, answers),
+    };
+  });
+
+  // 점수 내림차순 정렬
+  return scored.sort((a, b) => b.matchScore - a.matchScore);
 }
+
+function buildMatchReasons(plans: { slug: string; plan: string; price: string; type: string; reason: string[] }[], answers: Answers): string[] {
+  const reasons: string[] = [];
+  const env = answers.env as string | undefined;
+  const budget = answers.budget as string | undefined;
+  const style = answers.style as string | undefined;
+  const service = answers.service as string | undefined;
+  const tasks = answers.task as string[] | undefined;
+  const primaryTask = tasks?.[0];
+
+  // 환경
+  if (env) {
+    const match = plans.filter(p => PLAN_TAGS[p.slug]?.env.includes(env));
+    const ok = match.length > 0;
+    reasons.push(ok ? `✅ ${envLabels[env] || env} 환경에 적합한 도구 포함` : `⚠️ ${envLabels[env] || env} 환경에 최적화된 도구 부족`);
+  }
+  // 예산
+  if (budget && budget !== "unlimited") {
+    const totalUSD = getTotalUSD(plans);
+    reasons.push(totalUSD <= BUDGET_MAX[budget as BudgetLevel]
+      ? `💰 예산 ${budgetLabels[budget] || budget} 내`
+      : `💸 예산 ${budgetLabels[budget] || budget} 초과 (약 $${totalUSD}/월)`);
+  }
+  // 스타일
+  if (style && style !== "random") {
+    const match = plans.some(p => PLAN_TAGS[p.slug]?.style.includes(style));
+    if (match) reasons.push(`🎯 "${styleLabels[style] || style}" 스타일에 적합`);
+  }
+  // 서비스
+  if (service === "single" && plans.length === 1) reasons.push("1️⃣ 단일 서비스 집중 사용");
+  else if (service === "multi" && plans.length >= 2) reasons.push("2️⃣ 2개 이상 서비스 조합");
+  // 작업
+  if (primaryTask) {
+    const match = plans.some(p => PLAN_TAGS[p.slug]?.tasks.includes(primaryTask));
+    if (match) reasons.push(`📋 "${taskLabels[primaryTask] || primaryTask}" 작업에 최적화된 모델 포함`);
+    const best = plans.find(p => TASK_BEST[primaryTask] === p.slug);
+    if (best) reasons.push(`🏆 해당 작업 최적 모델(${best.plan}) 포함`);
+  }
+  return reasons;
+}
+
+const envLabels: Record<string, string> = {
+  cli: "터미널/CLI", web: "웹 채팅", api: "API/코드", ide: "IDE/에디터", mobile: "모바일",
+};
+const budgetLabels: Record<string, string> = {
+  free: "무료", budget: "가성비", standard: "표준", pro: "프로", unlimited: "제한 없음",
+};
+const styleLabels: Record<string, string> = {
+  precise: "정확/신뢰", fast: "빠름/다양", value: "가성비", context: "장문/멀티모달",
+};
+const taskLabels: Record<string, string> = {
+  "web-dev": "웹/앱 개발", "ai-ml": "AI/ML 모델 개발", "game-dev": "게임 개발",
+  data: "데이터 분석/리서치", writing: "문서/보고서 작성", resume: "자소서/이력서",
+  design: "디자인/영상", marketing: "마케팅/광고", translate: "번역/외국어",
+  study: "교육/학습", chat: "일반 채팅/검색",
+};
 
 interface ComboRecommendation {
   title: string; emoji: string; plans: { slug: string; plan: string; price: string; type: string; reason: string[] }[];
   krwNote: string; summary: string; benchmarkNote: string; totalUSD: number;
+  matchScore: number; matchReasons: string[];
 }
 
 const FEE_TIPS = [
@@ -231,6 +382,14 @@ export default function RecommendPage() {
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [done, setDone] = useState(false);
   const [showLegal, setShowLegal] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(1474);
+
+  useEffect(() => {
+    fetch("/api/exchange-rate")
+      .then((r) => r.json())
+      .then((data) => { if (data.rate) setExchangeRate(data.rate); })
+      .catch(() => { /* fallback to default 1474 */ });
+  }, []);
 
   const q = QUESTIONS[step];
 
@@ -249,7 +408,7 @@ export default function RecommendPage() {
   };
   const prev = () => setStep(s => s - 1);
 
-  const results = useMemo(() => done ? getPlans(answers) : [], [done, answers]);
+  const results = useMemo(() => done ? getPlans(answers, exchangeRate) : [], [done, answers, exchangeRate]);
 
   if (done) {
     const topResults = results.slice(0, 3);
@@ -277,14 +436,37 @@ export default function RecommendPage() {
 
           {topResults.map((r, i) => (
             <div key={i} className="rounded-xl shadow-sm border border-[rgba(15,0,0,0.08)] bg-[#fdfcfc] p-6 mb-6 hover:shadow-md transition-shadow dark:border-[rgba(255,255,255,0.08)] dark:bg-[#1a1a1a]">
-              {/* Combo title */}
-              <div className="flex items-center gap-3 mb-5">
+              {/* Combo title + Match Score */}
+              <div className="flex items-start gap-3 mb-5">
                 <span className="text-2xl">{r.emoji}</span>
-                <div>
-                  <h1 className="text-2xl font-bold text-[#201d1d] dark:text-[#fdfcfc]">{r.title}</h1>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-[#201d1d] dark:text-[#fdfcfc]">{r.title}</h1>
+                    {r.matchScore !== undefined && (
+                      <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[0.6rem] font-semibold ${
+                        r.matchScore >= 60 ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300' :
+                        r.matchScore >= 40 ? 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' :
+                        'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300'
+                      }`}>
+                        매칭도 {r.matchScore}%
+                      </span>
+                    )}
+                    {i === 0 && <span className="inline-flex rounded-full bg-[#201d1d] px-2.5 py-0.5 text-[0.55rem] font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">BEST</span>}
+                  </div>
                   <p className="text-sm text-[#646262] dark:text-[#888] mt-0.5">{r.summary}</p>
                 </div>
               </div>
+
+              {/* Match Reasons */}
+              {r.matchReasons && r.matchReasons.length > 0 && (
+                <div className="mb-5 flex flex-wrap gap-1.5">
+                  {r.matchReasons.map((reason, ri) => (
+                    <span key={ri} className="inline-flex rounded-full bg-[#f8f7f7] px-2.5 py-1 text-[0.6rem] text-[#424245] dark:bg-[#222] dark:text-[#a0a0a0]">
+                      {reason}
+                    </span>
+                  ))}
+                </div>
+              )}
 
               {/* Plan cards */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-5">
@@ -316,7 +498,7 @@ export default function RecommendPage() {
               <div className="rounded-xl shadow-sm border border-[rgba(15,0,0,0.08)] p-5 bg-gradient-to-br from-[#fdfcfc] to-[#f8f7f7] dark:from-[#1a1a1a] dark:to-[#222] dark:border-[rgba(255,255,255,0.08)]">
                 <p className="text-xs font-semibold text-[#201d1d] dark:text-[#fdfcfc]">💰 한국 원화 결제 예상</p>
                 <p className="mt-1 text-[0.7rem] text-[#424245] leading-relaxed dark:text-[#a0a0a0]">{r.krwNote}</p>
-                <p className="mt-1 text-[0.6rem] text-[#9a9898] dark:text-[#666]">※ 환율: 1 USD = {KRW_EXCHANGE_RATE}원 (변동 가능) · 해외 결제 수수료 3% 포함 · 실시간 환율은 매일 갱신</p>
+                <p className="mt-1 text-[0.6rem] text-[#9a9898] dark:text-[#666]">※ 환율: 1 USD = {exchangeRate}원 (실시간 반영) · 해외 결제 수수료 3% 포함</p>
               </div>
             </div>
           ))}
@@ -400,8 +582,8 @@ export default function RecommendPage() {
                 >
                   <span className="text-lg">{opt.emoji}</span>
                   <span className="text-xs font-semibold leading-tight">{opt.label}</span>
-                  {(opt as any).desc && <span className="text-[0.55rem] opacity-70 leading-tight">{(opt as any).desc}</span>}
-                  {(opt as any).price && <span className="text-[0.55rem] opacity-50">{(opt as any).price}</span>}
+                  {opt.desc && <span className="text-[0.55rem] opacity-70 leading-tight">{opt.desc}</span>}
+                  {opt.price && <span className="text-[0.55rem] opacity-50">{opt.price}</span>}
                 </button>
               );
             })}
