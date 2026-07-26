@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, DollarSign, BarChart3, Lightbulb, Target, TrendingUp } from "lucide-react";
+import { Lightbulb, Target, TrendingUp, BarChart3, DollarSign } from "lucide-react";
 import { KpiCards } from "./kpi-cards";
 import { Trends } from "./trends";
 import { Comparison } from "./comparison";
 import { Timeline } from "./timeline";
 import { Pricing } from "./pricing";
 import { DialogButton, companyReports } from "./company-report";
+import { MarketingStrategy } from "./marketing";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { MetricTooltip, METRIC_DEFINITIONS } from "@/components/metric-tooltip";
 import { EvidenceTooltip, SECTION_EVIDENCE } from "@/components/evidence-tooltip";
@@ -22,11 +23,12 @@ import { getBrandColor } from "@/data/brand";
 export default function DashboardPage() {
   const [dashTab, setDashTab] = useState("kpi");
   const tabs = [
-    { value: "kpi", label: "핵심 지표", icon: null as React.ReactNode },
-    { value: "comparison", label: "4사 비교표", icon: null as React.ReactNode },
-    { value: "timeline", label: "스토리", icon: <BookOpen className="h-3.5 w-3.5" /> },
-    { value: "pricing", label: "가격 전쟁", icon: <DollarSign className="h-3.5 w-3.5" /> },
-    { value: "trends", label: "시장 트렌드", icon: <BarChart3 className="h-3.5 w-3.5" /> },
+    { value: "kpi", label: "핵심 지표" },
+    { value: "comparison", label: "4사 비교표" },
+    { value: "timeline", label: "스토리" },
+    { value: "pricing", label: "가격 전쟁" },
+    { value: "trends", label: "시장 트렌드" },
+    { value: "marketing", label: "마케팅 전략" },
   ];
 
   return (
@@ -68,7 +70,6 @@ export default function DashboardPage() {
                 : "text-[#424245] hover:text-[#201d1d] dark:text-[#a0a0a0] dark:hover:text-[#fdfcfc]"
             }`}
           >
-            {tab.icon && <span className="inline-flex">{tab.icon}</span>}
             {tab.label}
           </button>
         ))}
@@ -115,6 +116,12 @@ export default function DashboardPage() {
         {dashTab === "pricing" && (
           <ErrorBoundary sectionName="Pricing">
             <Pricing />
+          </ErrorBoundary>
+        )}
+
+        {dashTab === "marketing" && (
+          <ErrorBoundary sectionName="Marketing">
+            <MarketingStrategy />
           </ErrorBoundary>
         )}
 
