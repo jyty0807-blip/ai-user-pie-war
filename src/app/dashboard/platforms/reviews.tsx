@@ -305,8 +305,8 @@ export default function ReviewsPage() {
         </p>
       </div>
 
-      {/* Sentiment cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Sentiment cards — 4 items → 2x2 */}
+      <div className="grid gap-4 sm:grid-cols-2">
         {sentimentData.map((entry) => {
           const color = getPlatformColor(entry.platform);
           const iconNode = getPlatformIconNode(entry.platform);
