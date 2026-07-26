@@ -1,0 +1,87 @@
+{
+  "ClaudeAI": {
+    "posts": [
+      {
+        "title": "Introducing Claude Opus 5",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v5h6o9/introducing_claude_opus_5/",
+        "description": "",
+        "pubDate": "2026-07-24T17:00:12+00:00"
+      },
+      {
+        "title": "r/ClaudeAI List of Ongoing Megathreads",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1s7fepn/rclaudeai_list_of_ongoing_megathreads/",
+        "description": "",
+        "pubDate": "2026-03-30T03:18:44+00:00"
+      },
+      {
+        "title": "You can view a lot of shared conversations via Google.",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6fiyj/you_can_view_a_lot_of_shared_conversations_via/",
+        "description": "",
+        "pubDate": "2026-07-25T18:11:51+00:00"
+      },
+      {
+        "title": "Whelp",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6tc8h/whelp/",
+        "description": "",
+        "pubDate": "2026-07-26T04:17:18+00:00"
+      },
+      {
+        "title": "Opus 5 is VERY good at blender &amp; 3D!",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6pvby/opus_5_is_very_good_at_blender_3d/",
+        "description": "",
+        "pubDate": "2026-07-26T01:26:53+00:00"
+      },
+      {
+        "title": "Used claude to replay over 3000 users that played my daily racing game yesterday at the same time",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6p0gp/used_claude_to_replay_over_3000_users_that_played/",
+        "description": "",
+        "pubDate": "2026-07-26T00:45:54+00:00"
+      },
+      {
+        "title": "Hot take: Claude's 'personality' is the reason I stay, and I think benchmarks miss it entirely",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6rnzs/hot_take_claudes_personality_is_the_reason_i_stay/",
+        "description": "",
+        "pubDate": "2026-07-26T02:54:20+00:00"
+      },
+      {
+        "title": "Claude Opus 5 takes second place on SimpleBench",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6w0c5/claude_opus_5_takes_second_place_on_simplebench/",
+        "description": "",
+        "pubDate": "2026-07-26T06:38:39+00:00"
+      },
+      {
+        "title": "You can also view a lot of shared artifacts.",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6yk7d/you_can_also_view_a_lot_of_shared_artifacts/",
+        "description": "",
+        "pubDate": "2026-07-26T09:02:13+00:00"
+      },
+      {
+        "title": "Making a photography sandbox game with Opus 5!",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6n9v0/making_a_photography_sandbox_game_with_opus_5/",
+        "description": "",
+        "pubDate": "2026-07-25T23:27:09+00:00"
+      }
+    ],
+    "fetched": "2026-07-26T09:41:09.576Z"
+  },
+  "OpenAI": {
+    "posts": [],
+    "fetched": "2026-07-26T09:41:15.195Z",
+    "error": "https://www.reddit.com/r/OpenAI/hot/.rss → 429"
+  },
+  "artificial": {
+    "posts": [],
+    "fetched": "2026-07-26T09:41:20.423Z",
+    "error": "https://www.reddit.com/r/artificial/hot/.rss → 429"
+  },
+  "MachineLearning": {
+    "posts": [],
+    "fetched": "2026-07-26T09:41:25.660Z",
+    "error": "https://www.reddit.com/r/MachineLearning/hot/.rss → 429"
+  },
+  "LocalLLaMA": {
+    "posts": [],
+    "fetched": "2026-07-26T09:41:30.910Z",
+    "error": "https://www.reddit.com/r/LocalLLaMA/hot/.rss → 429"
+  }
+}

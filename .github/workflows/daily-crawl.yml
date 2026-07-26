@@ -1,0 +1,30 @@
+name: Daily Crawl
+
+on:
+  schedule:
+    # 매일 오전 8시 KST (UTC 23:00)
+    - cron: "0 23 * * *"
+  workflow_dispatch:  # 수동 실행 가능
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 크롤링 실행
+        run: node scripts/crawl.mjs
+
+      - name: 변경사항 커밋
+        run: |
+          git config user.name "ai-user-pie-war-bot"
+          git config user.email "bot@ai-user-pie-war.railway"
+          git add src/data/crawled/
+          git diff --cached --quiet || git commit -m "bot: 일일 크롤링 데이터 갱신 ($(date '+%Y-%m-%d %H:%M KST'))"
+          git push

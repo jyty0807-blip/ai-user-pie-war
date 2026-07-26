@@ -1,0 +1,138 @@
+{
+  "openai": {
+    "id": "openai",
+    "name": "OpenAI Blog",
+    "url": "https://openai.com/blog/rss.xml",
+    "items": [
+      {
+        "title": "Launching Health in ChatGPT ",
+        "link": "https://openai.com/index/health-in-chatgpt",
+        "description": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
+        "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT"
+      },
+      {
+        "title": "Building AI infrastructure with the Effingham County community",
+        "link": "https://openai.com/index/building-ai-infrastructure-with-the-effingham-county-community",
+        "description": "OpenAI announces Project Camellia in Effingham County, Georgia, with commitments to responsible energy, community investment, jobs, and access to Codex.",
+        "pubDate": "Wed, 22 Jul 2026 13:00:00 GMT"
+      },
+      {
+        "title": "How news organizations are using AI to advance their vital missions",
+        "link": "https://openai.com/index/how-news-organizations-are-using-ai",
+        "description": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide.",
+        "pubDate": "Wed, 22 Jul 2026 13:00:00 GMT"
+      },
+      {
+        "title": "Advancing the next era of national science",
+        "link": "https://openai.com/index/advancing-the-next-era-of-national-science",
+        "description": "OpenAI outlines its commitment to advancing American science working with the U.S. Department of Energy and national labs to use frontier AI to accelerate discovery.",
+        "pubDate": "Wed, 22 Jul 2026 12:00:00 GMT"
+      },
+      {
+        "title": "Introducing OpenAI Presence",
+        "link": "https://openai.com/index/introducing-openai-presence",
+        "description": "Introducing OpenAI Presence, a proven enterprise AI agent platform that helps organizations deploy trusted voice and chat agents for customer and internal workflows.",
+        "pubDate": "Wed, 22 Jul 2026 05:30:00 GMT"
+      },
+      {
+        "title": "NTT DATA Group cuts incident analysis to 30 minutes with Codex",
+        "link": "https://openai.com/index/ntt-data",
+        "description": "NTT DATA Group uses ChatGPT Enterprise and Codex to help 9,000 employees automate work, cut incident analysis to 30 minutes, and scale secure AI adoption.",
+        "pubDate": "Wed, 22 Jul 2026 00:00:00 GMT"
+      },
+      {
+        "title": "Introducing the ChatGPT for small business program",
+        "link": "https://openai.com/index/introducing-chatgpt-small-business-program",
+        "description": "OpenAI launches the ChatGPT for Small Businesses program, helping entrepreneurs build AI skills, automate work, and grow with ChatGPT Work.",
+        "pubDate": "Tue, 21 Jul 2026 17:00:00 GMT"
+      },
+      {
+        "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
+        "link": "https://openai.com/index/hugging-face-model-evaluation-security-incident",
+        "description": "OpenAI and Hugging Face share early findings from a security incident during AI model evaluation, highlighting advanced cyber capabilities and lessons for defenders.",
+        "pubDate": "Tue, 21 Jul 2026 07:00:00 GMT"
+      },
+      {
+        "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
+        "link": "https://openai.com/index/david-velez-robin-vince-join-openai-boards",
+        "description": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC, bringing global leadership in finance, technology, and governance.",
+        "pubDate": "Tue, 21 Jul 2026 00:00:00 GMT"
+      },
+      {
+        "title": "Safety and alignment in an era of long-horizon models",
+        "link": "https://openai.com/index/safety-alignment-long-horizon-models",
+        "description": "OpenAI shares lessons from deploying long-running AI models, highlighting new safety risks, observed failures, and improved safeguards through iterative deployment.",
+        "pubDate": "Mon, 20 Jul 2026 10:00:00 GMT"
+      }
+    ],
+    "fetched": "2026-07-26T09:40:54.997Z"
+  },
+  "google-ai": {
+    "id": "google-ai",
+    "name": "Google AI Blog",
+    "url": "https://blog.google/technology/ai/rss/",
+    "items": [
+      {
+        "title": "3 Google updates from Galaxy Unpacked 2026",
+        "link": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Unpacked_hero.max-600x600.format-webp.webp\"&gt;We shared how Samsung users can boost productivity and get time back on new foldables, watches, and glasses coming soon.",
+        "pubDate": "Wed, 22 Jul 2026 13:00:00 +0000"
+      },
+      {
+        "title": "Connect more of your apps to Search",
+        "link": "https://blog.google/products-and-platforms/products/search/connected-apps/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ConnectedAppshero.max-600x600.format-webp.webp\"&gt;You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
+        "pubDate": "Thu, 16 Jul 2026 16:00:00 +0000"
+      },
+      {
+        "title": "Create, edit and star in videos with two Google Vids updates",
+        "link": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/omni-blog-header_OarEe2t.max-600x600.format-webp.webp\"&gt;Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
+        "pubDate": "Thu, 16 Jul 2026 16:00:00 +0000"
+      },
+      {
+        "title": "Celebrating 25 years of visual search innovation",
+        "link": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Images_25th_hero.max-600x600.format-webp.webp\"&gt;Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content.",
+        "pubDate": "Tue, 14 Jul 2026 16:00:00 +0000"
+      },
+      {
+        "title": "Expanding Managed Agents in Gemini API:  background tasks, remote MCP and more",
+        "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Managed_agents_feature_bundle_l.max-600x600.format-webp.webp\"&gt;We’re announcing new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents.",
+        "pubDate": "Tue, 07 Jul 2026 08:54:00 +0000"
+      },
+      {
+        "title": "The latest AI news we announced in June 2026",
+        "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-june-2026/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/260701_ICYMI-June-AI_Thumb.max-600x600.format-webp.webp\"&gt;Here are Google’s latest AI updates from June 2026.",
+        "pubDate": "Wed, 01 Jul 2026 18:15:00 +0000"
+      },
+      {
+        "title": "New York City educators and industry leaders gathered at Google’s offices to shape the future of AI in classrooms.",
+        "link": "https://blog.google/products-and-platforms/products/education/nyc-ai-summit/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Summit_Photo_1.max-600x600.format-webp.webp\"&gt;Google, the New York Jobs CEO Council and Urban Assembly hosted an AI summit for 150 education and industry leaders.",
+        "pubDate": "Wed, 01 Jul 2026 16:00:00 +0000"
+      },
+      {
+        "title": "Unlocking Britain’s next era of productivity: Building a nation of AI trailblazers",
+        "link": "https://blog.google/company-news/inside-google/around-the-globe/google-europe/united-kingdom/unlocking-britains-next-era-of-productivity-building-a-nation-of-ai-trailblazers/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_Generated_Image_k2dxu1k2.max-600x600.format-webp.webp\"&gt;Google UK shares its latest Economic Impact Report and how to enable more people to unlock the benefits of AI-powered technologies.",
+        "pubDate": "Tue, 30 Jun 2026 06:00:00 +0000"
+      },
+      {
+        "title": "Ask an AI expert: What exactly is the full stack?",
+        "link": "https://blog.google/innovation-and-ai/technology/ai/full-stack-ai-explainer/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Full_Stack.max-600x600.format-webp.webp\"&gt;A Google expert explains what it means to take a full-stack approach to AI and why it’s been the foundation of our AI work for so long.",
+        "pubDate": "Mon, 29 Jun 2026 16:00:00 +0000"
+      },
+      {
+        "title": "Our latest Google Finance upgrades, including a new app",
+        "link": "https://blog.google/products-and-platforms/products/search/google-finance-updates-june-2026/",
+        "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Finance_blog_image_June_.max-600x600.format-webp.webp\"&gt;The new Google Finance is coming out of beta and launching a new Android app.",
+        "pubDate": "Thu, 25 Jun 2026 16:00:00 +0000"
+      }
+    ],
+    "fetched": "2026-07-26T09:40:55.649Z"
+  }
+}
