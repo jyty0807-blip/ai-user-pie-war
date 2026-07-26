@@ -7,7 +7,8 @@
  * Output: src/data/crawled/*.json
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, readFileSync } from "fs";
+import { createHash } from "crypto";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -183,6 +184,50 @@ async function crawlReddit() {
   writeJSON("reddit.json", all);
 }
 
+// ── 5. Pricing Page Change Detection ──────────────────────────
+
+const PRICING_PAGES = [
+  { id: "openai", name: "OpenAI", url: "https://developers.openai.com/api/docs/pricing" },
+  { id: "anthropic", name: "Anthropic", url: "https://anthropic.com/pricing" },
+  { id: "deepseek", name: "DeepSeek", url: "https://api-docs.deepseek.com/quick_start/pricing" },
+  { id: "google", name: "Google Gemini", url: "https://ai.google.dev/gemini-api/docs/pricing" },
+];
+
+function contentHash(text) {
+  // Strip whitespace, numbers, and dates to detect semantic changes only
+  const cleaned = text.replace(/\s+/g, " ").replace(/\d{4}[-/]\d{2}[-/]\d{2}/g, "").replace(/\$[\d.,]+/g, "").trim();
+  return createHash("sha256").update(cleaned).digest("hex").slice(0, 16);
+}
+
+async function crawlPricingChanges() {
+  console.log("\n[5/5] 공식 가격 페이지 변경 감지...");
+  let previous = {};
+  try {
+    previous = JSON.parse(readFileSync(join(DATA_DIR, "pricing-hashes.json"), "utf-8"));
+  } catch { /* first run */ }
+
+  const results = [];
+  for (const page of PRICING_PAGES) {
+    try {
+      const text = await fetchText(page.url);
+      const hash = contentHash(text);
+      const prevHash = previous[page.id]?.hash;
+      const changed = prevHash !== undefined && prevHash !== hash;
+      if (changed) console.log(`  ⚠ ${page.id}: 변경 감지!`);
+      else console.log(`  ✔ ${page.id}: ${prevHash ? "변경 없음" : "최초 수집"}`);
+      results.push({ id: page.id, name: page.name, url: page.url, hash, changed, firstSeen: previous[page.id]?.firstSeen || new Date().toISOString(), lastChecked: new Date().toISOString() });
+    } catch (e) {
+      console.error(`  ✗ ${page.id}: ${e.message}`);
+      results.push({ id: page.id, name: page.name, url: page.url, error: e.message, lastChecked: new Date().toISOString() });
+    }
+  }
+
+  const hashes = {};
+  for (const r of results) hashes[r.id] = r;
+  writeJSON("pricing-hashes.json", hashes);
+  writeJSON("pricing-changes.json", results.filter(r => r.changed).map(r => ({ id: r.id, name: r.name, detected: r.lastChecked })));
+}
+
 // ── Main ──────────────────────────────────────────────────────
 
 console.log(`\n═══════════════════════════════════`);
@@ -194,5 +239,6 @@ await crawlExchangeRate();
 await crawlRSS();
 await crawlHN();
 await crawlReddit();
+await crawlPricingChanges();
 
 console.log(`\n✔ 크롤링 완료 — ${new Date().toLocaleString("ko-KR", { timeZone: TZ })}\n`);

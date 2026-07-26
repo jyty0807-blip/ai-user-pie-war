@@ -1,0 +1,38 @@
+{
+  "openai": {
+    "id": "openai",
+    "name": "OpenAI",
+    "url": "https://developers.openai.com/api/docs/pricing",
+    "hash": "caa8f2d5347a1b64",
+    "changed": false,
+    "firstSeen": "2026-07-26T09:47:36.388Z",
+    "lastChecked": "2026-07-26T09:48:13.822Z"
+  },
+  "anthropic": {
+    "id": "anthropic",
+    "name": "Anthropic",
+    "url": "https://anthropic.com/pricing",
+    "hash": "bc74ddc8ef0b5364",
+    "changed": false,
+    "firstSeen": "2026-07-26T09:47:37.413Z",
+    "lastChecked": "2026-07-26T09:48:14.900Z"
+  },
+  "deepseek": {
+    "id": "deepseek",
+    "name": "DeepSeek",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing",
+    "hash": "4f880e2efd98e797",
+    "changed": false,
+    "firstSeen": "2026-07-26T09:47:37.756Z",
+    "lastChecked": "2026-07-26T09:48:15.221Z"
+  },
+  "google": {
+    "id": "google",
+    "name": "Google Gemini",
+    "url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "hash": "31f102bd7f4a29aa",
+    "changed": true,
+    "firstSeen": "2026-07-26T09:47:39.626Z",
+    "lastChecked": "2026-07-26T09:48:17.231Z"
+  }
+}

@@ -44,16 +44,16 @@
         "pubDate": "2026-07-26T02:54:20+00:00"
       },
       {
-        "title": "Claude Opus 5 takes second place on SimpleBench",
-        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6w0c5/claude_opus_5_takes_second_place_on_simplebench/",
-        "description": "",
-        "pubDate": "2026-07-26T06:38:39+00:00"
-      },
-      {
         "title": "You can also view a lot of shared artifacts.",
         "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6yk7d/you_can_also_view_a_lot_of_shared_artifacts/",
         "description": "",
         "pubDate": "2026-07-26T09:02:13+00:00"
+      },
+      {
+        "title": "Claude Opus 5 takes second place on SimpleBench",
+        "url": "https://www.reddit.com/r/ClaudeAI/comments/1v6w0c5/claude_opus_5_takes_second_place_on_simplebench/",
+        "description": "",
+        "pubDate": "2026-07-26T06:38:39+00:00"
       },
       {
         "title": "Making a photography sandbox game with Opus 5!",
@@ -62,26 +62,11 @@
         "pubDate": "2026-07-25T23:27:09+00:00"
       }
     ],
-    "fetched": "2026-07-26T09:41:09.576Z"
+    "fetched": "2026-07-26T09:48:03.520Z"
   },
   "OpenAI": {
     "posts": [],
-    "fetched": "2026-07-26T09:41:15.195Z",
+    "fetched": "2026-07-26T09:48:13.753Z",
     "error": "https://www.reddit.com/r/OpenAI/hot/.rss → 429"
-  },
-  "artificial": {
-    "posts": [],
-    "fetched": "2026-07-26T09:41:20.423Z",
-    "error": "https://www.reddit.com/r/artificial/hot/.rss → 429"
-  },
-  "MachineLearning": {
-    "posts": [],
-    "fetched": "2026-07-26T09:41:25.660Z",
-    "error": "https://www.reddit.com/r/MachineLearning/hot/.rss → 429"
-  },
-  "LocalLLaMA": {
-    "posts": [],
-    "fetched": "2026-07-26T09:41:30.910Z",
-    "error": "https://www.reddit.com/r/LocalLLaMA/hot/.rss → 429"
   }
 }
