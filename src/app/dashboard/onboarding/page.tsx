@@ -15,32 +15,32 @@ const ethicsPrinciples = [
   {
     icon: <Database className="h-4 w-4" />,
     title: "출처 표시 원칙",
-    desc: "모든 데이터는 공개 출처에서 수집하며, 출처를 명시합니다. 내부 데이터나 비공개 정보는 사용하지 않습니다.",
+    desc: "모든 데이터는 공개 출처에서 수집하며, 출처를 명시합니다.<br />내부 데이터나 비공개 정보는 사용하지 않습니다.",
   },
   {
     icon: <Newspaper className="h-4 w-4" />,
     title: "뉴스 콘텐츠 저작권 존중",
-    desc: "뉴스는 전문(full-text)을 복사하지 않습니다. 요약(snippet) + 원문 링크만 제공합니다. 공식 RSS 피드만 활용합니다.",
+    desc: "뉴스는 전문(full-text)을 복사하지 않습니다.<br />요약(snippet) + 원문 링크만 제공합니다.<br />공식 RSS 피드만 활용합니다.",
   },
   {
     icon: <Scale className="h-4 w-4" />,
     title: "데이터 추정치 투명성",
-    desc: "일부 수치는 공개 데이터 기반 추정치입니다. 추정치임을 명확히 표기하고, 실제 값과 차이가 있을 수 있음을 안내합니다.",
+    desc: "일부 수치는 공개 데이터 기반 추정치입니다.<br />추정치임을 명확히 표기하고, 실제 값과 차이가 있을 수 있음을 안내합니다.",
   },
   {
     icon: <ShieldCheck className="h-4 w-4" />,
     title: "커뮤니티 데이터 윤리",
-    desc: "Reddit, Hacker News 등 커뮤니티 데이터는 공개 API를 통해서만 수집합니다. 개인 식별 정보는 수집하지 않습니다.",
+    desc: "Reddit, Hacker News 등 커뮤니티 데이터는 공개 API를 통해서만 수집합니다.<br />개인 식별 정보는 수집하지 않습니다.",
   },
   {
     icon: <FileText className="h-4 w-4" />,
     title: "면접 포트폴리오 목적 고지",
-    desc: "이 대시보드는 포트폴리오/교육 목적입니다. 실제 기업 내부 데이터가 아니며, 투자 결정에 활용해서는 안 됩니다.",
+    desc: "이 대시보드는 포트폴리오/교육 목적입니다.<br />실제 기업 내부 데이터가 아니며, 투자 결정에 활용해서는 안 됩니다.",
   },
   {
     icon: <Info className="h-4 w-4" />,
     title: "데이터 정확성 책임",
-    desc: "데이터는 정기적으로 업데이트되지만, 실시간 정확성을 보장하지 않습니다. 오류 발견 시 수정하고 기록합니다.",
+    desc: "데이터는 정기적으로 업데이트되지만, 실시간 정확성을 보장하지 않습니다.<br />오류 발견 시 수정하고 기록합니다.",
   },
 ];
 
@@ -104,20 +104,20 @@ const crawledSources = [
 
 export default function OnboardingPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <div className="mb-10 text-center">
+      <div className="mb-6 text-center">
         <h1 className="inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
           <Compass className="h-3.5 w-3.5" />데이터 윤리 · 출처 안내
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground max-w-2xl mx-auto">
-          이 대시보드는 신뢰할 수 있는 데이터와 윤리적인 정보 수집을 원칙으로 합니다.
+        <p className="mt-2 text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          이 대시보드는 신뢰할 수 있는 데이터와 윤리적인 정보 수집을 원칙으로 합니다.<br />
           모든 데이터의 출처와 수집 방법론을 투명하게 공개합니다.
         </p>
       </div>
 
       {/* Data Ethics Principles */}
-      <div className="mb-10">
+      <div className="mb-6">
         <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><ScrollText className="h-3.5 w-3.5" />데이터 윤리 지침</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {ethicsPrinciples.map((principle, idx) => (
@@ -129,7 +129,9 @@ export default function OnboardingPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-xs text-muted-foreground leading-relaxed">{principle.desc}</p>
+                {principle.desc.split("<br />").map((line, i) => (
+                  <p key={i} className="text-xs text-muted-foreground leading-relaxed">{line}</p>
+                ))}
               </CardContent>
             </Card>
           ))}
@@ -137,7 +139,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* Data Sources */}
-      <div className="mb-10">
+      <div className="mb-6">
         <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><FolderOpen className="h-3.5 w-3.5" />데이터 출처</h2>
         <Accordion className="space-y-2">
           {dataSources.map((group) => (
@@ -179,7 +181,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* Crawled Sources Table */}
-      <div className="mb-10">
+      <div className="mb-6">
         <div className="flex items-center gap-2 mb-4">
           <h2 className="inline-flex rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]">
             크롤링 수집 데이터
@@ -223,14 +225,14 @@ export default function OnboardingPage() {
       </div>
 
       {/* Methodology */}
-      <div className="mb-10">
+      <div className="mb-6">
         <h2 className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-[#201d1d] px-4 py-1.5 text-xs font-bold text-[#fdfcfc] dark:bg-[#fdfcfc] dark:text-[#201d1d]"><Cog className="h-3.5 w-3.5" />데이터 수집 방법론</h2>
         <Card>
           <CardContent className="pt-6 space-y-4">
             <div>
               <h3 className="text-sm font-medium text-foreground">1. 광고비 및 시장 점유율</h3>
               <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                SEC filings, IPO 공개 자료, 시장 조사 기관(Sensor Tower, Similarweb)의 보고서를 기반으로 추정.
+                SEC filings, IPO 공개 자료, 시장 조사 기관(Sensor Tower, Similarweb)의 보고서를 기반으로 추정.<br />
                 각 기업의 분기별 실적 발표와 업계 보고서를 교차 검증하여 신뢰도를 높였습니다.
               </p>
             </div>
@@ -238,7 +240,7 @@ export default function OnboardingPage() {
             <div>
               <h3 className="text-sm font-medium text-foreground">2. API 가격 정보</h3>
               <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                각사 공식 API 가격 페이지에서 직접 수집. 2026년 7월 기준으로 검증 완료.
+                각사 공식 API 가격 페이지에서 직접 수집. 2026년 7월 기준으로 검증 완료.<br />
                 가격 변동 시 업데이트하며, 프로모션 가격과 정규 가격을 구분하여 표시합니다.
               </p>
             </div>
@@ -246,17 +248,17 @@ export default function OnboardingPage() {
             <div>
               <h3 className="text-sm font-medium text-foreground">3. 뉴스 콘텐츠</h3>
               <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                각사 공식 블로그 RSS 피드 및 보도자료에서 수집. 저작권을 존중하여 전문(full-text)을
-                복사하지 않고 요약(snippet)과 원문 링크만 제공합니다. AI가 요약을 생성하며,
-                중요한 맥락은 원문에서 직접 확인하도록 안내합니다.
+                각사 공식 블로그 RSS 피드 및 보도자료에서 수집.<br />
+                저작권을 존중하여 전문(full-text)을 복사하지 않고 요약(snippet)과 원문 링크만 제공합니다.<br />
+                AI가 요약을 생성하며, 중요한 맥락은 원문에서 직접 확인하도록 안내합니다.
               </p>
             </div>
             <Separator />
             <div>
               <h3 className="text-sm font-medium text-foreground">4. 커뮤니티 감정 분석</h3>
               <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                Reddit, Hacker News, X/Twitter의 공개 API를 통해 수집된 게시물의 키워드 기반 감정 분석.
-                개인 식별 정보는 수집하지 않으며, 집계된 통계만 제공합니다.
+                Reddit, Hacker News, X/Twitter의 공개 API를 통해 수집된 게시물의 키워드 기반 감정 분석.<br />
+                개인 식별 정보는 수집하지 않으며, 집계된 통계만 제공합니다.<br />
                 감정 분류는 자동화된 키워드 분석으로 ±10%의 오차가 있을 수 있습니다.
               </p>
             </div>
@@ -273,9 +275,9 @@ export default function OnboardingPage() {
               면접 포트폴리오 목적 고지
             </p>
             <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-              이 대시보드는 퍼포먼스 마케팅 역량을 평가받기 위한 포트폴리오 프로젝트입니다.
-              모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.
-              투자, 채용, 비즈니스 의사결정에 이 데이터를 활용해서는 안 됩니다.
+              이 대시보드는 퍼포먼스 마케팅 역량을 평가받기 위한 포트폴리오 프로젝트입니다.<br />
+              모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.<br />
+              투자, 채용, 비즈니스 의사결정에 이 데이터를 활용해서는 안 됩니다.<br />
               데이터 오류나 누락에 대해 책임지지 않습니다.
             </p>
           </div>
@@ -283,7 +285,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* Footer */}
-      <div className="mt-8 text-center text-[0.6rem] text-muted-foreground">
+      <div className="mt-6 text-center text-[0.6rem] text-muted-foreground">
         <p>데이터 윤리 문의: 이 프로젝트는 오픈소스입니다. 이슈나 PR로 데이터 오류를 제보해 주세요.</p>
         <p className="mt-1">Last updated: 2026년 7월 25일</p>
       </div>

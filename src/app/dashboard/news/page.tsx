@@ -223,7 +223,7 @@ export default function NewsPage() {
           각사 공식 블로그 — snippet만 제공, 전체 내용은 원문 링크
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          <Calendar className="h-3 w-3 inline -mt-0.5" /> 매일 오전 9시 (KST) 업데이트
+          <Calendar className="h-3 w-3 inline -mt-0.5" /> 수동 업데이트 (최종: 2026년 7월 25일)
         </p>
       </div>
 

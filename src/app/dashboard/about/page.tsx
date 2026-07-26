@@ -1,7 +1,7 @@
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="space-y-8">
+    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
             소개
@@ -16,9 +16,9 @@ export default function AboutPage() {
             프로젝트 목적
           </h2>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-            OpenAI, Anthropic, DeepSeek, Google — 4개 AI 기업이 2026년 벌이고 있는 
-            &apos;유저 파이(User Pie) 전쟁&apos;을 추적합니다. 단순한 모델 성능 비교가 아닌, 
-            광고 전략, 유저 획득 비용(CAC), 전환율, 시장 점유율 등 퍼포먼스 마케팅 핵심 지표를 중심으로 분석합니다.
+            OpenAI, Anthropic, DeepSeek, Google — 4개 AI 기업이 2026년 벌이고 있는 &apos;유저 파이(User Pie) 전쟁&apos;을 추적합니다.<br />
+            단순한 모델 성능 비교가 아닌, 광고 전략, 유저 획득 비용(CAC), 전환율, 시장 점유율 등<br />
+            퍼포먼스 마케팅 핵심 지표를 중심으로 분석합니다.
           </p>
         </div>
 
@@ -73,8 +73,8 @@ export default function AboutPage() {
             면접 포트폴리오 안내
           </p>
           <p className="mt-1 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-            이 대시보드는 AI 성능 마케팅 역량을 보여주기 위해 제작된 포트폴리오 프로젝트입니다.
-            모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.
+            이 대시보드는 AI 성능 마케팅 역량을 보여주기 위해 제작된 포트폴리오 프로젝트입니다.<br />
+            모든 데이터는 공개 출처 기반 추정치이며, 실제 기업 내부 데이터가 아닙니다.<br />
             전체 프로젝트는 3개의 병렬 AI 에이전트와 오케스트레이터(Sisyphus)가 단기간에 구축했습니다.
           </p>
         </div>

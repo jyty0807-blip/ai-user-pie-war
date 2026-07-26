@@ -7,7 +7,7 @@ interface CompanyInfo {
   name: string;
   slug: string;
   desc: string;
-  news: string;
+  news: string[];
   url?: string;
 }
 
@@ -38,21 +38,32 @@ const insightsData: InsightCategory[] = [
         name: "GLM (Zhipu AI)",
         slug: "glm",
         desc: "중국 대표 AI. GLM-5 출시. MIT 라이선스. 1M 컨텍스트. $0.20/MTok.",
-        news: "2026년 7월 Codex-0902 추론 모델 출시, SWE-bench 70.2% 달성",
+        news: [
+          "2026년 7월 Codex-0902 추론 모델 출시, SWE-bench 70.2% 달성",
+          "2026년 6월 MIT 라이선스 전환 — 글로벌 개발자 대상 확대",
+          "2026년 5월 기업용 GLM-5 API $0.15/MTok로 인하",
+        ],
         url: "https://www.zhipu.ai",
       },
       {
         name: "Qwen (Alibaba)",
         slug: "qwen",
         desc: "알리바바 AI. Qwen3.5 공개. 72B 파라미터. Apache 2.0 라이선스.",
-        news: "2026년 6월 Qwen3.5-72B 출시, 오픈소스 커뮤니티서 호평",
+        news: [
+          "2026년 6월 Qwen3.5-72B 출시, 오픈소스 커뮤니티서 호평",
+          "2026년 5월 알리바바 클라우드 AI 매출 45% YoY 성장 발표",
+          "2026년 4일 Qwen 에이전트 SDK 공개 — MCP 호환",
+        ],
         url: "https://qwen.alibaba.com",
       },
       {
         name: "Yi (01.AI)",
         slug: "yi",
         desc: "카이푸 리의 AI. Yi-Lightning 추론 특화. 가격 대비 성능 우수.",
-        news: "2026년 5월 Yi-Lightning 출시, GPT-4o 대비 40% 저렴",
+        news: [
+          "2026년 5월 Yi-Lightning 출시, GPT-4o 대비 40% 저렴",
+          "2026년 4월 시리즈 B $5억 유치, 기업가치 $35B",
+        ],
         url: "https://01.ai",
       },
     ],
@@ -66,19 +77,29 @@ const insightsData: InsightCategory[] = [
         name: "NVIDIA GPU",
         slug: "nvidia",
         desc: "AI 반도체 절대 강자. B200/GB200 양산. H100→B200 4세대.",
-        news: "2026년 7월 Rubin GPU 로드맵 발표, 2027년 양산 목표",
+        news: [
+          "2026년 7월 Rubin GPU 로드맵 발표, 2027년 양산 목표",
+          "2026년 6월 AI 반도체 시장 점유율 88% 기록",
+          "2026년 5일 데이터센터 매출 $40B 돌파 (Q1 FY2027)",
+        ],
       },
       {
         name: "CUDA 생태계",
         slug: "cuda",
         desc: "AI 개발 표준 플랫폼. 500만+ 개발자. MCP와 경쟁.",
-        news: "2026년 6월 CUDA 13.0 발표, AI 에이전트 SDK 포함",
+        news: [
+          "2026년 6월 CUDA 13.0 발표, AI 에이전트 SDK 포함",
+          "2026년 4월 CUDA 개발자 500만 명 돌파 — AI 에이전트 교육 과정 신설",
+        ],
       },
       {
         name: "AI Enterprise",
         slug: "nvidia-enterprise",
         desc: "기업용 AI 플랫폼. NIM 마이크로서비스. 100+ 사전학습 모델.",
-        news: "2026년 7월 NIM v2 출시, 추론 속도 2.5배 개선",
+        news: [
+          "2026년 7월 NIM v2 출시, 추론 속도 2.5배 개선",
+          "2026년 6월 AWS·Azure·GCP에서 NIM 원클릭 배포 지원",
+        ],
       },
     ],
   },
@@ -91,13 +112,19 @@ const insightsData: InsightCategory[] = [
         name: "OpenRouter",
         slug: "openrouter",
         desc: "멀티모델 라우팅 플랫폼. 200+ 모델. 단일 API로 모든 모델 접근.",
-        news: "2026년 7월 모델 라우팅 최적화 기능 출시, 자동 지연 시간 최소화",
+        news: [
+          "2026년 7월 모델 라우팅 최적화 기능 출시, 자동 지연 시간 최소화",
+          "2026년 6월 200개 모델 돌파 — SOC 2 규정 준수 인증",
+        ],
       },
       {
         name: "Router Pricing",
         slug: "router-pricing",
         desc: "모델별 실시간 가격 비교. 캐싱 90% 할인. 마크업 5-15%",
-        news: "2026년 7월 DeepSeek V4 Flash $0.14/$0.28로 최저가 유지",
+        news: [
+          "2026년 7월 DeepSeek V4 Flash $0.14/$0.28로 최저가 유지",
+          "2026년 5월 무료 티어 제공 시작 (비율 제한)",
+        ],
       },
     ],
   },
@@ -110,19 +137,29 @@ const insightsData: InsightCategory[] = [
         name: "Mistral AI",
         slug: "mistral",
         desc: "프랑스 AI. Mistral Large 3.1. 유럽 AI 대표 주자.",
-        news: "2026년 7월 Mistral Large 3.1 출시, GPT-4o 대비 30% 저렴",
+        news: [
+          "2026년 7월 Mistral Large 3.1 출시, GPT-4o 대비 30% 저렴",
+          "2026년 5월 유럽연합 AI Act 규제 대응 'Le Chat' 기업용 출시",
+          "2026년 4월 시리즈 D $6억 유치, 기업가치 $10B+",
+        ],
       },
       {
         name: "xAI (Grok)",
         slug: "xai",
         desc: "일론 머스크 AI. Grok 4. X/Twitter 통합. 가격 인하 경쟁.",
-        news: "2026년 6월 Grok 4 출시, X Premium 가입자에 무료 제공",
+        news: [
+          "2026년 6월 Grok 4 출시, X Premium 가입자에 무료 제공",
+          "2026년 5일 X/Twitter에 Grok 실시간 검색 탑재",
+        ],
       },
       {
         name: "Meta Llama",
         slug: "meta",
         desc: "오픈소스 AI 선두. Llama 5 출시. Apache 2.0. 1M 컨텍스트.",
-        news: "2026년 7월 Llama 5 출시, 405B 파라미터, Apache 2.0 라이선스",
+        news: [
+          "2026년 7월 Llama 5 출시, 405B 파라미터, Apache 2.0 라이선스",
+          "2026년 6일 Llama 5 추론 속도 2배 개선 — vLLM 네이티브 지원",
+        ],
       },
     ],
   },
@@ -143,7 +180,7 @@ export default function InsightsPage() {
           4사 비교를 넘어 — 글로벌 AI 업계의 모든 중요한 소식
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          <Calendar className="h-3 w-3 inline -mt-0.5" /> 매일 오전 9시 (KST) 업데이트
+          <Calendar className="h-3 w-3 inline -mt-0.5" /> 수동 업데이트 (최종: 2026년 7월 25일)
         </p>
       </div>
 
@@ -190,11 +227,13 @@ export default function InsightsPage() {
                       {company.url && <span className="text-[0.55rem] text-[#646262]">바로가기 →</span>}
                     </div>
                     <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{company.desc}</p>
-                    <div className="mt-3 flex-1 rounded-sm border-l-2 bg-muted/40 p-2"
+                    <div className="mt-3 rounded-sm border-l-2 bg-muted/40 p-2"
                       style={{ borderLeftColor: category.color }}
                     >
                       <p className="text-xs font-medium text-foreground"><Newspaper className="h-3 w-3 inline -mt-0.5" /> 최근 소식</p>
-                      <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{company.news}</p>
+                      {company.news.map((n, i) => (
+                        <p key={i} className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{n}</p>
+                      ))}
                     </div>
                   </Wrapper>
                 );
