@@ -23,6 +23,8 @@ app.use(
 
 app.get("/health", (c) => c.json({ status: "ok" }));
 
+app.get("/", (c) => c.json({ name: "Slime Evolution API", version: "1.0.0" }));
+
 app.route("/api/auth", authRoutes);
 app.route("/api/slime", slimeRoutes);
 app.route("/api/guild", guildRoutes);
