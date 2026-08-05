@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.0",
-    "@neondatabase/serverless": "^1.1.0",
-    "drizzle-orm": "^0.45.2",
     "hono": "^4.6.0",
     "jose": "^5.0.0"
   },
   "devDependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "@types/node": "^20",
     "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
     "tsx": "^4.0.0",
     "typescript": "^5"
   }
