@@ -3,10 +3,6 @@ import * as schema from "./schema";
 
 const connectionString = process.env.DATABASE_URL || "";
 
-export const db = drizzle({
-  connection: connectionString,
-  schema,
-});
+export const db = drizzle({ connection: connectionString, schema });
 
 export type Database = typeof db;
-export type Transaction = Parameters<Parameters<Database["transaction"]>[0]>[0];

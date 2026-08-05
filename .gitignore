@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playwright
+.playwright-mcp/
+playwright-results/
+screenshots/
+
+# OMC state
+.omc/state/
+.omo/run-continuation/
+
+# server
+server/node_modules/
+server/dist/
+
+# misc
+marketing_strategy_data.json

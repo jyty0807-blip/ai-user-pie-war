@@ -9,6 +9,7 @@ import {
   jsonb,
   boolean,
   uniqueIndex,
+  index,
 } from "drizzle-orm/pg-core";
 
 export const companies = pgTable("companies", {
@@ -162,6 +163,7 @@ export const slimeStates = pgTable(
   },
   (table) => ({
     userUnique: uniqueIndex("slime_states_user_id_idx").on(table.user_id),
+    slimeTypeIdx: index("slime_states_type_idx").on(table.slime_type),
   })
 );
 
@@ -178,18 +180,25 @@ export const guildSlime = pgTable("guild_slime", {
   created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const contributions = pgTable("contributions", {
-  id: serial("id").primaryKey(),
-  user_id: integer("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  action_type: text("action_type", {
-    enum: ["click", "feed", "comment", "evolution"],
-  }).notNull(),
-  amount: integer("amount").notNull().default(1),
-  metadata: jsonb("metadata").default("{}"),
-  created_at: timestamp("created_at").defaultNow().notNull(),
-});
+export const contributions = pgTable(
+  "contributions",
+  {
+    id: serial("id").primaryKey(),
+    user_id: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    action_type: text("action_type", {
+      enum: ["click", "feed", "comment", "evolution"],
+    }).notNull(),
+    amount: integer("amount").notNull().default(1),
+    metadata: jsonb("metadata").default("{}"),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdCreatedIdx: index("contributions_user_created_idx").on(table.user_id, table.created_at),
+    actionTypeIdx: index("contributions_action_type_idx").on(table.action_type),
+  })
+);
 
 export const comments = pgTable("comments", {
   id: serial("id").primaryKey(),
@@ -198,4 +207,10 @@ export const comments = pgTable("comments", {
     .references(() => users.id, { onDelete: "cascade" }),
   content: text("content").notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const configs = pgTable("configs", {
+  key: text("key").primaryKey(),
+  value: jsonb("value").notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
 });

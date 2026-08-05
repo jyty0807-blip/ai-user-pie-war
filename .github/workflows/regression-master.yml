@@ -1,0 +1,51 @@
+name: Regression Master
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 매일 12:00 KST
+  workflow_dispatch:
+
+jobs:
+  analyze-and-patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Run Regression Master
+        run: npx tsx scripts/regression-master.ts
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Check for patches
+        id: check
+        run: |
+          if [ -f .omo/balance-patch.ts ]; then
+            echo "has_patch=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_patch=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create PR with balance patch
+        if: steps.check.outputs.has_patch == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "🧬 auto: balance patch from Regression Master"
+          title: "🧬 [Auto] Balance Patch — Regression Master"
+          body-path: .omo/regression-report.md
+          branch: auto/regression-patch
+          delete-branch: true
+          labels: auto,balance
